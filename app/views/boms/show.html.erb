@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @bom.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @bom.description %>
+</p>
+
+<p>
+  <strong>Bom category:</strong>
+  <%= @bom.bom_category %>
+</p>
+
+<%= link_to 'Edit', edit_bom_path(@bom) %> |
+<%= link_to 'Back', boms_path %>

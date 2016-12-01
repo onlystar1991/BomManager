@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @firmware.number %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @firmware.description %>
+</p>
+
+<p>
+  <strong>Publish date:</strong>
+  <%= @firmware.publish_date %>
+</p>
+
+<%= link_to 'Edit', edit_firmware_path(@firmware) %> |
+<%= link_to 'Back', firmwares_path %>

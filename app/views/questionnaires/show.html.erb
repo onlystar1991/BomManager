@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @questionnaire.type %>
+</p>
+
+<p>
+  <strong>Text question:</strong>
+  <%= @questionnaire.text_question %>
+</p>
+
+<p>
+  <strong>Text question answer:</strong>
+  <%= @questionnaire.text_question_answer %>
+</p>
+
+<p>
+  <strong>Select question:</strong>
+  <%= @questionnaire.select_question %>
+</p>
+
+<p>
+  <strong>Select question answer:</strong>
+  <%= @questionnaire.select_question_answer %>
+</p>
+
+<p>
+  <strong>Multiple question:</strong>
+  <%= @questionnaire.multiple_question %>
+</p>
+
+<%= link_to 'Edit', edit_questionnaire_path(@questionnaire) %> |
+<%= link_to 'Back', questionnaires_path %>

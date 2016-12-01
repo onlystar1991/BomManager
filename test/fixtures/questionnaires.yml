@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 1
+  text_question: MyString
+  text_question_answer: MyString
+  select_question: MyString
+  select_question_answer: false
+  multiple_question: MyString
+
+two:
+  type: 1
+  text_question: MyString
+  text_question_answer: MyString
+  select_question: MyString
+  select_question_answer: false
+  multiple_question: MyString

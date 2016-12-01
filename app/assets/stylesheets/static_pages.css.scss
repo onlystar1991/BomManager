@@ -1,0 +1,630 @@
+.alert {
+	margin-bottom: 0px;
+}
+.main-content {
+	padding-right: 3px;
+	.panel-body {
+		padding: 0px;
+		ul {
+			background: #f1f1f1
+		}
+		li {
+			background: #f8f8f8;
+		}
+		li.active {
+			background: #fff;
+		}
+		.nav-tabs {
+			img {
+				width: 30px;
+				height: 30px
+			}
+			> li > a {
+				margin: 0px;
+				border-radius: 0px;
+				color: #4a4a4a;
+				&:focus {
+					outline: none;
+				}
+			}
+		}
+		.panel-content {
+			padding-top: 10px;
+			height: 70vh;
+			> div {
+				border: 1px solid #eaeaea;
+				border-radius: 5px;
+				height: 100%;
+			}
+			.module-panel-title {
+				border: 1px solid #dcdcdc;
+				border-bottom: 5px solid #486390;
+				border-radius: 3px;
+				padding: 8px 18px;
+				color: #486390;
+				font-size: 17px;
+				font-weight: 600;
+			}
+			.title-icon {
+				width: 33px;
+				height: 40px;
+			}
+			.title-icon-second {
+				width: 26px;
+				height: 22px;
+			}
+			.search-icon {
+				width: 27px;
+				height: 27px;
+			}
+			.part-module {
+				color: #92342f;
+				height: 62px;
+				border-bottom: 5px solid #92342f;
+			}
+			.pagination {
+				margin-bottom: 0;
+				margin-top: 10px;
+			}
+			.panatation-container {
+				width: 100%;
+				text-align: center;
+			}
+			table {
+				margin-bottom: 0px;
+			}
+			.parts .list-item{
+				padding-left: 35px;
+				background: #f9f5f4 none repeat scroll 0 0;
+				padding-left: 35px;
+			}
+		}
+	}
+	.sort-term {
+		max-width: 171px;
+		min-width: 171px;
+		margin-top: 5px;
+		> button {
+			border-radius: 17px;
+		}
+	}
+	.list-item {
+		padding: 10px;
+		border: 1px solid #eaeaea;
+		color: #4b4b4b;
+		vertical-align: middle;
+		font-size: 20px;
+		font-weight: 600;
+		max-height: 56px;
+		min-height: 56px;
+		text-align: center;
+		img {
+			width: 35px;
+			height: 35px;
+		}
+		.btn {
+			font-size: 12px;
+			border: 1px solid #cfcfcf;
+			border-radius: 17px;
+		}
+	}
+	.list-item.add-category {
+		background: #eaeaea;
+		color: #c2c2c2;
+		padding: 12px;
+		&:active {
+			background: #cacaca;
+		}
+		p {
+			margin: 0;
+		}
+	}
+	.table tr td {
+		vertical-align: middle;
+	}
+	.role-panel-title, .user-role-icon {
+		width: 35px;
+		height: 35px;
+	}
+	.btn-user-status {
+		background: #0278be none repeat scroll 0 0;
+		color: #cfd7e3;
+		height: 22px;
+		padding: 0 20px;
+	}
+	.btn-user-delete {
+		background: transparent;
+		padding: 0;
+		> span {
+			border: 1px solid #d6d6d6;
+			border-radius: 15px;
+			font-size: 19px;
+			height: 30px;
+			padding-top: 4px;
+			width: 30px;
+		}
+	}
+	#users img {
+		width: 44px;
+		height: 44px;
+		border-radius: 22px;
+	}
+
+	#add-user-modal {
+		.modal-dialog {
+			width: 350px;
+			color: #cfd7e3;
+			.modal-body, .modal-header, .modal-footer {
+				background-color: #4f6b9a;
+			}
+			.modal-header {
+				border-bottom: 1px solid #7d91b4;
+				font-size: 19px;
+				.alert {
+					font-size: 14px;
+				}
+			}
+			.modal-body {
+				padding: 0px;
+				input[type=text], input[type=email], input[type=password] {
+					background: transparent;
+					width: 100%;
+					border-color: -moz-use-text-color -moz-use-text-color #7d91b4;
+					border-style: none none solid;
+					border-width: medium medium 1px;
+					height: 50px;
+					font-size: 20px;
+					font-weight: 200;
+					padding: 0 15px;
+				}
+				.file-upload {
+					text-align: center;
+					padding: 18px;
+					border-bottom: 1px solid #7d91b4;
+					img {
+						width: 94px;
+						height: 95px;
+					}
+				}
+				.submit-div {
+					color: #9391b7;
+					padding: 15px;
+					text-align: center;
+				}
+				a.btn-save-user {
+					border-radius: 20px;
+					background: white;
+					width: 200px;
+					&:hover {
+						color: #9391b7;
+					}
+				}
+			}
+		}
+	}
+
+	#add-part-category-modal {
+		.modal-dialog {
+			width: 350px;
+			color: #cfd7e3;
+			.modal-body, .modal-header, .modal-footer {
+				background-color: #973630;
+			}
+			.modal-header {
+				border-bottom: 1px solid #ac6561;
+				font-size: 19px;
+			}
+			.modal-body {
+				padding: 0px;
+				input[type=text], input[type=email], input[type=password] {
+					background: transparent;
+					width: 100%;
+					border-color: -moz-use-text-color -moz-use-text-color #ac6561;
+					border-style: none none solid;
+					border-width: medium medium 1px;
+					height: 50px;
+					font-size: 20px;
+					font-weight: 200;
+					padding: 0 15px;
+				}
+				textarea {
+					background: transparent;
+					width: 100%;
+					border-color: -moz-use-text-color -moz-use-text-color #ac6561;
+					border-style: none none solid;
+					border-width: medium medium 1px;
+					height: 200px;
+					font-size: 20px;
+					font-weight: 200;
+					padding: 0 15px;
+					resize: none;
+				}
+				.file-upload {
+					text-align: center;
+					padding: 18px;
+					border-bottom: 1px solid #ac6561;
+					img {
+						width: 94px;
+						height: 95px;
+					}
+				}
+				.submit-div {
+					color: #973630;
+					padding: 15px;
+					text-align: center;
+				}
+				.btn-save-user {
+					border-radius: 20px;
+					width: 200px;
+					background: white;
+					color: #973630;
+					&:hover {
+						color: #973630;
+					}
+				}
+			}
+		}
+	}
+
+	#add-part-modal {
+		.modal-dialog {
+			width: 350px;
+			color: white;
+			.modal-body, .modal-header, .modal-footer {
+				background-color: #993732;
+			}
+			.modal-header {
+				border-bottom: 1px solid #ac6561;
+				font-size: 19px;
+			}
+			.modal-body {
+				padding: 0px;
+				input[type=text], input[type=email], input[type=password] {
+					background: transparent;
+					width: 100%;
+					border-color: -moz-use-text-color -moz-use-text-color #ac6561;
+					border-style: none none solid;
+					border-width: medium medium 1px;
+					height: 50px;
+					font-size: 20px;
+					font-weight: 200;
+					padding: 0 15px;
+				}
+				textarea {
+					background: transparent;
+					width: 100%;
+					border-color: -moz-use-text-color -moz-use-text-color #ac6561;
+					border-style: none none solid;
+					border-width: medium medium 1px;
+					height: 200px;
+					font-size: 20px;
+					font-weight: 200;
+					padding: 0 15px;
+					resize: none;
+				}
+				.file-upload {
+					text-align: center;
+					border-bottom: 1px solid #ac6561;
+					display: flex;
+					color: #ac6561;
+					.col-first {
+						width: 70%;
+						text-align: center;
+						padding: 18px;
+						border-right: 1px solid #ac6561;
+						> img {
+							width: 94px;
+							height: 95px;
+						}
+					}
+					.col-second {
+						width: 30%;
+						padding: 10px;
+						text-align: center;
+						> img {
+							width: 50px;
+							height: 50px;
+							margin-top: 10px;
+						}
+						> div {
+							margin-top: 5px;
+							font-size: 12px;
+						}
+					}
+					#attach_text {
+						overflow-wrap: break-word;
+					}
+				}
+				.input-field {
+					border-bottom: 1px solid #ac6561;
+					display: flex;
+					input[type=text]{
+						background: transparent;
+					}
+					.col1 {
+						width: 70%;
+						border-right: 1px solid #ac6561;
+						border-bottom: none;
+					}
+					.bootstrap-select {
+						width: 30%;
+						.btn {
+							background: transparent none repeat scroll 0 0;
+							border: none;
+							border-radius: 0;
+							height: 100%;
+							padding: 15px;
+							color: white;
+							box-shadow: none;
+						}
+						.btn-default span.caret {
+							font-size: 2em;
+						}
+					}
+				}
+				.input-field1 {
+					border-bottom: 1px solid #ac6561;
+					.bootstrap-select {
+						width: 100%;
+						.btn {
+							background: transparent none repeat scroll 0 0;
+							border: none;
+							border-radius: 0;
+							height: 100%;
+							padding: 15px;
+							color: white;
+							box-shadow: none;
+						}
+						.btn-default span.caret {
+							font-size: 2em;
+						}
+					}
+				}
+				.firmware-input-field {
+					border-bottom: 1px solid #ac6561;
+					height: 50px;
+					.btn {
+						background: transparent;
+						border: none;
+						color: #bf8683;
+						text-decoration: none;
+						padding: 15px;
+						font-weight: 300;
+						cursor: default;
+					}
+					.down-caret {
+						color: white;
+						height: 100%;
+						padding: 13px;
+					}
+				}
+				.submit-div {
+					color: #973630;
+					padding: 15px;
+					text-align: center;
+				}
+				.btn-save-user {
+					border-radius: 20px;
+					width: 200px;
+					background: white;
+					color: #973630;
+					&:hover {
+						color: #973630;
+					}
+				}
+			}
+		}
+	}
+
+	#show-part-modal .modal-dialog {
+		width: 350px;
+		color: white;
+		.modal-body, .modal-header, .modal-footer {
+			background-color: #993732;
+		}
+		.modal-header {
+			border-bottom: 1px solid #ac6561;
+			font-size: 19px;
+		}
+		.modal-body {
+			padding: 0px;
+			input[type=text], input[type=email], input[type=password] {
+				background: transparent;
+				width: 100%;
+				border-color: -moz-use-text-color -moz-use-text-color #ac6561;
+				border-style: none none solid;
+				border-width: medium medium 1px;
+				height: 50px;
+				font-size: 20px;
+				font-weight: 200;
+				padding: 0 15px;
+			}
+			textarea {
+				background: transparent;
+				width: 100%;
+				border-color: -moz-use-text-color -moz-use-text-color #ac6561;
+				border-style: none none solid;
+				border-width: medium medium 1px;
+				height: 200px;
+				font-size: 20px;
+				font-weight: 200;
+				padding: 0 15px;
+				resize: none;
+			}
+			.file-upload {
+				text-align: center;
+				border-bottom: 1px solid #ac6561;
+				display: flex;
+				color: #ac6561;
+				.col-first {
+					width: 70%;
+					text-align: center;
+					padding: 18px;
+					border-right: 1px solid #ac6561;
+					> img {
+						width: 94px;
+						height: 95px;
+					}
+				}
+				.col-second {
+					width: 30%;
+					padding: 10px;
+					text-align: center;
+					> img {
+						width: 50px;
+						height: 50px;
+						margin-top: 10px;
+					}
+					> div {
+						margin-top: 5px;
+						font-size: 12px;
+					}
+				}
+				#attach_text {
+					overflow-wrap: break-word;
+				}
+			}
+			.input-field {
+				border-bottom: 1px solid #ac6561;
+				display: flex;
+				input[type=text]{
+					background: transparent;
+				}
+				.col1 {
+					width: 70%;
+					border-right: 1px solid #ac6561;
+					border-bottom: none;
+				}
+				.bootstrap-select {
+					width: 30%;
+					.btn {
+						background: transparent none repeat scroll 0 0;
+						border: none;
+						border-radius: 0;
+						height: 100%;
+						padding: 15px;
+						color: white;
+						box-shadow: none;
+					}
+					.btn-default span.caret {
+						font-size: 2em;
+					}
+				}
+			}
+			.input-field1 {
+				border-bottom: 1px solid #ac6561;
+				.bootstrap-select {
+					width: 100%;
+					.btn {
+						background: transparent none repeat scroll 0 0;
+						border: none;
+						border-radius: 0;
+						height: 100%;
+						padding: 15px;
+						color: white;
+						box-shadow: none;
+					}
+					.btn-default span.caret {
+						font-size: 2em;
+					}
+				}
+			}
+			.firmware-input-field {
+				border-bottom: 1px solid #ac6561;
+				height: 50px;
+				.btn {
+					background: transparent;
+					border: none;
+					color: #bf8683;
+					text-decoration: none;
+					padding: 15px;
+					font-weight: 300;
+					cursor: default;
+				}
+				.down-caret {
+					color: white;
+					height: 100%;
+					padding: 13px;
+				}
+			}
+			.submit-div {
+				color: #973630;
+				padding: 15px;
+				text-align: center;
+			}
+			.btn-save-user {
+				border-radius: 20px;
+				width: 200px;
+				background: white;
+				color: #973630;
+				&:hover {
+					color: #973630;
+				}
+			}
+		}
+	}
+
+
+
+	#add-bom-category-modal .modal-dialog {
+		width: 350px;
+		color: white;
+		.modal-body, .modal-header, .modal-footer {
+			background-color: #4f6b9a;
+		}
+		.modal-header {
+			border-bottom: 1px solid #7d91b2;
+			font-size: 19px;
+		}
+		.modal-body {
+			padding: 0px;
+			input[type=text] {
+				background: transparent;
+				width: 100%;
+				border-color: -moz-use-text-color -moz-use-text-color #7d91b2;
+				border-style: none none solid;
+				border-width: medium medium 1px;
+				height: 50px;
+				font-size: 20px;
+				font-weight: 200;
+				padding: 0 15px;
+			}
+			textarea {
+				background: transparent;
+				width: 100%;
+				border-color: -moz-use-text-color -moz-use-text-color #7d91b2;
+				border-style: none none solid;
+				border-width: medium medium 1px;
+				height: 200px;
+				font-size: 20px;
+				font-weight: 200;
+				padding: 0 15px;
+				resize: none;
+			}
+			.file-upload {
+				text-align: center;
+				border-bottom: 1px solid #7d91b2;
+				color: #7d91b2;
+				padding: 18px;
+				img {
+					width: 95px;
+					height: 95px;
+				}
+			}
+			.submit-div {
+				color: #7d91b2;
+				padding: 15px;
+				text-align: center;
+			}
+			.btn-save-user {
+				border-radius: 20px;
+				width: 200px;
+				background: white;
+				color: #7d91b2;
+				&:hover {
+					color: #7d91b2;
+				}
+			}
+		}
+	}
+}

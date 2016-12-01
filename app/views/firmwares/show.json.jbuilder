@@ -1,0 +1,1 @@
+json.partial! "firmwares/firmware", firmware: @firmware

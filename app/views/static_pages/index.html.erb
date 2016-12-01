@@ -1,0 +1,490 @@
+<div class="row main-content">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<ul class="nav nav-tabs">
+				<li class="<%=  @active_tab ? 'active' : ' '%>">
+					<a href="#module" data-toggle="tab">
+						<%= image_tag("menu/module_icon.png") %>&nbsp;&nbsp; Modules
+					</a>
+				</li>
+				<li class="<%=  @active_tab ? '' : 'active'%>">
+					<a href="#user-role" data-toggle="tab">
+						<%= image_tag("menu/user_icon.png") %>&nbsp;&nbsp;Users / Roles
+					</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<!--  -->
+				<div class="tab-pane <%=  @active_tab ? 'active' : ''%>" id="module">
+
+					<div class="col-md-7 panel-content">
+						<div>
+							<div class="col-md-12 module-panel-title">
+								<%= image_tag("menu/bom_template.png", class: "title-icon") %>
+								&nbsp;BOM TEMPLATES LIBRARY
+								<%= image_tag("menu/search_blue.png", class: "search-icon") %>
+								<div class="btn-group btn-input clearfix sort-term pull-right">
+									<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+										<span data-bind="label">Date Created(Latest)</span>
+										<span class="fa fa-angle-down"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#">Date Created(Latest)</a></li>
+										<li><a href="#">Counts (Maximum)</a></li>
+									</ul>
+								</div>
+							</div>
+
+							<div id="bom-categories">
+								<% @bom_categories.each do |bom_category| %>
+									<div class="col-md-12 list-item">
+										<div class="pull-left">
+											<%= image_tag bom_category.photo.url %>
+											&nbsp;&nbsp;<%= bom_category.name %>
+										</div>
+
+										<div class="pull-right">
+											<button class="btn btn-view" data-toggle="collapse" data-target="#bom_category-<%= bom_category.id %>">VIEW ALL</button>
+											<button class="btn btn-delete-bom-category" data-id="<%= bom_category.id %>">
+												<span class="fa fa-trash"></span>
+											</button>
+										</div>
+									</div>
+									<div id="bom_category-<%= bom_category.id%>" class="parts collapse fade">
+										<div class="real-content">
+											<% bom_category.boms.each do |bom| %>
+												<div class="col-md-12 list-item">
+													<div class="pull-left">
+														<%= image_tag bom.photo.url %>
+														&nbsp;&nbsp;<%= bom.name %>
+													</div>
+
+													<div class="pull-right">
+														<button class="btn btn-view" data-toggle="collapse" data-target="#bom-<%= bom.id %>">DETAIL</button>
+														<button class="btn">
+															<span class="fa fa-angle-down"></span>
+														</button>
+													</div>
+												</div>
+												<div id="bom-<%= bom.id %>" class="parts collapse fade">
+													<% bom.part_modules.each do |part| %>
+														<div class="col-md-12 list-item">
+															<div class="pull-left">
+																<%= image_tag bom.photo.url %>
+																&nbsp;&nbsp;<%= bom.name %>
+															</div>
+
+															<div class="pull-right">
+																<button class="btn btn-view" data-toggle="collapse" data-target="#part-module-<%= bom.id %>">DETAIL</button>
+																<button class="btn">
+																	<span class="fa fa-angle-down"></span>
+																</button>
+															</div>
+														</div>
+													<% end %>
+												</div>
+												<!-- //////////////////////////////////////////// -->
+											<% end %>
+										</div>
+										<div id="bom-category-<%= bom_category.id %>" class="col-md-12 list-item add-bom-category">
+											Add <%= bom_category.name %> BOM
+										</div>
+									</div>
+
+								<% end %>
+							</div>
+							<div id="add-bom-category" class="col-md-12 list-item add-category">
+								Add Category
+							</div>
+						</div>
+					</div>
+					
+					<!-- Parts Library -->
+					<div class="col-md-5 panel-content">
+						<div>
+							<div class="col-md-12 module-panel-title part-module">
+								<%= image_tag("menu/part_library_icon.png", class: "title-icon-second") %>
+								&nbsp;PARTS LIBRARY
+								<%= image_tag("menu/search_red.png", class: "search-icon") %>
+								<div class="btn-group btn-input clearfix sort-term pull-right">
+									<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+										<span data-bind="label">Date Created(Latest)</span>
+										<span class="fa fa-angle-down"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#">Date Created(Latest)</a></li>
+										<li><a href="#">Counts (Maximum)</a></li>
+									</ul>
+								</div>
+							</div>
+							<div id="part_categories">
+								<% @part_categories.each do |part_category| %>
+									<div class="col-md-12 list-item">
+										<div class="pull-left">
+											<%= image_tag part_category.photo.url %>
+											&nbsp;&nbsp;<%= part_category.name %>
+										</div>
+										<div class="pull-right">
+											<button class="add-part-btn btn">
+												<span class="fa fa-plus fa-lg"></span>
+											</button>
+											<button class="btn" data-toggle="collapse" data-target="#parts-<%= part_category.id %>">
+												<span class="fa fa-angle-down"></span>
+											</button>
+										</div>
+									</div>
+
+									<div id="parts-<%= part_category.id%>" class="parts collapse fade">
+										<% part_category.parts.each do |part| %>
+											<div class="col-md-12 list-item">
+												<div class="pull-left">
+													<%= image_tag part.picture.url %>
+													&nbsp;&nbsp;<%= part.part_name %>
+												</div>
+												<div class="pull-right">
+													<button class="btn btn-detail-part" data-id="<%= part.id %>">Detail</button>
+													<button class="btn btn-delete-part" data-id="<%= part.id %>"><span class="fa fa-trash fa-lg"></span></button>
+												</div>
+											</div>
+										<% end %>
+									</div>
+								<% end %>
+							</div>
+							<div id="add-part-library" class="col-md-12 list-item add-category">
+								Add Category
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- Users and Roles Part -->
+				<div class="tab-pane <%=  @active_tab ? '' : 'active'%>" id="user-role">
+					<div class="col-md-7 panel-content">
+						<div>
+							<div class="col-md-12 module-panel-title">
+								<%= image_tag("create_user/user_tab_icon.png", class: "user-role-icon") %>
+								&nbsp;USERS&nbsp;
+								<%= image_tag("create_user/user_plus.png", class: "search-icon", id: 'add-user') %>
+								<%= image_tag("create_user/user_search.png", class: "search-icon") %>
+
+								<div class="btn-group btn-input clearfix sort-term pull-right">
+									<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+										<span data-bind="label">Date Created(Latest)</span>
+										<span class="fa fa-angle-down"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#">Date Created(Latest)</a></li>
+										<li><a href="#">Counts (Maximum)</a></li>
+									</ul>
+								</div>
+							</div>
+							
+							<table class="table table-striped" id="users">
+								<thead>
+									<tr>
+										<th><input type="checkbox" name="user"></th>
+										<th> NAME </th>
+										<th> EMAIL </th>
+										<th> LAST ACTIVE </th>
+										<th> STATUS </th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<% @users.each do |user| %>
+										<% if !user.has_role?(:admin) %>
+											<tr>
+												<td>
+													<input type="checkbox" name="user">
+												</td>
+												<td>
+													<%= image_tag user.photo.url %>
+													<%= "#{user.first_name} #{user.last_name}" %>
+												</td>
+												<td>
+													<%= user.email  %>
+												</td>
+												<td>
+													<%= user.created_at.strftime("%B %d,%Y <br> %I:%M%p").html_safe %>
+												</td>
+												<td>
+													<button class="btn btn-user-status">Active</button>
+												</td>
+												<td>
+													<button class="btn btn-user-delete" data-id="<%= user.id %>">
+														<span class="fa fa-trash"></span>
+													</button>
+												</td>
+											</tr>
+										<% end %>
+									<% end %>
+								</tbody>
+							</table>
+							<div class="panatation-container">
+								<%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Parts Library -->
+					<div class="col-md-5 panel-content">
+						<div>
+							<div class="col-md-12 module-panel-title part-module">
+								<%= image_tag("menu/part_library_icon.png", class: "title-icon-second") %>
+								&nbsp;ROLES
+								<%= image_tag("menu/search_red.png", class: "search-icon") %>
+								<div class="btn-group btn-input clearfix sort-term pull-right">
+									<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+										<span data-bind="label">Date Created(Latest)</span>
+										<span class="fa fa-angle-down"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#">Date Created(Latest)</a></li>
+										<li><a href="#">Counts (Maximum)</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-12 list-item">
+								<div class="pull-left">
+									<%= image_tag("menu/search_blue.png") %>
+									&nbsp;&nbsp;Phone
+								</div>
+								<div class="pull-right">
+									<button class="btn btn-view"><span class="fa fa-plus fa-lg"></button>
+									<button class="btn btn-delete"><span class="fa fa-angle-down fa-lg"></span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Add User Dialog -->
+	<div id="add-user-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Add User
+				</div>
+				<div class="modal-body">
+					<%= form_for @user, :url => '/users_admin.json', :method => 'post', :multipart => true do |f| %>
+						<%= f.text_field :first_name, placeholder: 'First Name' %>
+						<%= f.text_field :last_name, placeholder: 'Second Name' %>
+						<%= f.email_field :email, placeholder: 'Email' %>
+						<%= f.file_field :photo, class: 'hide', id: 'user-photo-file', accept: "image/*" %>
+						<div class="file-upload">
+							<%= image_tag("create_user/add_photo", id: "add-user-photo") %>
+						</div>
+						<%= f.password_field :password, placeholder: 'Password' %>
+						<%= f.password_field :password_confirmation, placeholder: 'Password Confirmation' %>
+						<div class="submit-div">
+							<a id="btn-save-user" class="btn btn-save-user" value="Create">Create</a>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Add Part Category Dialog  -->
+	<div id="add-part-category-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Add Parts Category
+				</div>
+				<div class="modal-body">
+					<%= form_for @part_category, :url => '/part_categories.json', :method => 'post', :multipart => true do |f| %>
+						<%= f.text_field :name, placeholder: 'Category Name' %>
+						<%= f.text_area :description, placeholder: 'Description (if any)' %>
+						<%= f.file_field :photo, class: 'hide', id: 'part-category-photo-file', accept: "image/*" %>
+						<div class="file-upload">
+							<%= image_tag("create_user/add_photo", id: "part-category-photo") %>
+						</div>
+						<div class="submit-div">
+							<a id="btn-save-part-category" class="btn btn-save-user" value="Create">Create</a>
+						</div> b
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="add-part-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Add New Part
+				</div>
+				<div class="modal-body">
+
+					<%= form_for @part, :url => '/parts.json', :method => 'post', :multipart => true do |f| %>
+						<%= f.text_field :part_name, placeholder: 'Part Name*' %>
+						<%= f.text_area :part_description, placeholder: 'Part Description' %>
+						<%= f.text_field :manufacturing_part, placeholder: 'Manufacturing Part Number*' %>
+						<%= f.text_field :darko_part_number, placeholder: 'Darko Part Number' %>
+
+						<%= f.file_field :picture, class: 'hide', id: 'part-photo-file', accept: "image/*" %>
+						<%= f.file_field :specification, class: 'hide', id: 'part-specification-file', accept: "application/msword,application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf," %>
+						<div class="file-upload">
+							<div class="col-first">
+								<%= image_tag("create_user/add_photo", id: "part-photo") %>
+							</div>
+							<div class="col-second">
+								Specification <br>
+								<%= image_tag("menu/attachment", id: "part-specification") %>
+								<br>
+								<div id="attach_text">ATTACHFILE</div>
+							</div>
+						</div>
+
+						<div class="input-field">
+							<%= f.text_field :price, placeholder: 'Price*' %>
+							<select class="selectpicker">
+								<option value="USD">USD</option>
+							</select>
+						</div>
+
+						<div class="firmware-input-field">
+							<a class="btn">
+								Firmware Version*
+							</a>
+							<a class="pull-right down-caret">
+								<span class="fa fa-caret-down"></span>
+							</a>
+						</div>
+
+						<div class="input-field1">
+							<%= f.collection_select :part_category_id, PartCategory.all, :id, :name, { prompt: false }, { class: 'selectpicker' } %>
+						</div>
+
+						<div class="submit-div">
+							<a id="btn-save-part" class="btn btn-save-user" value="Create">Save to Category</a>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="show-part-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Add New Part
+				</div>
+				<div class="modal-body">
+					<input id="show-part-name" type="text" placeholder="Part Name*">
+					<textarea id="show-part-description" placeholder="Part Description"></textarea>
+					<input id="show-part-manufacturing-number" type="text" placeholder="Manufacturing Part Number*">
+					<input id="show-part-darko-part-number" type="text" placeholder="Darko Part Number">
+					<div class="file-upload">
+						<div class="col-first">
+							<%= image_tag("create_user/add_photo", id: "part-photo") %>
+						</div>
+						<div class="col-second">
+							Specification <br>
+							<%= image_tag("menu/attachment", id: "part-specification") %>
+							<br>
+							<div id="attach_text">ATTACHFILE</div>
+						</div>
+					</div>
+
+					<div class="input-field">
+						<input type="text" placeholder="Darko Part Number">
+						<select class="selectpicker">
+							<option value="USD">USD</option>
+						</select>
+					</div>
+
+					<div class="firmware-input-field">
+						<a class="btn">
+							Firmware Version*
+						</a>
+						<a class="pull-right down-caret">
+							<span class="fa fa-caret-down"></span>
+						</a>
+					</div>
+
+					<div class="input-field1">
+						<select class="selectpicker">
+							<option value="1"></option>
+						</select>
+					</div>
+
+					<div class="submit-div">
+						<a id="btn-save-part" class="btn btn-save-user" value="Create">Save to Category</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Add Part Category Dialog  -->
+	<div id="add-bom-category-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Add BOM Category
+				</div>
+				<div class="modal-body">
+					
+					<%= form_for @bom_category, :url => '/bom_categories.json', :method => 'post', :multipart => true do |f| %>
+						<%= f.text_field :name, placeholder: 'Category Name' %>
+						<%= f.text_area :description, placeholder: 'Description (if any)' %>
+						<%= f.file_field :photo, class: 'hide', id: 'bom-category-photo-file', accept: "image/*" %>
+						<div class="file-upload">
+							<%= image_tag("create_user/add_photo", id: "bom-category-photo") %>
+						</div>
+						<div class="submit-div">
+							<a id="btn-save-bom-category" class="btn btn-save-user" value="Create">Create</a>
+						</div>
+					<% end %>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="add-bom-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Add BOM Category
+				</div>
+
+				<div class="modal-body">
+					<%= form_for @bom, :url => '/boms.json', :method => 'post', :multipart => true do |f| %>
+						<%= f.text_field :name, placeholder: 'Category Name' %>
+						<%= f.text_area :description, placeholder: 'Description (if any)' %>
+						<%= f.file_field :photo, class: 'hide', id: 'bom-category-photo-file', accept: "image/*" %>
+						<div class="file-upload">
+							<%= image_tag("create_user/add_photo", id: "bom-category-photo") %>
+						</div>
+						<div class="submit-div">
+							<a id="btn-save-bom-category" class="btn btn-save-user" value="Create">Create</a>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% if @current_user.has_role?(:admin) %>
+	<%= link_to 'New Part Category', new_part_category_path %>
+<% else %>
+	
+<% end %>

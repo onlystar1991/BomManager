@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bom Categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bom_categories.each do |bom_category| %>
+      <tr>
+        <td><%= bom_category.name %></td>
+        <td><%= link_to 'Show', bom_category %></td>
+        <td><%= link_to 'Edit', edit_bom_category_path(bom_category) %></td>
+        <td><%= link_to 'Destroy', bom_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bom Category', new_bom_category_path %>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Part name:</strong>
+  <%= @part.part_name %>
+</p>
+
+<p>
+  <strong>Part description:</strong>
+  <%= @part.part_description %>
+</p>
+
+<p>
+  <strong>Manufacturing part:</strong>
+  <%= @part.manufacturing_part %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @part.number %>
+</p>
+
+<p>
+  <strong>Darko part number:</strong>
+  <%= @part.darko_part_number %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @part.price %>
+</p>
+
+<p>
+  <strong>Firmware:</strong>
+  <%= @part.firmware %>
+</p>
+
+<p>
+  <strong>Part category:</strong>
+  <%= @part.part_category %>
+</p>
+
+<%= link_to 'Edit', edit_part_path(@part) %> |
+<%= link_to 'Back', parts_path %>

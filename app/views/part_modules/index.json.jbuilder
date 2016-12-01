@@ -1,0 +1,1 @@
+json.array! @part_modules, partial: 'part_modules/part_module', as: :part_module

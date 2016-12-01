@@ -1,0 +1,1 @@
+json.array! @bom_categories, partial: 'bom_categories/bom_category', as: :bom_category

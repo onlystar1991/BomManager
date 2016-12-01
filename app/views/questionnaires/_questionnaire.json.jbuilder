@@ -1,0 +1,2 @@
+json.extract! questionnaire, :id, :type, :text_question, :text_question_answer, :select_question, :select_question_answer, :multiple_question, :created_at, :updated_at
+json.url questionnaire_url(questionnaire, format: :json)

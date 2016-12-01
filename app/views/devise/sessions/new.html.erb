@@ -1,0 +1,23 @@
+<div class="login-form">
+  <div class="heading">
+    <p>Sign in to your account</p>
+  </div>
+  <div class="login-logo">
+    <%= image_tag("darko_logo") %>
+  </div>
+  <div class="login-form-body">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
+      <div class="form-group">
+        <%= f.email_field :email, autofocus: true, autocomplete: "off", placeholder: 'Username/Email', class: "form-control login-info" %>
+        <%= f.password_field :password, autocomplete: "off", placeholder: 'Password',class: "form-control login-info" %>
+      </div>
+      <%= f.submit  t('.sign_in', :default => "Sign in"), class: "btn login-button" %>
+    <% end %>
+  </div>
+  <div class="login-form-bottom">
+    <%= link_to "Forgot password?", new_password_path(resource_name) %>
+    <%= link_to "Sign in", new_session_path(resource_name) %><br />
+  </div>
+</div>
+
+<%= render "devise/shared/links" %>

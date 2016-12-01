@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Firmwares</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Description</th>
+      <th>Publish date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @firmwares.each do |firmware| %>
+      <tr>
+        <td><%= firmware.number %></td>
+        <td><%= firmware.description %></td>
+        <td><%= firmware.publish_date %></td>
+        <td><%= link_to 'Show', firmware %></td>
+        <td><%= link_to 'Edit', edit_firmware_path(firmware) %></td>
+        <td><%= link_to 'Destroy', firmware, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Firmware', new_firmware_path %>

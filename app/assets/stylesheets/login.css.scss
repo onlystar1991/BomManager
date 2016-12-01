@@ -1,0 +1,60 @@
+.login-form {
+	width: 350px;
+	margin: 20px auto auto;
+	background: #455d8b;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	.heading {
+		color: #dadde4;
+		font-size: 16px;
+		font-weight: 200;
+		text-align: center;
+	}
+	.login-logo {
+		margin-top: 40px;
+		img {
+			margin-left: 20%;
+			width: 60%;
+		}
+	}
+	.login-form-body {
+		margin-top: 40px;
+		padding-left: 25px;
+		padding-right: 25px;
+		input:first-child {
+			border-bottom: none;
+		}
+		.login-info {
+			height: 50px;
+			border-color: #5d749d !important;
+			border-left: none;
+			border-right: none;
+			color: white !important;
+			background: transparent;
+			box-shadow: none;
+			border-radius: 0px;
+		}
+		.login-button {
+			width: 94%;
+			margin-left: 3%;
+			color: #716da0;
+			border-radius: 20px;
+			font-size: 18px;
+			margin-top: 25px;
+		}
+	}
+	.login-form-bottom {
+		text-align: center;
+		margin-top: 25px;
+		a:first-child {
+			color: white;
+		}
+		a {
+			color: #5d749d;
+		}
+	}
+}
+
+.alert-block.devise-bs ul {
+	list-style: none;
+}

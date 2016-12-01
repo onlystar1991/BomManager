@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BomManager</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	</head>
+
+	<body>
+		<%= render 'partial/flash' %>
+		<div class="navbar-default sidebar" role="navigation">
+			<div class="nav in" id="side-menu">
+				<div>
+					<%= link_to image_tag("menu/dashboard_logo.png"), root_path %>
+					<%= image_tag("menu/trenner.png") %>
+				</div>
+				
+				<div class="active">
+					<%= link_to "#{image_tag('menu/dashboard_icon.png')}<br><span>Dashboard</span><br>".html_safe, '#' %>
+				</div>
+				<%= image_tag("menu/trenner.png") %>
+				
+				<div>
+					<%= link_to "#{image_tag('menu/item_icon.png')}<br><span>Add Item</span><br>".html_safe, '#' %>
+				</div>
+				<%= image_tag("menu/trenner.png") %>
+				
+				<div>
+					<%= link_to "#{image_tag('menu/bom_icon.png')}<br><span>Create BOM</span><br>".html_safe, '#' %>
+				</div>
+				<%= image_tag("menu/trenner.png") %>
+				
+				<div>
+					<%= link_to "#{image_tag('menu/user_icon.png')}<br><span>Add Users</span><br>".html_safe, '#' %>
+				</div>
+				
+				<div class="menu-bottom">
+					<div class="bottom-side">
+						<%= link_to "#{image_tag('menu/setting_icon.png')}<br><span>Edit Profile</span><br>".html_safe, '#' %>
+					</div>
+					<%= image_tag("menu/trenner.png") %>
+					<div class="bottom-side">
+						<%= link_to "#{image_tag('menu/logout.png')}<br><span>Logout</span><br>".html_safe, destroy_user_session_path, method: :delete %>
+					</div>
+				</div>				
+			</div>
+		</div>
+
+		<div id="page-wrapper">
+			<div class="row header">
+				<div class="col-sm-10 col-xs-10">
+					<h4>WELCOME, SUPER ADMIN</h4>
+				</div>
+				<div class="col-sm-2 col-xs-2">
+					<%= link_to "Dashboard", root_path, class: 'btn btn-dashboard pull-right' %>
+				</div>
+			</div>
+			<%= yield %>
+		</div>
+	</body>
+</html>

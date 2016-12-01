@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Part Modules</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @part_modules.each do |part_module| %>
+      <tr>
+        <td><%= part_module.name %></td>
+        <td><%= link_to 'Show', part_module %></td>
+        <td><%= link_to 'Edit', edit_part_module_path(part_module) %></td>
+        <td><%= link_to 'Destroy', part_module, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Part Module', new_part_module_path %>
