@@ -14,7 +14,10 @@
 //= require jquery_ujs
 //= require jquery.form
 //= require bootstrap
+//= require bootstrap/button
 //= require bootstrap-select
 //= require bootstrap-table
 //= require twitter/bootstrap/rails/confirm
+//= require jquery-ui/core
+//= require jquery-ui/widgets/draggable
 //= require_tree .

@@ -30,7 +30,7 @@
 		}
 		.panel-content {
 			padding-top: 10px;
-			height: 70vh;
+/*			height: 70vh; */
 			> div {
 				border: 1px solid #eaeaea;
 				border-radius: 5px;
@@ -78,6 +78,17 @@
 				background: #f9f5f4 none repeat scroll 0 0;
 				padding-left: 35px;
 			}
+
+			.boms {
+				.list-item.total-cost {
+					background-color: #486390;
+					color: white;
+				}
+				.list-item.add-parts-by-drop, .list-item.add-question{
+					color: #d3d3d3;
+				}
+			}
+			
 		}
 	}
 	.sort-term {
@@ -106,6 +117,20 @@
 			font-size: 12px;
 			border: 1px solid #cfcfcf;
 			border-radius: 17px;
+		}
+		.pull-right a {
+			color: gray;
+			font-size: 13px;
+			font-weight: 400;
+			&:active, &:foucus {
+				color: black;
+			}
+		}
+		.pull-right a.active {
+			color: black;
+		}
+		span {
+			font-size: 14px;
 		}
 	}
 	.list-item.add-category {
@@ -611,6 +636,153 @@
 					height: 95px;
 				}
 			}
+			.submit-div {
+				color: #7d91b2;
+				padding: 15px;
+				text-align: center;
+			}
+			.btn-save-user {
+				border-radius: 20px;
+				width: 200px;
+				background: white;
+				color: #7d91b2;
+				&:hover {
+					color: #7d91b2;
+				}
+			}
+		}
+	}
+
+	#add-bom-modal .modal-dialog {
+		width: 350px;
+		color: white;
+		.modal-body, .modal-header, .modal-footer {
+			background-color: #295578;
+		}
+		.modal-header {
+			border-bottom: 1px solid #5a7a93;
+			font-size: 19px;
+		}
+		.modal-body {
+			padding: 0px;
+			input[type=text] {
+				background: transparent;
+				width: 100%;
+				border-color: -moz-use-text-color -moz-use-text-color #5a7a93;
+				border-style: none none solid;
+				border-width: medium medium 1px;
+				height: 50px;
+				font-size: 20px;
+				font-weight: 200;
+				padding: 0 15px;
+			}
+			textarea {
+				background: transparent;
+				width: 100%;
+				border-color: -moz-use-text-color -moz-use-text-color #5a7a93;
+				border-style: none none solid;
+				border-width: medium medium 1px;
+				height: 200px;
+				font-size: 20px;
+				font-weight: 200;
+				padding: 0 15px;
+				resize: none;
+			}
+			.file-upload {
+				text-align: center;
+				border-bottom: 1px solid #5a7a93;
+				color: #5a7a93;
+				padding: 18px;
+				img {
+					width: 95px;
+					height: 95px;
+				}
+			}
+			.submit-div {
+				color: #7d91b2;
+				padding: 15px;
+				text-align: center;
+			}
+			.btn-save-user {
+				border-radius: 20px;
+				width: 200px;
+				background: white;
+				color: #7d91b2;
+				&:hover {
+					color: #7d91b2;
+				}
+			}
+			.bootstrap-select {
+				width: 100%;
+				.btn {
+					background: transparent none repeat scroll 0 0;
+					border: none;
+					border-radius: 0;
+					height: 100%;
+					padding: 15px;
+					box-shadow: none;
+					color: #7d91b2;
+					border-bottom: 1px solid #7d91b2;
+				}
+				.btn-default span.caret {
+					font-size: 2em;
+				}
+			}
+		}
+	}
+
+	#add-question-modal .modal-dialog {
+		width: 350px;
+		color: white;
+		.modal-body, .modal-header, .modal-footer {
+			background-color: #295578;
+		}
+		.modal-header {
+			border-bottom: 1px solid #5a7a93;
+			font-size: 19px;
+		}
+		.modal-body {
+			padding: 0px;
+			input[type=text] {
+				background: transparent;
+				border-color: -moz-use-text-color -moz-use-text-color #5a7a93;
+				border-style: none none solid;
+				border-width: medium medium 1px;
+				height: 50px;
+				font-size: 20px;
+				font-weight: 200;
+				padding: 0 15px;
+			}
+			textarea {
+				background: transparent;
+				width: 100%;
+				border-color: -moz-use-text-color -moz-use-text-color #5a7a93;
+				border-style: none none solid;
+				border-width: medium medium 1px;
+				height: 200px;
+				font-size: 20px;
+				font-weight: 200;
+				padding: 0 15px;
+				resize: none;
+			}
+			.answer-tab-btns {
+				border-bottom: 1px solid #5a7a93;
+				height: 50px;
+				.answer {
+					border-right: 1px solid #5a7a93;
+					height: 100%;
+					padding-top: 13px;
+					text-align: center;
+					width: 20%;
+				}
+				.btn {
+					border: 1px solid #5a7a93;
+					&:hover {
+						color: white;
+					}
+				}
+			}
+
 			.submit-div {
 				color: #7d91b2;
 				padding: 15px;

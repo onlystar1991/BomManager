@@ -16,4 +16,6 @@
  *= require font-awesome
  *= require bootstrap-select
  *= require bootstrap-table
+ *= require jquery-ui/
+ *= require jquery-ui/draggable
  */

@@ -29,7 +29,20 @@ class BomsController < ApplicationController
     respond_to do |format|
       if @bom.save
         format.html { redirect_to @bom, notice: 'Bom was successfully created.' }
-        format.json { render :show, status: :created, location: @bom }
+        format.json {
+          render json: {
+            status: "ok",
+            bom: {
+              id: @bom.id,
+              name: @bom.name,
+              description: @bom.description,
+              photo: @bom.photo.url,
+              purchase_order_number: @bom.purchase_order_number,
+              bom_category_id: @bom.bom_category_id
+            }
+          },
+          status: :created
+        }
       else
         format.html { render :new }
         format.json { render json: @bom.errors, status: :unprocessable_entity }
@@ -69,6 +82,6 @@ class BomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bom_params
-      params.require(:bom).permit(:name, :description, :bom_category_id, :photo)
+      params.require(:bom).permit(:name, :description, :bom_category_id, :photo, :purchase_order_number)
     end
 end

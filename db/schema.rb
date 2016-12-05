@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201065051) do
+ActiveRecord::Schema.define(version: 20161204134947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,12 +30,13 @@ ActiveRecord::Schema.define(version: 20161201065051) do
     t.string   "name"
     t.string   "description"
     t.integer  "bom_category_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.string   "purchase_order_number"
     t.index ["bom_category_id"], name: "index_boms_on_bom_category_id", using: :btree
   end
 
@@ -45,6 +46,15 @@ ActiveRecord::Schema.define(version: 20161201065051) do
     t.datetime "publish_date"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "multi_questions", force: :cascade do |t|
+    t.string   "text_answer"
+    t.boolean  "selected"
+    t.integer  "question_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["question_id"], name: "index_multi_questions_on_question_id", using: :btree
   end
 
   create_table "multiple_questions", force: :cascade do |t|
@@ -72,6 +82,8 @@ ActiveRecord::Schema.define(version: 20161201065051) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "count"
+    t.integer  "bom_id"
+    t.index ["bom_id"], name: "index_part_modules_on_bom_id", using: :btree
   end
 
   create_table "parts", force: :cascade do |t|
@@ -108,6 +120,17 @@ ActiveRecord::Schema.define(version: 20161201065051) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "bom_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string   "question"
+    t.integer  "type"
+    t.string   "text_answer"
+    t.boolean  "choice_answer"
+    t.integer  "bom_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["bom_id"], name: "index_questions_on_bom_id", using: :btree
   end
 
   create_table "roles", force: :cascade do |t|
@@ -150,7 +173,10 @@ ActiveRecord::Schema.define(version: 20161201065051) do
   end
 
   add_foreign_key "boms", "bom_categories"
+  add_foreign_key "multi_questions", "questions"
   add_foreign_key "multiple_questions", "questionnaires"
+  add_foreign_key "part_modules", "boms"
   add_foreign_key "parts", "firmwares"
   add_foreign_key "parts", "part_categories"
+  add_foreign_key "questions", "boms"
 end

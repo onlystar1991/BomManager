@@ -1,0 +1,1 @@
+json.array! @multi_questions, partial: 'multi_questions/multi_question', as: :multi_question

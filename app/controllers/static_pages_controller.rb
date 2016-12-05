@@ -16,5 +16,7 @@ class StaticPagesController < ApplicationController
 
 		@bom = Bom.new
 
+		@question = Question.new
+
 	end
 end

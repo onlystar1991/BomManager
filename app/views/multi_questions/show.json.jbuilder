@@ -1,0 +1,1 @@
+json.partial! "multi_questions/multi_question", multi_question: @multi_question

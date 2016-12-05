@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 	
+  resources :multi_questions
+  resources :questions
   resources :boms
   resources :part_modules
 	resources :questionnaires

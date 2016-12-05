@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Text answer:</strong>
+  <%= @multi_question.text_answer %>
+</p>
+
+<p>
+  <strong>Selected:</strong>
+  <%= @multi_question.selected %>
+</p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @multi_question.question %>
+</p>
+
+<%= link_to 'Edit', edit_multi_question_path(@multi_question) %> |
+<%= link_to 'Back', multi_questions_path %>

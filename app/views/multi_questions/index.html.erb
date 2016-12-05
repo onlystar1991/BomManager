@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Multi Questions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Text answer</th>
+      <th>Selected</th>
+      <th>Question</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @multi_questions.each do |multi_question| %>
+      <tr>
+        <td><%= multi_question.text_answer %></td>
+        <td><%= multi_question.selected %></td>
+        <td><%= multi_question.question %></td>
+        <td><%= link_to 'Show', multi_question %></td>
+        <td><%= link_to 'Edit', edit_multi_question_path(multi_question) %></td>
+        <td><%= link_to 'Destroy', multi_question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Multi Question', new_multi_question_path %>

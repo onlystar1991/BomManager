@@ -1,0 +1,32 @@
+<%= form_for(multi_question) do |f| %>
+  <% if multi_question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(multi_question.errors.count, "error") %> prohibited this multi_question from being saved:</h2>
+
+      <ul>
+      <% multi_question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :text_answer %>
+    <%= f.text_field :text_answer %>
+  </div>
+
+  <div class="field">
+    <%= f.label :selected %>
+    <%= f.check_box :selected %>
+  </div>
+
+  <div class="field">
+    <%= f.label :question_id %>
+    <%= f.text_field :question_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
