@@ -345,7 +345,7 @@
 						<%= f.email_field :email, placeholder: 'Email' %>
 						<%= f.file_field :photo, class: 'hide', id: 'user-photo-file', accept: "image/*" %>
 						<div class="file-upload">
-							<%= image_tag("create_user/add_photo", id: "add-user-photo") %>
+							<%= image_tag("create_user/add_photo.png", id: "add-user-photo") %>
 						</div>
 						<%= f.password_field :password, placeholder: 'Password' %>
 						<%= f.password_field :password_confirmation, placeholder: 'Password Confirmation' %>
@@ -372,7 +372,7 @@
 						<%= f.text_area :description, placeholder: 'Description (if any)' %>
 						<%= f.file_field :photo, class: 'hide', id: 'part-category-photo-file', accept: "image/*" %>
 						<div class="file-upload">
-							<%= image_tag("create_user/add_photo", id: "part-category-photo") %>
+							<%= image_tag("create_user/add_photo.png", id: "part-category-photo") %>
 						</div>
 						<div class="submit-div">
 							<a id="btn-save-part-category" class="btn btn-save-user" value="Create">Create</a>
@@ -402,11 +402,11 @@
 						<%= f.file_field :specification, class: 'hide', id: 'part-specification-file', accept: "application/msword,application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf," %>
 						<div class="file-upload">
 							<div class="col-first">
-								<%= image_tag("create_user/add_photo", id: "part-photo") %>
+								<%= image_tag("create_user/add_photo.png", id: "part-photo") %>
 							</div>
 							<div class="col-second">
 								Specification <br>
-								<%= image_tag("menu/attachment", id: "part-specification") %>
+								<%= image_tag("menu/attachment.png", id: "part-specification") %>
 								<br>
 								<div id="attach_text">ATTACHFILE</div>
 							</div>
@@ -454,11 +454,11 @@
 					<input id="show-part-darko-part-number" type="text" placeholder="Darko Part Number">
 					<div class="file-upload">
 						<div class="col-first">
-							<%= image_tag("create_user/add_photo", id: "part-photo") %>
+							<%= image_tag("create_user/add_photo.png", id: "part-photo") %>
 						</div>
 						<div class="col-second">
 							Specification <br>
-							<%= image_tag("menu/attachment", id: "part-specification") %>
+							<%= image_tag("menu/attachment.png", id: "part-specification") %>
 							<br>
 							<div id="attach_text">ATTACHFILE</div>
 						</div>
@@ -497,7 +497,7 @@
 						<%= f.text_area :description, placeholder: 'Description (if any)' %>
 						<%= f.file_field :photo, class: 'hide', id: 'bom-category-photo-file', accept: "image/*" %>
 						<div class="file-upload">
-							<%= image_tag("create_user/add_photo", id: "bom-category-photo") %>
+							<%= image_tag("create_user/add_photo.png", id: "bom-category-photo") %>
 						</div>
 						<div class="submit-div">
 							<a id="btn-save-bom-category" class="btn btn-save-user" value="Create">Create</a>
@@ -525,7 +525,7 @@
 						<%= f.text_field :purchase_order_number, placeholder: 'Purchase Order Number*' %>
 						<%= f.file_field :photo, class: 'hide', id: 'bom-photo-file', accept: "image/*" %>
 						<div class="file-upload">
-							<%= image_tag("create_user/add_photo", id: "bom-photo") %>
+							<%= image_tag("create_user/add_photo.png", id: "bom-photo") %>
 						</div>
 						<div class="submit-div">
 							<a id="btn-save-bom" class="btn btn-save-user" value="Create">Create</a>
