@@ -26,13 +26,31 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
 
+    if question_params[:question_type].eql?("2")
+      params[:multi].each do |multi_question|
+        multi = @question.multi_questions.build(:text_answer => multi_question, :selected => false)
+        multi.save
+      end
+    end
+
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
+        format.json {
+          render json: {
+            question: {
+              id: @question.id,
+              question: @question.question,
+              type: @question.question_type,
+              bom_id: @question.bom_id
+            },
+            status: "ok"
+          },
+          status: :ok
+        }
       else
         format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+        format.json { render json: @question.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -69,6 +87,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:question, :type, :text_answer, :choice_answer, :bom_id)
+      params.require(:question).permit(:question, :question_type, :text_answer, :choice_answer, :bom_id)
     end
 end

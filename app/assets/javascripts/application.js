@@ -20,4 +20,7 @@
 //= require twitter/bootstrap/rails/confirm
 //= require jquery-ui/core
 //= require jquery-ui/widgets/draggable
+//= require jquery-ui/widgets/droppable
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .

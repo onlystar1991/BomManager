@@ -153,14 +153,13 @@ $(function() {
 		}
 		reader.readAsDataURL(image);
 	})
-
-	$(".add-part-btn").click(function(event) {
+	$('body').on('click', '.add-part-btn', function(event) {
 		$("#add-part-modal").modal();
 		$("#new_part")[0].reset();
 		$("#part-photo").attr("src", origin_plus_button_src);
 		$("#attach_text").text("ATTACHFILE");
 	})
-
+	
 	function add_part_call_back(response) {
 		if (!response.status) {
 			var html = "";
@@ -170,7 +169,7 @@ $(function() {
 			var alertM = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'> ×</button>" + html + "</div>";
 			$(".modal-header").append(alertM);
 		} else if (response.status == "ok") {
-			var append = '<div class="col-md-12 list-item">' +
+			var append = '<div class="col-md-12 list-item draggable-part" data-id="' + response.part.id + '" data-name="' + response.part.name + '">' +
 							'<div class="pull-left">' +
 								'<img src="' + response.part.picture + '" />' +
 								'&nbsp;&nbsp;' + response.part.name + 
@@ -185,8 +184,179 @@ $(function() {
 
 			$("#parts-" + response.part.category_id).append(append);
 			$("#add-part-modal").modal('hide');
+			$(".draggable-part").draggable({
+				helper: "clone"
+			});
+
+			$(".add-parts-by-drop").droppable({
+				drop: function(e, ui) {
+					var element = $(ui.draggable).clone();
+					var part_items = $(this).parent();
+					var update = false;
+					var update_id;
+					var bom_id = $(this).attr("data-id");
+
+					var part_item_names = part_items.find('.part-module-item');
+					var updateElement;
+
+					part_item_names.each(function(index) {
+						if ($(this).attr("data-name") == element.attr("data-name")) {
+							update = true;
+							update_id = $(this).attr("data-id");
+							updateElement = $(this);
+						}
+					})
+
+					var data = {
+						'part_module[part_id]': element.attr("data-id"),
+						'part_module[count]': 1,
+						'part_module[bom_id]': $(this).attr("data-id"),
+					};
+
+					if (update) {
+						$.ajax({
+							url: '/part_modules/' + update_id + '.json',
+							type: "PUT",
+							success: function(response) {
+								if (response.status == "ok") {
+									var current_count = updateElement.find(".part_module_count").text();
+									updateElement.find(".part_module_count").text(parseInt(current_count) + 1);
+									
+									var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
+									
+									updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
+
+									var current_price = updateElement.parent().parent().find(".total_cost").text();
+									updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
+								}
+							}
+						});
+					} else {
+						updateElement = $(this);
+						$.ajax({
+							url: '/part_modules',
+							type: "POST",
+							data: data,
+							success: function(response) {
+								if (response.status == "ok") {
+									var appendHtml = '<div class="col-md-12 list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'">' +
+											 				'<div class="pull-left col-md-4">' +
+											 				'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
+															response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
+															'x<span class="part_module_count">' + response.part_module.count +'</span>&nbsp;pc' +
+														'</div>' +
+														'<div class="col-md-3 firmware_version">' +
+															response.part_module.firmware +
+														'</div>' +
+														'<div class="pull-right">' +
+															'$<span class="part-price">' + response.part_module.price + '</span>&nbsp;&nbsp;&nbsp;' +
+															'<button class="btn delete_part_module_item" data-id="' + response.part_module.id +'">' +
+																'<span class="fa fa-trash"></span>' +
+															'</button>' +
+														'</div>' +
+													'</div>';
+
+									part_items.prepend(appendHtml);
+
+									var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
+									updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
+
+									var current_price = updateElement.parent().parent().find(".total_cost").text();
+									updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
+								}
+							}
+						});
+					}
+				}
+			})
+
 		}
 	}
+	$(".draggable-part").draggable({
+		helper: "clone"
+	});
+
+	$(".add-parts-by-drop").droppable({
+		drop: function(e, ui) {
+			var element = $(ui.draggable).clone();
+			var part_items = $(this).parent();
+			var update = false;
+			var update_id;
+			var bom_id = $(this).attr("data-id");
+
+			var part_item_names = part_items.find('.part-module-item');
+			var updateElement;
+
+			part_item_names.each(function(index) {
+				if ($(this).attr("data-name") == element.attr("data-name")) {
+					update = true;
+					update_id = $(this).attr("data-id");
+					updateElement = $(this);
+				}
+			})
+
+			var data = {
+				'part_module[part_id]': element.attr("data-id"),
+				'part_module[count]': 1,
+				'part_module[bom_id]': $(this).attr("data-id"),
+			};
+
+			if (update) {
+				$.ajax({
+					url: '/part_modules/' + update_id + '.json',
+					type: "PUT",
+					success: function(response) {
+						if (response.status == "ok") {
+							var current_count = updateElement.find(".part_module_count").text();
+							updateElement.find(".part_module_count").text(parseInt(current_count) + 1);
+							
+							var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
+							
+							updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
+
+							var current_price = updateElement.parent().parent().find(".total_cost").text();
+							updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
+						}
+					}
+				});
+			} else {
+				updateElement = $(this);
+				$.ajax({
+					url: '/part_modules',
+					type: "POST",
+					data: data,
+					success: function(response) {
+						if (response.status == "ok") {
+							var appendHtml = '<div class="col-md-12 list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'">' +
+									 				'<div class="pull-left col-md-4">' +
+									 				'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
+													response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
+													'x<span class="part_module_count">' + response.part_module.count +'</span>&nbsp;pc' +
+												'</div>' +
+												'<div class="col-md-3 firmware_version">' +
+													response.part_module.firmware +
+												'</div>' +
+												'<div class="pull-right">' +
+													'$<span class="part-price">' + response.part_module.price + '</span>&nbsp;&nbsp;&nbsp;' +
+													'<button class="btn delete_part_module_item" data-id="' + response.part_module.id +'">' +
+														'<span class="fa fa-trash"></span>' +
+													'</button>' +
+												'</div>' +
+											'</div>';
+
+							part_items.prepend(appendHtml);
+
+							var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
+							updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
+
+							var current_price = updateElement.parent().parent().find(".total_cost").text();
+							updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
+						}
+					}
+				});
+			}
+		}
+	})
 
 	$(".btn-delete-part").click(function(event) {
 		var id = $(this).attr("data-id");
@@ -201,7 +371,7 @@ $(function() {
 		});
 	})
 
-	$(".btn-detail-part").click(function(event) {
+	$('body').on('click', ".btn-detail-part", function(event) {
 		var id = $(this).attr("data-id");
 
 		$.ajax({
@@ -212,25 +382,24 @@ $(function() {
 				$("#show-part-description").val(result.part.part_description);
 				$("#show-part-manufacturing-number").val(result.part.manufacturing_part);
 				$("#show-part-darko-part-number").val(result.part.darko_part_number);
-				
 				if (result.part.picture) {
 					$("#part-photo").attr("src", result.part.picture);
 				} else {
 					$("#part-photo").attr("src", origin_plus_button_src);
 				}
-
 				if (result.part.attachfile) {
 					$("#attach_text").text(result.part.attachfile);	
 				} else {
-					$("#attach_text").text("Empty");	
+					$("#attach_text").text("Empty");
 				}
-
 				$("#show-part-price").val(result.part.price);
+				$("#show-part-firmware").val(result.part.firmware);
+				$("#show-part-category-name").val(result.part.category);
 				$("#show-part-modal").modal();
 			}
 		})
 	})
-
+	
 	$("#btn-save-part").click(function(event) {
 		$("#new_part").ajaxSubmit(add_part_call_back);
 		return false;
@@ -464,6 +633,7 @@ $(function() {
 	$('body').on('click', '.add-question', function() {
 		$("#new_question")[0].reset();
 		$("#add-question-modal").modal();
+		$("#bom_id_value").val($(this).attr("data-id"));
 	})
 	
 
@@ -497,11 +667,71 @@ $(function() {
 	})
 
 	function addQuestionCallBack(response) {
-
+		if (!response.status) {
+			var html = "";
+			for (var i = response.length - 1; i >= 0; i--) {
+				html += response[i] + "<br>";
+			}
+			var alertM = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'> ×</button>" + html + "</div>";
+			$("#add-question-modal .modal-header").append(alertM);
+		} else if (response.status == "ok") {
+			console.log(response);
+			window.location.reload();
+		}
 	}
 
 	$("#btn-save-question").click(function() {
 		$("#new_question").ajaxSubmit(addQuestionCallBack);
 	})
 
+	$('body').on('click', '.delete-question-btn', function() {
+		var id = $(this).attr("data-id");
+		var el_delete = $(this);
+		$.ajax({
+			url: '/questions/' + id + '.json',
+			type: "DELETE",
+			success: function(result) {
+				console.log(result);
+				el_delete.parent().parent().remove();
+			}
+		});
+	})
+
+	$('body').on('click', '.delete_part_module_item', function() {
+		var id = $(this).attr("data-id");
+		var el_delete = $(this);
+		$.ajax({
+			url: '/part_modules/' + id + '.json',
+			type: "DELETE",
+			success: function(result) {
+				console.log(result);
+				el_delete.parent().parent().remove();
+			}
+		});
+	})
+
+	$("#add-firmware-btn").click(function() {
+		$("#new_firmware")[0].reset();
+		$("#add-firmware-dialog").modal();
+	})
+
+	function addFirmwareCallback(response) {
+		if (!response.status) {
+			var html = "";
+			for (var i = response.length - 1; i >= 0; i--) {
+				html += response[i] + "<br>";
+			}
+			var alertM = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'> ×</button>" + html + "</div>";
+			$("#add-firmware-dialog .modal-header").append(alertM);
+		} else if (response.status == "ok") {
+			console.log(response);
+			window.location.reload();
+		}
+	}
+
+	$("#btn-save-firmware").click(function() {
+		$("#new_firmware").ajaxSubmit(addFirmwareCallback);
+	})
+
+	$("#datetimepicker").datetimepicker();
 })

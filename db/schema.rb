@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161204134947) do
+ActiveRecord::Schema.define(version: 20161205120048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,7 +83,9 @@ ActiveRecord::Schema.define(version: 20161204134947) do
     t.datetime "updated_at", null: false
     t.integer  "count"
     t.integer  "bom_id"
+    t.integer  "part_id"
     t.index ["bom_id"], name: "index_part_modules_on_bom_id", using: :btree
+    t.index ["part_id"], name: "index_part_modules_on_part_id", using: :btree
   end
 
   create_table "parts", force: :cascade do |t|
@@ -105,7 +107,6 @@ ActiveRecord::Schema.define(version: 20161204134947) do
     t.string   "specification_content_type"
     t.integer  "specification_file_size"
     t.datetime "specification_updated_at"
-    t.integer  "part_module_id"
     t.index ["firmware_id"], name: "index_parts_on_firmware_id", using: :btree
     t.index ["part_category_id"], name: "index_parts_on_part_category_id", using: :btree
   end
@@ -124,7 +125,7 @@ ActiveRecord::Schema.define(version: 20161204134947) do
 
   create_table "questions", force: :cascade do |t|
     t.string   "question"
-    t.integer  "type"
+    t.integer  "question_type"
     t.string   "text_answer"
     t.boolean  "choice_answer"
     t.integer  "bom_id"
@@ -176,6 +177,7 @@ ActiveRecord::Schema.define(version: 20161204134947) do
   add_foreign_key "multi_questions", "questions"
   add_foreign_key "multiple_questions", "questionnaires"
   add_foreign_key "part_modules", "boms"
+  add_foreign_key "part_modules", "parts"
   add_foreign_key "parts", "firmwares"
   add_foreign_key "parts", "part_categories"
   add_foreign_key "questions", "boms"

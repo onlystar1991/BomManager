@@ -28,8 +28,11 @@ class FirmwaresController < ApplicationController
 
     respond_to do |format|
       if @firmware.save
-        format.html { redirect_to @firmware, notice: 'Firmware was successfully created.' }
-        format.json { render :show, status: :created, location: @firmware }
+        format.json { render json: {
+            status: "ok"
+          }, 
+          status: :ok
+        }
       else
         format.html { render :new }
         format.json { render json: @firmware.errors, status: :unprocessable_entity }

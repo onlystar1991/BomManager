@@ -77,22 +77,32 @@
 													</div>
 													<div id="bom-<%= bom.id %>" class="parts collapse fade tab-content">
 														<div id="part_modules_<%= bom.id %>" class="tab-pane active">
+															<% total_count = 0; total_price = 0;%>
 															<% bom.part_modules.each do |part_module| %>
-																<div class="col-md-12 list-item">
-																	<div class="pull-left">
-																		<%= image_tag part_module.photo.url %>
-																		&nbsp;&nbsp;<%= part_module.name %>
-																	</div>
+																<div class="col-md-12 list-item part-module-item text-left" data-id="<%= part_module.id %>" data-name="<%= part_module.part.part_name %>">
+																	<div class="pull-left col-md-4">
+																		<%= image_tag part_module.part.picture.url %>
+																		&nbsp;&nbsp;
+																		<%= part_module.part.part_name %>
+																		&nbsp;&nbsp;&nbsp;&nbsp;
 
+																		x<span class="part_module_count"><%= part_module.count %></span>&nbsp;pc
+
+																		<% total_count = total_count + part_module.count; total_price = total_price + part_module.count * part_module.part.price.to_f %>
+																	</div>
+																	<div class="col-md-3 firmware_version">
+																		<%= part_module.part.firmware.number %>
+																	</div>
 																	<div class="pull-right">
-																		<button class="btn btn-view" data-toggle="collapse" data-target="#part-module-<%= part_module.id %>">DETAIL</button>
-																		<button class="btn">
-																			<span class="fa fa-angle-down"></span>
+
+																		$<span class="part-price"><%= part_module.part.price %></span>&nbsp;&nbsp;&nbsp;
+																		<button class="btn delete_part_module_item" data-id="<%= part_module.id %>">
+																			<span class="fa fa-trash"></span>
 																		</button>
 																	</div>
 																</div>
 															<% end %>
-															<div class="col-md-12 list-item add-parts-by-drop">
+															<div class="col-md-12 list-item add-parts-by-drop" data-id="<%= bom.id %>">
 																Drag an item here from Part Library
 															</div>
 														</div>
@@ -100,15 +110,30 @@
 															<% bom.questions.each do |question| %>
 																<div class="col-md-12 list-item">
 																	<div class="pull-left">
-																		<%= question.text_question %>
+																		<%= question.question %>
 																	</div>
 
 																	<div class="pull-right">
-																		question1
+																		<% if question.question_type == 1 %>
+																			<% if question.choice_answer %>
+																				<label><input type="radio" checked name="choice_answer">Yes</label>
+																				<label><input type="radio" name="choice_answer">No</label>
+																			<% else %>
+																				<label><input type="radio" name="choice_answer">Yes</label>
+																				<label><input type="radio" checked name="choice_answer">No</label>
+																			<% end %>
+																		<% elsif question.question_type == 2 %>
+																			<% question.multi_questions.each do |mul| %>
+																				<label><input type="checkbox" <%= (mul.selected) ? "checked" : "" %> name="multi_answer[]"><%= mul.text_answer %></label>
+																			<% end %>
+																		<% else %>
+																			<label><input type="text" name="text_answer" value="<%= mul.text_answer %>"></label>
+																		<% end %>
+																		<button class="btn delete-question-btn" data-id="<%= question.id %>"><span class="fa fa-trash"></span></button>
 																	</div>
 																</div>
 															<% end %>
-															<div class="col-md-12 list-item add-question">
+															<div class="col-md-12 list-item add-question" data-id="<%= bom.id %>">
 																Add Question
 															</div>
 														</div>
@@ -117,10 +142,10 @@
 																TOTAL COST
 															</div>
 															<div class="col-md-4">
-																0x items
+																<span class="total_count_span"><%= total_count %></span>x items
 															</div>
 															<div class="col-md-4">
-																$0.00 
+																$<span class="total_cost"><%= total_price %></span>
 															</div>
 														</div>
 													</div>
@@ -179,7 +204,7 @@
 
 									<div id="parts-<%= part_category.id%>" class="parts collapse fade">
 										<% part_category.parts.each do |part| %>
-											<div class="col-md-12 list-item">
+											<div class="col-md-12 list-item draggable-part" data-id="<%= part.id %>" data-name="<%= part.part_name %>">
 												<div class="pull-left">
 													<%= image_tag part.picture.url %>
 													&nbsp;&nbsp;<%= part.part_name %>
@@ -395,16 +420,14 @@
 						</div>
 
 						<div class="firmware-input-field">
-							<a class="btn">
-								Firmware Version*
-							</a>
-							<a class="pull-right down-caret">
-								<span class="fa fa-caret-down"></span>
+							<%= f.collection_select :firmware_id, Firmware.all, :id, :number, { prompt: false }, { class: 'selectpicker' } %>
+							<a id="add-firmware-btn" class="pull-right down-caret btn">
+								<span class="fa fa-plus"></span>
 							</a>
 						</div>
 
 						<div class="input-field1">
-							<%= f.collection_select :part_category_id, PartCategory.all, :id, :name, { prompt: false }, { class: 'selectpicker' } %>
+							<%= f.collection_select :part_category_id, PartCategory.all, :id, :name, { prompt: false }, { class: 'selectpicker'} %>
 						</div>
 
 						<div class="submit-div">
@@ -422,7 +445,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"> &times;</button>
-					Add New Part
+					Part
 				</div>
 				<div class="modal-body">
 					<input id="show-part-name" type="text" placeholder="Part Name*">
@@ -442,29 +465,18 @@
 					</div>
 
 					<div class="input-field">
-						<input type="text" placeholder="Darko Part Number">
+						<input type="text" placeholder="" id="show-part-price">
 						<select class="selectpicker">
 							<option value="USD">USD</option>
 						</select>
 					</div>
 
-					<div class="firmware-input-field">
-						<a class="btn">
-							Firmware Version*
-						</a>
-						<a class="pull-right down-caret">
-							<span class="fa fa-caret-down"></span>
-						</a>
-					</div>
+					<input id="show-part-firmware" type="text">
 
-					<div class="input-field1">
-						<select class="selectpicker">
-							<option value="1"></option>
-						</select>
-					</div>
+					<input id="show-part-category-name" type="text">
 
 					<div class="submit-div">
-						<a id="btn-save-part" class="btn btn-save-user" value="Create">Save to Category</a>
+						<a class="btn btn-save-user" value="Create">Ok</a>
 					</div>
 				</div>
 			</div>
@@ -534,7 +546,7 @@
 
 				<div class="modal-body">
 					<%= form_for @question, :url => '/questions.json', :method => 'post', :multipart => true do |f| %>
-						<input type="hidden" name="question[bom_id]" id="bom_id">
+						<input type="hidden" name="question[bom_id]" id="bom_id_value">
 						<%= f.text_area :question, placeholder: 'Write a Question...' %>
 						<div class="answer-tab-btns">
 							<label class="answer">
@@ -542,24 +554,24 @@
 							</label>
 							<div class="btn-group" data-toggle="buttons" style="width: 78%;">
 								<label class="btn active">
-									<input type="radio" name="question[type]" autocomplete="off" value="1">Radio
+									<input type="radio" name="question[question_type]" autocomplete="off" value="1">Radio
 								</label>
 								<label class="btn">
-									<input type="radio" name="question[type]" autocomplete="off" value="2">Tick Box
+									<input type="radio" name="question[question_type]" autocomplete="off" value="2">Tick Box
 								</label>
 								<label class="btn">
-									<input type="radio" name="question[type]" autocomplete="off" value="3">Fill in the Blanks
+									<input type="radio" name="question[question_type]" autocomplete="off" value="3">Fill in the Blanks
 								</label>
 							</div>
 						</div>
 						<div class="text-answers">
 							<div class="radio-answer">
 								<label>
-									<input type="radio" name="question[choice_answer]" value="1" > Yes 
+									<input type="radio" name="question[choice_answer]" value="TRUE" > Yes 
 								</label>
 								<br>
 								<label>
-									<input type="radio" name="question[choice_answer]" value="0" > No
+									<input type="radio" name="question[choice_answer]" value="FALSE" > No
 								</label>
 							</div>
 							<div class="check-answer" style="display: none;">
@@ -582,6 +594,34 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="add-firmware-dialog" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Add New Firmware
+				</div>
+				<div class="modal-body">
+					<%= form_for @firmware, :url => '/firmwares.json', :method => 'post', :multipart => true do |f| %>
+						<%= f.text_field :number, placeholder: 'Firmware Number' %>
+						<%= f.text_field :description, placeholder: 'Firmware Description' %>
+						<div class='input-group date' id='datetimepicker'>
+							<%= f.text_field :publish_date, placeholder: 'Publish Date' %>
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+						<div class="submit-div">
+							<a id="btn-save-firmware" class="btn btn-save-user" value="Create">Add to list</a>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </div>
 
 <% if @current_user.has_role?(:admin) %>

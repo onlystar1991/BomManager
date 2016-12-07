@@ -46,6 +46,8 @@ GEM
       sass (~> 3.2)
     bootstrap-select-rails (1.6.3)
     bootstrap-table-rails (1.11.0)
+    bootstrap3-datetimepicker-rails (4.17.43)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     byebug (9.0.6)
     cancancan (1.15.0)
@@ -102,6 +104,8 @@ GEM
     mimemagic (0.3.0)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
+    momentjs-rails (2.15.1)
+      railties (>= 3.1)
     multi_json (1.12.1)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
@@ -201,6 +205,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   bootstrap-select-rails
   bootstrap-table-rails
+  bootstrap3-datetimepicker-rails (~> 4.17.43)
   byebug
   cancancan
   coffee-rails
@@ -212,6 +217,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   listen (~> 3.0.5)
+  momentjs-rails (>= 2.9.0)
   paperclip (~> 4.1)
   pg (~> 0.18)
   puma (~> 3.0)

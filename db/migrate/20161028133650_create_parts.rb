@@ -6,7 +6,7 @@ class CreateParts < ActiveRecord::Migration[5.0]
       t.string :manufacturing_part
       t.string :number
       t.string :darko_part_number
-      t.string :price
+      t.float :price
       t.belongs_to :firmware, foreign_key: true
       t.belongs_to :part_category, foreign_key: true
 

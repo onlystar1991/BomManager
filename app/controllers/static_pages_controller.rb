@@ -18,5 +18,6 @@ class StaticPagesController < ApplicationController
 
 		@question = Question.new
 
+		@firmware = Firmware.new
 	end
 end
