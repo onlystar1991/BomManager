@@ -42,7 +42,7 @@ $(function() {
 			$(".modal-header").append(alertM);
 		} else if (response.status == "ok") {
 			if ($("#users tbody").find("tr").length < 5) {
-				var append = '<tr>' +
+				var append = '<tr class="user_fields">' +
 								'<td>' + 
 									'<input type="checkbox" name="user">' + 
 								'</td>' +
