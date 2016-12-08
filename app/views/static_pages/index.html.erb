@@ -7,11 +7,15 @@
 						<%= image_tag("menu/module_icon.png") %>&nbsp;&nbsp; Modules
 					</a>
 				</li>
+		
+			<% if @current_user.has_role?(:admin) %>
 				<li class="<%=  @active_tab ? '' : 'active'%>">
 					<a href="#user-role" data-toggle="tab">
 						<%= image_tag("menu/user_icon.png") %>&nbsp;&nbsp;Users / Roles
 					</a>
 				</li>
+			<% end %>
+		
 			</ul>
 			<div class="tab-content">
 				<!--  -->
@@ -44,9 +48,11 @@
 
 										<div class="pull-right">
 											<button class="btn btn-view" data-toggle="collapse" data-target="#bom_category-<%= bom_category.id %>">VIEW ALL</button>
-											<button class="btn btn-delete-bom-category" data-id="<%= bom_category.id %>">
-												<span class="fa fa-trash"></span>
-											</button>
+											<% if @current_user.has_role?(:admin) %>
+												<button class="btn btn-delete-bom-category" data-id="<%= bom_category.id %>">
+													<span class="fa fa-trash"></span>
+												</button>
+											<% end %>
 										</div>
 									</div>
 									<div id="bom_category-<%= bom_category.id%>" class="parts collapse fade">
@@ -70,9 +76,11 @@
 															<button class="btn">
 																<span class="fa fa-print"></span>
 															</button>
-															<button class="btn delete-bom-btn" data-id="<%= bom.id %>">
-																<span class="fa fa-trash"></span>
-															</button>
+															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+																<button class="btn delete-bom-btn" data-id="<%= bom.id %>">
+																	<span class="fa fa-trash"></span>
+																</button>
+															<% end %>
 														</div>
 													</div>
 													<div id="bom-<%= bom.id %>" class="parts collapse fade tab-content">
@@ -96,15 +104,20 @@
 																	<div class="pull-right">
 
 																		$<span class="part-price"><%= part_module.part.price %></span>&nbsp;&nbsp;&nbsp;
-																		<button class="btn delete_part_module_item" data-id="<%= part_module.id %>">
-																			<span class="fa fa-trash"></span>
-																		</button>
+																		<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+																			<button class="btn delete_part_module_item" data-id="<%= part_module.id %>">
+																				<span class="fa fa-trash"></span>
+																			</button>
+																		<% end %>
 																	</div>
 																</div>
 															<% end %>
-															<div class="col-md-12 list-item add-parts-by-drop" data-id="<%= bom.id %>">
-																Drag an item here from Part Library
-															</div>
+															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+																<div class="col-md-12 list-item add-parts-by-drop" data-id="<%= bom.id %>">
+																	Drag an item here from Part Library
+																</div>
+															<% end %>
+															
 														</div>
 														<div id="questions_<%= bom.id %>" class="tab-pane">
 															<% bom.questions.each do |question| %>
@@ -129,13 +142,17 @@
 																		<% else %>
 																			<label><input type="text" name="text_answer" value="<%= mul.text_answer %>"></label>
 																		<% end %>
-																		<button class="btn delete-question-btn" data-id="<%= question.id %>"><span class="fa fa-trash"></span></button>
+																		<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+																			<button class="btn delete-question-btn" data-id="<%= question.id %>"><span class="fa fa-trash"></span></button>
+																		<% end %>
 																	</div>
 																</div>
 															<% end %>
-															<div class="col-md-12 list-item add-question" data-id="<%= bom.id %>">
-																Add Question
-															</div>
+															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+																<div class="col-md-12 list-item add-question" data-id="<%= bom.id %>">
+																	Add Question
+																</div>
+															<% end %>
 														</div>
 														<div class="col-md-12 list-item total-cost">
 															<div class="col-md-4">
@@ -149,21 +166,22 @@
 															</div>
 														</div>
 													</div>
-												</div>
-												
-												
+												</div>												
 											<% end %>
 										</div>
-										<div id="bom-category-<%= bom_category.id %>" data-name="<%= bom_category.name %>" class="col-md-12 list-item add-bom-category">
-											Add <%= bom_category.name %> BOM
-										</div>
+										<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+											<div id="bom-category-<%= bom_category.id %>" data-name="<%= bom_category.name %>" class="col-md-12 list-item add-bom-category">
+												Add <%= bom_category.name %> BOM
+											</div>
+										<% end %>
 									</div>
-
 								<% end %>
 							</div>
-							<div id="add-bom-category" class="col-md-12 list-item add-category">
-								Add Category
-							</div>
+							<% if @current_user.has_role?(:admin) %>
+								<div id="add-bom-category" class="col-md-12 list-item add-category">
+									Add Category
+								</div>
+							<% end %>
 						</div>
 					</div>
 					
@@ -193,9 +211,12 @@
 											&nbsp;&nbsp;<%= part_category.name %>
 										</div>
 										<div class="pull-right">
-											<button class="add-part-btn btn">
-												<span class="fa fa-plus fa-lg"></span>
-											</button>
+
+											<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+												<button class="add-part-btn btn">
+													<span class="fa fa-plus fa-lg"></span>
+												</button>
+											<% end %>
 											<button class="btn" data-toggle="collapse" data-target="#parts-<%= part_category.id %>">
 												<span class="fa fa-angle-down"></span>
 											</button>
@@ -211,22 +232,25 @@
 												</div>
 												<div class="pull-right">
 													<button class="btn btn-detail-part" data-id="<%= part.id %>">Detail</button>
-													<button class="btn btn-delete-part" data-id="<%= part.id %>"><span class="fa fa-trash fa-lg"></span></button>
+													<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+														<button class="btn btn-delete-part" data-id="<%= part.id %>"><span class="fa fa-trash fa-lg"></span></button>
+													<% end %>
 												</div>
 											</div>
 										<% end %>
 									</div>
 								<% end %>
 							</div>
-							<div id="add-part-library" class="col-md-12 list-item add-category">
-								Add Category
-							</div>
+							<% if @current_user.has_role?(:admin) %>
+								<div id="add-part-library" class="col-md-12 list-item add-category">
+									Add Category
+								</div>
+							<% end %>
 						</div>
 					</div>
 				</div>
 
-
-				<!-- Users and Roles Part -->
+			<% if @current_user.has_role?(:admin) %>
 				<div class="tab-pane <%=  @active_tab ? '' : 'active'%>" id="user-role">
 					<div class="col-md-7 panel-content">
 						<div>
@@ -261,8 +285,8 @@
 								</thead>
 								<tbody>
 									<% @users.each do |user| %>
-										<% if !user.has_role?(:admin) %>
-											<tr>
+										<% if !user.email.eql?(@current_user.email) %>
+											<tr class="user_fields" data-id="<%= user.id %>">
 												<td>
 													<input type="checkbox" name="user">
 												</td>
@@ -297,39 +321,30 @@
 					
 					<!-- Parts Library -->
 					<div class="col-md-5 panel-content">
-						<div>
-							<div class="col-md-12 module-panel-title part-module">
-								<%= image_tag("menu/part_library_icon.png", class: "title-icon-second") %>
-								&nbsp;ROLES
-								<%= image_tag("menu/search_red.png", class: "search-icon") %>
-								<div class="btn-group btn-input clearfix sort-term pull-right">
-									<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
-										<span data-bind="label">Date Created(Latest)</span>
-										<span class="fa fa-angle-down"></span>
-									</button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Date Created(Latest)</a></li>
-										<li><a href="#">Counts (Maximum)</a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-md-12 list-item">
-								<div class="pull-left">
-									<%= image_tag("menu/search_blue.png") %>
-									&nbsp;&nbsp;Phone
-								</div>
-								<div class="pull-right">
-									<button class="btn btn-view"><span class="fa fa-plus fa-lg"></button>
-									<button class="btn btn-delete"><span class="fa fa-angle-down fa-lg"></span></button>
-								</div>
-							</div>
+						<div class="col-md-12 module-panel-title part-module">
+							<%= image_tag("create_user/role_icon.png", class: "title-icon-second") %>
+							&nbsp;ROLES
 						</div>
+						<div id="user-roles" class="user-roles">
+							<!-- 
+							
+							-->
+						</div>
+						
 					</div>
 				</div>
+			<% end %>
+
+				<!-- Users and Roles Part -->
+				
+
 			</div>
 		</div>
 	</div>
 
+
+	<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+	
 	<!-- Add User Dialog -->
 	<div id="add-user-modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -440,48 +455,7 @@
 	</div>
 
 
-	<div id="show-part-modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"> &times;</button>
-					Part
-				</div>
-				<div class="modal-body">
-					<input id="show-part-name" type="text" placeholder="Part Name*">
-					<textarea id="show-part-description" placeholder="Part Description"></textarea>
-					<input id="show-part-manufacturing-number" type="text" placeholder="Manufacturing Part Number*">
-					<input id="show-part-darko-part-number" type="text" placeholder="Darko Part Number">
-					<div class="file-upload">
-						<div class="col-first">
-							<%= image_tag("create_user/add_photo.png", id: "part-photo") %>
-						</div>
-						<div class="col-second">
-							Specification <br>
-							<%= image_tag("menu/attachment.png", id: "part-specification") %>
-							<br>
-							<div id="attach_text">ATTACHFILE</div>
-						</div>
-					</div>
-
-					<div class="input-field">
-						<input type="text" placeholder="" id="show-part-price">
-						<select class="selectpicker">
-							<option value="USD">USD</option>
-						</select>
-					</div>
-
-					<input id="show-part-firmware" type="text">
-
-					<input id="show-part-category-name" type="text">
-
-					<div class="submit-div">
-						<a class="btn btn-save-user" value="Create">Ok</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 
 	<!-- Add Part Category Dialog  -->
 	<div id="add-bom-category-modal" class="modal fade" role="dialog">
@@ -578,7 +552,6 @@
 								<div>
 									<input type="text" name="multi[]">
 								</div>
-
 								<a id="add-more-question" class="btn"><span class="fa fa-plus"></span></a>
 							</div>
 							<div class="text-answer" style="display: none;">
@@ -620,12 +593,53 @@
 			</div>
 		</div>
 	</div>
+</div>
+<% end %>
 
+<div id="show-part-modal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"> &times;</button>
+				Part
+			</div>
+			<div class="modal-body">
+				<input id="show-part-name" type="text" placeholder="Part Name*">
+				<textarea id="show-part-description" placeholder="Part Description"></textarea>
+				<input id="show-part-manufacturing-number" type="text" placeholder="Manufacturing Part Number*">
+				<input id="show-part-darko-part-number" type="text" placeholder="Darko Part Number">
+				<div class="file-upload">
+					<div class="col-first">
+						<%= image_tag("create_user/add_photo.png", id: "part-photo") %>
+					</div>
+					<div class="col-second">
+						Specification <br>
+						<%= image_tag("menu/attachment.png", id: "part-specification") %>
+						<br>
+						<div id="attach_text">ATTACHFILE</div>
+					</div>
+				</div>
 
+				<div class="input-field">
+					<input type="text" placeholder="" id="show-part-price">
+					<select class="selectpicker">
+						<option value="USD">USD</option>
+					</select>
+				</div>
+
+				<input id="show-part-firmware" type="text">
+
+				<input id="show-part-category-name" type="text">
+
+				<div class="submit-div">
+					<a class="btn btn-save-user" value="Create">Ok</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<% if @current_user.has_role?(:admin) %>
-	
-<% else %>
-	
-<% end %>
+
+<%- # if current_user.can? :update, @part -%>
+	<!-- <h2>Can update Part</h2> -->
+<%- # end -%>

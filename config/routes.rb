@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 	
-  resources :multi_questions
-  resources :questions
-  resources :boms
-  resources :part_modules
+	resources :multi_questions
+	resources :questions
+	resources :boms
+	resources :part_modules
 	resources :questionnaires
 	resources :parts
 	resources :firmwares
@@ -18,5 +18,6 @@ Rails.application.routes.draw do
 
 	resources :users_admin, :controller => 'users'
 
+	post 'users_admin/change_role', to: 'users#change_role' 
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

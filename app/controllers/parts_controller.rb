@@ -46,8 +46,13 @@ class PartsController < ApplicationController
   # POST /parts
   # POST /parts.json
   def create
+
     @part = Part.new(part_params)
     respond_to do |format|
+      # if current_user.has_role?(:admin) or current_user.has_role(:super_visor)
+      #   format.html { render :no_content }
+      #   format.json { render json: {error: "has no permission"}, status: :ok }
+      # end
       if @part.save
         format.html { redirect_to @part, notice: 'Part was successfully created.' }
         format.json {

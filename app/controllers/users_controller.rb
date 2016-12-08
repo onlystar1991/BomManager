@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :change_role]
 
   # GET /users
   # GET /users.json
@@ -10,6 +10,29 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    if @user.has_role? :admin
+      role = 'admin'
+    elsif @user.has_role? :user
+      role = 'user'
+    else
+      role = 'super_visor'
+    end
+    respond_to do |format|
+      format.json { 
+        render json: { 
+          status: "ok", 
+          user: {
+            id: @user.id,
+            email: @user.email,
+            name: "#{@user.first_name} #{@user.last_name}",
+            photo: @user.photo.url,
+            time: @user.created_at.strftime("%B %d,%Y <br> %I:%M%p").html_safe,
+            role: role
+          }
+        }, 
+        status: :ok 
+      }
+    end
   end
 
   # GET /users/new
@@ -69,6 +92,27 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def change_role
+    if params[:role] == 'user'
+      @user.remove_role(:super_visor)
+      @user.add_role(:user)
+      role = 'user'
+    else
+      @user.remove_role(:user)
+      @user.add_role(:super_visor)
+      role = 'super_visor'
+    end
+    
+    respond_to do |format|
+      format.json {
+        render json: {
+          status: 'ok',
+          role: role
+        }
+      }
     end
   end
 

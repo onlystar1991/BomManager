@@ -70,7 +70,7 @@ $(function() {
 			$("#add-user-modal").modal('hide');
 		}
 	}
-	
+
 	$("#btn-save-user").click(function(event) {
 		$("#new_user").ajaxSubmit(add_user_callback);
 		return false;
@@ -159,7 +159,7 @@ $(function() {
 		$("#part-photo").attr("src", origin_plus_button_src);
 		$("#attach_text").text("ATTACHFILE");
 	})
-	
+
 	function add_part_call_back(response) {
 		if (!response.status) {
 			var html = "";
@@ -734,4 +734,317 @@ $(function() {
 	})
 
 	$("#datetimepicker").datetimepicker();
+
+
+	var selected_user_id = 0;
+	$("body").on('click', '.user_fields', function() {
+
+		$('#users').find('.user_fields').removeClass('active');
+		$(this).addClass('active');
+		selected_user_id = $(this).data('id');
+
+		$.ajax({
+			url: '/users_admin/' + selected_user_id + '.json',
+			type: "GET",
+			success: function(result){
+				console.log(result);
+				if (result.status != 'ok') {
+					alert('Something was wrong, please try again.');
+				} else {
+					var appendHtml = "";
+					if (result.user.role == "user") {
+						appendHtml = '<div class="role-assign">' +
+										'<select class="selectpicker" id="assign_role">' +
+											'<option value="user">User</option>' +
+											'<option value="super_visor">Super Visor</option>' +
+										'</select>' +
+									'</div>' +
+									'<table class="table-striped table table-bordered">' +
+										'<thead>' +
+											'<tr>' +
+												'<th>MODULE</th>' +
+												'<th>CREATE</th>' +
+												'<th>UPDATE</th>' +
+												'<th>DELETE</th>' +
+												'<th>READ</th>' +
+											'</tr>' +
+										'</thead>' +
+										'<tbody>' +
+											'<tr class="">' +
+												'<td>Part Category</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>BOM Category Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Fireware Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Part Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Questionnaire Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Bill of Materials Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+										'</tbody>' +
+									'</table>';
+					} else if (result.user.role == 'super_visor') {
+						appendHtml = '<div class="role-assign">' +
+										'<select class="selectpicker" id="assign_role">' +
+											'<option value="super_visor">Super Visor</option>' +
+											'<option value="user">User</option>' +
+										'</select>' +
+									'</div>' +
+									'<table class="table-striped table table-bordered">' +
+										'<thead>' +
+											'<tr>' +
+												'<th>MODULE</th>' +
+												'<th>CREATE</th>' +
+												'<th>UPDATE</th>' +
+												'<th>DELETE</th>' +
+												'<th>READ</th>' +
+											'</tr>' +
+										'</thead>' +
+										'<tbody>' +
+											'<tr class="">' +
+												'<td>Part Category</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>BOM Category Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Fireware Module</td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Part Module</td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Questionnaire Module</td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Bill of Materials Module</td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+										'</tbody>' +
+									'</table>';
+					}
+					$("#user-roles").html(appendHtml);
+					$("#assign_role").selectpicker();
+
+					$("#assign_role").change(function() {
+						change_role_function($(this));
+					})
+
+				}
+				
+				// tr_delete.parent().parent().remove();
+			}
+		});
+
+	})
+	function change_role_function(element) {
+		if (selected_user_id == 0) {
+			alert("Please select user first");
+			return false;
+		};
+		var data = {
+			id: selected_user_id,
+			role: element.val()
+		};
+		
+		$.ajax({
+			url: '/users_admin/change_role.json',
+			data: data,
+			type: 'POST',
+			success: function (response) {
+				if (response.status != 'ok') {
+					alert('Something was wrong, please try again.');
+				} else {
+					var appendHtml = "";
+					if (response.role == "user") {
+						appendHtml = '<div class="role-assign">' +
+										'<select class="selectpicker" id="assign_role">' +
+											'<option value="2">User</option>' +
+											'<option value="1">Super Visor</option>' +
+										'</select>' +
+									'</div>' +
+									'<table class="table-striped table table-bordered">' +
+										'<thead>' +
+											'<tr>' +
+												'<th>MODULE</th>' +
+												'<th>CREATE</th>' +
+												'<th>UPDATE</th>' +
+												'<th>DELETE</th>' +
+												'<th>READ</th>' +
+											'</tr>' +
+										'</thead>' +
+										'<tbody>' +
+											'<tr class="">' +
+												'<td>Part Category</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>BOM Category Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Fireware Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Part Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Questionnaire Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Bill of Materials Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+										'</tbody>' +
+									'</table>';
+					} else if (response.role == 'super_visor') {
+						appendHtml = '<div class="role-assign">' +
+										'<select class="selectpicker" id="assign_role">' +
+											'<option value="super_visor">Super Visor</option>' +
+											'<option value="user">User</option>' +
+										'</select>' +
+									'</div>' +
+									'<table class="table-striped table table-bordered">' +
+										'<thead>' +
+											'<tr>' +
+												'<th>MODULE</th>' +
+												'<th>CREATE</th>' +
+												'<th>UPDATE</th>' +
+												'<th>DELETE</th>' +
+												'<th>READ</th>' +
+											'</tr>' +
+										'</thead>' +
+										'<tbody>' +
+											'<tr class="">' +
+												'<td>Part Category</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>BOM Category Module</td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square-o"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Fireware Module</td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Part Module</td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Questionnaire Module</td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+											'<tr class="">' +
+												'<td>Bill of Materials Module</td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+												'<td><span class="fa fa-square"></span></td>' +
+											'</tr>' +
+										'</tbody>' +
+									'</table>';
+					}
+					$("#user-roles").html(appendHtml);
+					$("#assign_role").selectpicker();
+					$("#assign_role").change(function() {
+						change_role_function($(this));
+					})
+				}
+			}
+		})
+	}
+	$("#assign_role").change(function() {
+		change_role_function($(this));
+	})
 })

@@ -30,7 +30,6 @@
 		}
 		.panel-content {
 			padding-top: 10px;
-/*			height: 70vh; */
 			> div {
 				border: 1px solid #eaeaea;
 				border-radius: 5px;
@@ -100,6 +99,13 @@
 				padding-top: 7px;
 				text-align: center;
 			}
+			
+			.role-assign .bootstrap-select {
+				float: right;
+			}
+			.user-roles .table-bordered span.fa{
+				color: #923530;
+			}
 		}
 	}
 	.sort-term {
@@ -155,6 +161,11 @@
 			margin: 0;
 		}
 	}
+	table.list-item {
+		text-align: left;
+		font-size: 18px;
+		font-weight: 400;
+	}
 	.table tr td {
 		vertical-align: middle;
 	}
@@ -180,12 +191,22 @@
 			width: 30px;
 		}
 	}
+
+
 	#users img {
 		width: 44px;
 		height: 44px;
 		border-radius: 22px;
-	}
 
+	}
+	#users {
+		.user_fields {
+			border: none;
+		}
+		.user_fields.active {
+			border: 3px solid #486390;
+		}
+	}
 	#add-user-modal {
 		.modal-dialog {
 			width: 350px;
