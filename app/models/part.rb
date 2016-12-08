@@ -11,6 +11,8 @@ class Part < ApplicationRecord
 	validates :manufacturing_part, :presence => true
 	validates :darko_part_number, :presence => true
 	validates :price, :presence => true
+	validates :firmware_id, :presence => true
+	
 	
 	
 	resourcify
