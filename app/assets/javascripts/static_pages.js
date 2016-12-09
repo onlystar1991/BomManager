@@ -17,8 +17,7 @@ $(function() {
 	var add_user_callback = {
 		success: addUserCallback
 	}
-
-	$(".btn-user-delete").click(function() {
+	$('body').on('click', '.btn-user-delete', function() {
 		var id = $(this).attr("data-id");
 		var tr_delete = $(this);
 
@@ -607,9 +606,8 @@ $(function() {
 		reader.readAsDataURL(image);
 	})
 
-	// $("#add-parts-by-drop")
-	$('body').on('click', '.add-parts-by-drop', function() {
-
+	$('body').on('click', '.edit-bom-btn', function() {
+		$("#edit-bom-modal").modal();
 	})
 
 
@@ -734,6 +732,8 @@ $(function() {
 	})
 
 	$("#datetimepicker").datetimepicker();
+
+
 
 
 	var selected_user_id = 0;
@@ -885,11 +885,8 @@ $(function() {
 					})
 
 				}
-				
-				// tr_delete.parent().parent().remove();
 			}
 		});
-
 	})
 	function change_role_function(element) {
 		if (selected_user_id == 0) {
@@ -1047,4 +1044,5 @@ $(function() {
 	$("#assign_role").change(function() {
 		change_role_function($(this));
 	})
+
 })

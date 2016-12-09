@@ -15,7 +15,7 @@
 					</a>
 				</li>
 			<% end %>
-		
+
 			</ul>
 			<div class="tab-content">
 				<!--  -->
@@ -70,9 +70,10 @@
 															<a class="change-sub-tab" data-toggle="tab" href="#questions_<%= bom.id %>"> Questions </a> 
 
 															<button class="btn btn-view" data-toggle="collapse" data-target="#bom-<%= bom.id %>">DETAIL</button>
-															<button class="btn">
-																<span class="fa fa-pencil"></span>
-															</button>
+															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+																<%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_bom_path(bom), remote: true, class: "btn btn-default" %>
+																
+															<% end %>
 															<button class="btn">
 																<span class="fa fa-print"></span>
 															</button>
@@ -483,7 +484,7 @@
 		</div>
 	</div>
 
-	<div id="add-bom-modal" class="modal fade" role="dialog">
+	<div id="add-bom-modal" class="manage-bom-modal modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -504,6 +505,37 @@
 						<div class="submit-div">
 							<a id="btn-save-bom" class="btn btn-save-user" value="Create">Create</a>
 						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="edit-bom-modal" class="manage-bom-modal modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Add <span id="bom-name"></span> BOM
+				</div>
+
+				<div class="modal-body">
+					<%= form_for @bom, :url => '/boms.json', :method => 'put', :multipart => true do |f| %>
+
+						<%= f.text_field :name, placeholder: 'BOM Name*' %>
+						<%= f.text_area :description, placeholder: 'Description*' %>
+						<%= f.collection_select :bom_category_id, BomCategory.all, :id, :name, { prompt: false }, { class: 'selectpicker' } %>
+						<%= f.text_field :purchase_order_number, placeholder: 'Purchase Order Number*' %>
+						<%= f.file_field :photo, class: 'hide', id: 'bom-photo-file', accept: "image/*" %>
+						<div class="file-upload">
+							<%= image_tag("create_user/add_photo.png", id: "bom-photo") %>
+						</div>
+						
+						<div class="submit-div">
+							<a id="btn-save-bom" class="btn btn-save-user" value="Create">Create</a>
+						</div>
+
 					<% end %>
 				</div>
 			</div>

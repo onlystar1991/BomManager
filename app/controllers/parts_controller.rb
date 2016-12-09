@@ -9,7 +9,6 @@ class PartsController < ApplicationController
   # GET /parts/1
   # GET /parts/1.json
   def show
-    puts @part.specification.inspect
     respond_to do |format|
       format.html { render :show, notice: 'Part was successfully updated.', status: :ok, location: @part }
       format.json { 

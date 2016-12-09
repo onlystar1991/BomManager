@@ -1,7 +1,9 @@
 class Bom < ApplicationRecord
 	belongs_to :bom_category
 
-	has_many :part_modules
+	has_many :part_modules, dependent: :destroy 
+
+
 	has_many :questions
 
 	has_attached_file :photo, styles: { small: "64x64", medium: "94x95", large: "200x200"}
