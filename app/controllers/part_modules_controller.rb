@@ -39,7 +39,7 @@ class PartModulesController < ApplicationController
               part_name: @part_module.part.part_name,
               count: @part_module.count,
               price: @part_module.part.price,
-              firmware: @part_module.part.firmware.number,
+              firmware: @part_module.part.firmware.nil? ? " " : @part_module.part.firmware.number,
               photo: @part_module.part.picture.url
             }
           },

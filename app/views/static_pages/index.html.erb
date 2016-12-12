@@ -429,7 +429,7 @@
 						</div>
 
 						<div class="firmware-input-field">
-							<%= f.collection_select :firmware_id, Firmware.all, :id, :number, { prompt: false }, { class: 'selectpicker' } %>
+							<%= f.collection_select :firmware_id, Firmware.all, :id, :number, { prompt: true }, { class: 'selectpicker' } %>
 							<a id="add-firmware-btn" class="pull-right down-caret btn">
 								<span class="fa fa-plus"></span>
 							</a>
