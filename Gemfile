@@ -45,6 +45,9 @@ gem 'twitter-bootstrap-rails-confirm'
 gem 'cancancan'
 gem 'rolify'
 
+gem 'wkhtmltopdf-binary'
+gem 'pdfkit'
+
 gem 'jquery-form-rails'
 
 

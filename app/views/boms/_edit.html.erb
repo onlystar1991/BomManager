@@ -1,0 +1,31 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"> &times;</button>
+			Add <span id="bom-name"><%= @bom.name %></span> BOM
+		</div>
+
+		<div class="modal-body">
+			<%= form_for @bom, :method => 'PUT', :multipart => true, :remote => true do |f| %>
+				<%= f.text_field :name, placeholder: 'BOM Name*' %>
+				<%= f.text_area :description, placeholder: 'Description*' %>
+				<%= f.collection_select :bom_category_id, BomCategory.all, :id, :name, { prompt: false }, { class: 'selectpicker' } %>
+				<%= f.text_field :purchase_order_number, placeholder: 'Purchase Order Number*' %>
+				<%= f.file_field :photo, class: 'hide', id: 'bom-photo-file', accept: "image/*" %>
+				<div class="file-upload">
+					<% if @bom.photo.nil? %>
+						<%= image_tag("create_user/add_photo.png", id: "bom-photo") %>
+					<% else %>
+						<%= image_tag(@bom.photo.url, id: "bom-photo") %>
+					<% end %>
+				</div>
+				
+				<div class="submit-div">
+					<button id="btn-update-bom" class="btn btn-save-user" value="Create">Create</button>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+

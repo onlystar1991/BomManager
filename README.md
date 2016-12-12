@@ -1,24 +1,27 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Online BOM Management project.
 
-Things you may want to cover:
+Background:
 
-* Ruby version
+* Ruby version : 2.3.0
 
-* System dependencies
+* Rails version : 5.0.0.1
 
-* Configuration
+* Database : Postgresql
 
-* Database creation
+* Gem sets : Devise, Paperclip, Bootstrap, Cancancan, Rolify...
 
-* Database initialization
+Technology:
 
-* How to run the test suite
+* Devise for user authentication
 
-* Services (job queues, cache servers, search engines, etc.)
+* Bootstrap for styling
 
-* Deployment instructions
+* Cancancan and Rolify for user role and permission management
 
-* ...
+* Paperclip for file uploading
+
+* Ajax-based CRUD, Json based Restful api
+
+And So on ....

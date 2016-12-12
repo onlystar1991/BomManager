@@ -10,10 +10,12 @@ class Part < ApplicationRecord
 	validates :part_name, :presence => true
 	validates :manufacturing_part, :presence => true
 	validates :darko_part_number, :presence => true
+
 	validates :price, :presence => true
+	validates :price, presence: true,
+		numericality: true,
+		format: { :with => /\A\d{1,4}(\.\d{0,2})?\z/ }
+
 	validates :firmware_id, :presence => true
-	
-	
-	
 	resourcify
 end

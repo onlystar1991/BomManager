@@ -72,11 +72,8 @@
 															<button class="btn btn-view" data-toggle="collapse" data-target="#bom-<%= bom.id %>">DETAIL</button>
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																<%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_bom_path(bom), remote: true, class: "btn btn-default" %>
-																
 															<% end %>
-															<button class="btn">
-																<span class="fa fa-print"></span>
-															</button>
+															<%= link_to '<span class="fa fa-print"></span>'.html_safe, bom_path(bom, :format => 'pdf'), class: "btn", :target => "_blank" %>
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																<button class="btn delete-bom-btn" data-id="<%= bom.id %>">
 																	<span class="fa fa-trash"></span>
@@ -94,16 +91,13 @@
 																		&nbsp;&nbsp;
 																		<%= part_module.part.part_name %>
 																		&nbsp;&nbsp;&nbsp;&nbsp;
-
 																		x<span class="part_module_count"><%= part_module.count %></span>&nbsp;pc
-
 																		<% total_count = total_count + part_module.count; total_price = total_price + part_module.count * part_module.part.price.to_f %>
 																	</div>
 																	<div class="col-md-3 firmware_version">
 																		<%= part_module.part.firmware.number %>
 																	</div>
 																	<div class="pull-right">
-
 																		$<span class="part-price"><%= part_module.part.price %></span>&nbsp;&nbsp;&nbsp;
 																		<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																			<button class="btn delete_part_module_item" data-id="<%= part_module.id %>">
@@ -118,7 +112,6 @@
 																	Drag an item here from Part Library
 																</div>
 															<% end %>
-															
 														</div>
 														<div id="questions_<%= bom.id %>" class="tab-pane">
 															<% bom.questions.each do |question| %>
@@ -167,7 +160,7 @@
 															</div>
 														</div>
 													</div>
-												</div>												
+												</div>
 											<% end %>
 										</div>
 										<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
@@ -513,33 +506,7 @@
 
 
 	<div id="edit-bom-modal" class="manage-bom-modal modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"> &times;</button>
-					Add <span id="bom-name"></span> BOM
-				</div>
-
-				<div class="modal-body">
-					<%= form_for @bom, :url => '/boms.json', :method => 'put', :multipart => true do |f| %>
-
-						<%= f.text_field :name, placeholder: 'BOM Name*' %>
-						<%= f.text_area :description, placeholder: 'Description*' %>
-						<%= f.collection_select :bom_category_id, BomCategory.all, :id, :name, { prompt: false }, { class: 'selectpicker' } %>
-						<%= f.text_field :purchase_order_number, placeholder: 'Purchase Order Number*' %>
-						<%= f.file_field :photo, class: 'hide', id: 'bom-photo-file', accept: "image/*" %>
-						<div class="file-upload">
-							<%= image_tag("create_user/add_photo.png", id: "bom-photo") %>
-						</div>
-						
-						<div class="submit-div">
-							<a id="btn-save-bom" class="btn btn-save-user" value="Create">Create</a>
-						</div>
-
-					<% end %>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 
 	<div id="add-question-modal" class="modal fade" role="dialog">
@@ -547,7 +514,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"> &times;</button>
-					Add <span id="bom-name"></span> BOM
+					Add Question
 				</div>
 
 				<div class="modal-body">

@@ -1,0 +1,10 @@
+<% if @bom.errors.any? %>
+	var html = "";
+	<% @bom.errors.full_messages.each do |message| %>
+		html += <%= message %> + "<br>";
+	<% end %>
+	var alertM = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'> ×</button>" + html + "</div>";
+	$(".modal-header").append(alertM);
+<% else %>
+	$("#edit-bom-modal").modal("hide")
+<% end %>

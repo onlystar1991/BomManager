@@ -53,15 +53,7 @@ class BomsController < ApplicationController
   # PATCH/PUT /boms/1
   # PATCH/PUT /boms/1.json
   def update
-    respond_to do |format|
-      if @bom.update(bom_params)
-        format.html { redirect_to @bom, notice: 'Bom was successfully updated.' }
-        format.json { render :show, status: :ok, location: @bom }
-      else
-        format.html { render :edit }
-        format.json { render json: @bom.errors, status: :unprocessable_entity }
-      end
-    end
+    @bom.update(bom_params)
   end
 
   # DELETE /boms/1
