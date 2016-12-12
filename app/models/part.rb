@@ -16,6 +16,6 @@ class Part < ApplicationRecord
 		numericality: true,
 		format: { :with => /\A\d{1,4}(\.\d{0,2})?\z/ }
 
-	validates :firmware_id, :presence => true
+	# validates :firmware_id, :presence => true
 	resourcify
 end
