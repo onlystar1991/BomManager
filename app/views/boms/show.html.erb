@@ -1,72 +1,96 @@
-
+<style>
+	th {
+		text-align: center;
+	}
+	td {
+		text-align: left;
+	}
+	tr {
+		padding-left: 10px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+	table {
+		width: 100%;
+	}
+</style>
 <% bom = @bom %>
+<% total_count = 0; total_price = 0;%>
+<table BORDER cellpadding="3">
+	<thead>
+		<tr>
+			<th colspan=""><%= image_tag bom.photo.url, :style => 'width: 100px; height: 100px' %></th>
+			<th><%= @bom.name %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="text-align: center;">
+				Part Items
+			</td>
+			<td>
+				<table cellpadding=3 border="1">
+					<% bom.part_modules.each do |part_module| %>
+						<tr>
+							<td>
+								<%= image_tag part_module.part.picture.url %>
+							</td>
+							<td>
+								<%= part_module.part.part_name %>
+							</td>
 
-<div class="boms">
-	<div class="col-md-12 list-item">
-		<div class="pull-left">
-			<%= image_tag bom.photo.url, :style => 'width: 100px; height: 100px' %>
-			&nbsp;&nbsp;<%= bom.name %>
-		</div>
-	</div>
-	<div id="bom-<%= bom.id %>" class="parts">
-		<div id="part_modules_<%= bom.id %>">
-			<% total_count = 0; total_price = 0;%>
-			<% bom.part_modules.each do |part_module| %>
-				<div class="col-md-12 list-item part-module-item text-left" data-id="<%= part_module.id %>" data-name="<%= part_module.part.part_name %>">
-					<div class="pull-left col-md-4">
-						<%= image_tag part_module.part.picture.url %>
-						&nbsp;&nbsp;
-						<%= part_module.part.part_name %>
-						&nbsp;&nbsp;&nbsp;&nbsp;
-						x<span class="part_module_count"><%= part_module.count %></span>&nbsp;pc
-						<% total_count = total_count + part_module.count; total_price = total_price + part_module.count * part_module.part.price.to_f %>
-					</div>
-					<div class="col-md-3 firmware_version">
-						<%= part_module.part.firmware.number %>
-					</div>
-					<div class="pull-right">
-						$<span class="part-price"><%= part_module.part.price %></span>&nbsp;&nbsp;&nbsp;
-					</div>
-				</div>
-			<% end %>
-		</div>
-		<div id="questions_<%= bom.id %>">
-			<% bom.questions.each do |question| %>
-				<div class="col-md-12 list-item">
-					<div class="pull-left">
-						<%= question.question %>
-					</div>
-
-					<div class="pull-right">
-						<% if question.question_type == 1 %>
-							<% if question.choice_answer %>
-								<label><input type="radio" checked name="choice_answer">Yes</label>
-								<label><input type="radio" name="choice_answer">No</label>
-							<% else %>
-								<label><input type="radio" name="choice_answer">Yes</label>
-								<label><input type="radio" checked name="choice_answer">No</label>
-							<% end %>
-						<% elsif question.question_type == 2 %>
-							<% question.multi_questions.each do |mul| %>
-								<label><input type="checkbox" <%= (mul.selected) ? "checked" : "" %> name="multi_answer[]"><%= mul.text_answer %></label>
-							<% end %>
-						<% else %>
-							<label><input type="text" name="text_answer" value="<%= mul.text_answer %>"></label>
-						<% end %>
-					</div>
-				</div>
-			<% end %>
-		</div>
-		<div class="col-md-12 list-item total-cost">
-			<div class="col-md-4">
-				TOTAL COST
-			</div>
-			<div class="col-md-4">
-				<span class="total_count_span"><%= total_count %></span>x items
-			</div>
-			<div class="col-md-4">
-				$<span class="total_cost"><%= total_price %></span>
-			</div>
-		</div>
-	</div>
-</div>
+							<td>
+								x<%= part_module.count %>&nbsp;pc
+							</td>
+							<td>
+								<%= part_module.part.firmware.nil? ? "" : part_module.part.firmware.number %>
+							</td>
+							<td >
+								$<%= part_module.part.price %>
+							</td>
+							<% total_count = total_count + part_module.count; total_price = total_price + part_module.count * part_module.part.price.to_f %>
+						</tr>
+					<% end %>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">
+				Questions
+			</td>
+			<td>
+				<table border="1">
+					<% bom.questions.each do |question| %>
+						<tr>
+							<td>
+								<%= question.question %>
+							</td>
+							<td>
+								<% if question.question_type == 1 %>
+									<% if question.choice_answer %>
+										<label><input type="radio" checked name="choice_answer">Yes</label>
+										<label><input type="radio" name="choice_answer">No</label>
+									<% else %>
+										<label><input type="radio" name="choice_answer">Yes</label>
+										<label><input type="radio" checked name="choice_answer">No</label>
+									<% end %>
+								<% elsif question.question_type == 2 %>
+									<% question.multi_questions.each do |mul| %>
+										<label><input type="checkbox" <%= (mul.selected) ? "checked" : "" %> name="multi_answer[]"><%= mul.text_answer %></label>
+									<% end %>
+								<% else %>
+									<label><input type="text" name="text_answer" value="<%= mul.text_answer %>"></label>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: center;">
+				Total Cost:&nbsp;&nbsp;$<span class="total_cost"><%= total_price %></span> (<span class="total_count_span"><%= total_count %></span>x items)
+			</td>
+		</tr>
+	</tbody>
+</table>

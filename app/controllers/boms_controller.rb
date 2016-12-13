@@ -10,6 +10,13 @@ class BomsController < ApplicationController
   # GET /boms/1
   # GET /boms/1.json
   def show
+    boms = Bom.all
+
+    respond_to do |format|
+      format.csv { send_data @bom.to_csv, filename: "bom-#{@bom.id}-#{Date.today}.csv" }
+      format.pdf { render :show}
+      format.html { render :show}
+    end
   end
 
   # GET /boms/new

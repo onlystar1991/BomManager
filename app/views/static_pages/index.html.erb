@@ -74,6 +74,11 @@
 																<%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_bom_path(bom), remote: true, class: "btn btn-default" %>
 															<% end %>
 															<%= link_to '<span class="fa fa-print"></span>'.html_safe, bom_path(bom, :format => 'pdf'), class: "btn", :target => "_blank" %>
+
+															<%= link_to '<span class="fa fa-file-pdf-o"></span>'.html_safe, bom_path(bom, :format => 'pdf'), class: "btn", :target => "_blank" %>
+
+															<%= link_to '<span class="fa fa-file-text-o"></span>'.html_safe, bom_path(bom, :format => 'csv'), class: "btn", :target => "_blank" %>
+
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																<button class="btn delete-bom-btn" data-id="<%= bom.id %>">
 																	<span class="fa fa-trash"></span>
@@ -95,7 +100,7 @@
 																		<% total_count = total_count + part_module.count; total_price = total_price + part_module.count * part_module.part.price.to_f %>
 																	</div>
 																	<div class="col-md-3 firmware_version">
-																		<%= part_module.part.firmware.number %>
+																		<%= part_module.part.firmware.nil? ? "" : part_module.part.firmware.number %>
 																	</div>
 																	<div class="pull-right">
 																		$<span class="part-price"><%= part_module.part.price %></span>&nbsp;&nbsp;&nbsp;
