@@ -17,6 +17,7 @@ $(function() {
 	var add_user_callback = {
 		success: addUserCallback
 	}
+
 	$('body').on('click', '.btn-user-delete', function() {
 		var id = $(this).attr("data-id");
 		var tr_delete = $(this);
@@ -327,8 +328,8 @@ $(function() {
 					success: function(response) {
 						if (response.status == "ok") {
 							var appendHtml = '<div class="col-md-12 list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'">' +
-									 				'<div class="pull-left col-md-4">' +
-									 				'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
+													'<div class="pull-left col-md-4">' +
+													'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
 													response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
 													'x<span class="part_module_count">' + response.part_module.count +'</span>&nbsp;pc' +
 												'</div>' +
@@ -511,9 +512,6 @@ $(function() {
 		reader.readAsDataURL(image);
 	})
 
-
-
-
 	// Add bom to bom category
 	$('body').on('click', ".add-bom-category", function() {
 		$("#add-bom-modal").modal();
@@ -609,8 +607,6 @@ $(function() {
 	$('body').on('click', '.edit-bom-btn', function() {
 		$("#edit-bom-modal").modal();
 	})
-
-
 
 	$('body').on('click', '.delete-bom-btn', function() {
 		var id = $(this).attr("data-id");
@@ -892,7 +888,8 @@ $(function() {
 		if (selected_user_id == 0) {
 			alert("Please select user first");
 			return false;
-		};
+		}
+
 		var data = {
 			id: selected_user_id,
 			role: element.val()

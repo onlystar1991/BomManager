@@ -19,6 +19,7 @@ class FirmwaresController < ApplicationController
 
   # GET /firmwares/1/edit
   def edit
+
   end
 
   # POST /firmwares
@@ -30,7 +31,7 @@ class FirmwaresController < ApplicationController
       if @firmware.save
         format.json { render json: {
             status: "ok"
-          }, 
+          },
           status: :ok
         }
       else
