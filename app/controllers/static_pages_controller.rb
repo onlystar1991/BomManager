@@ -26,6 +26,7 @@ class StaticPagesController < ApplicationController
 	end
 
 	def import_from_google
+		part_category = PartCategory.first_or_create(name: 'GoogleSheet');
 		session = GoogleDrive::Session.from_config("config.json")
 		ws = session.spreadsheet_by_key("1EyiEv1s2YdvM8-npFupSmco5N0G9seGT-tFskqguS6A").worksheets[0]
 		i = 0;
@@ -39,8 +40,8 @@ class StaticPagesController < ApplicationController
 							price_500: ws[row, 8].split("$")[1],
 							price_1000: ws[row, 9].split("$")[1],
 							price_2500: ws[row, 10].split("$")[1],
-							price_5000: ws[row, 11].split("$")[1]
-							)
+							price_5000: ws[row, 11].split("$")[1],
+							part_category_id: part_category.id )
 			puts '++++++++++++'
 			puts part.number.inspect
 			puts "+++++++++++++"
