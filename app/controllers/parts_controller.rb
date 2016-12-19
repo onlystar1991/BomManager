@@ -11,7 +11,7 @@ class PartsController < ApplicationController
   def show
     respond_to do |format|
       format.html { render :show, notice: 'Part was successfully updated.', status: :ok, location: @part }
-      format.json { 
+      format.json {
         render json: {
           part: {
             id: @part.id,

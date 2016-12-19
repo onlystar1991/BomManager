@@ -5,34 +5,6 @@ class StaticPagesController < ApplicationController
 	require "googleauth"
 
 	def index
-		credentials = Google::Auth::UserRefreshCredentials.new(
-			client_id: "980508681652-aabtrkd65tt9ask0lm54ne5e2pk8uaqq.apps.googleusercontent.com",
-			client_secret: "kGBTWFzUxdmDm9DUESmG4Dpu",
-			scope: [
-				"https://www.googleapis.com/auth/drive",
-				"https://spreadsheets.google.com/feeds/",
-			],
-			redirect_uri: "http://example.com/redirect"
-		)
-
-		session = GoogleDrive::Session.from_config("config.json")
-		ws = session.spreadsheet_by_key("1EyiEv1s2YdvM8-npFupSmco5N0G9seGT-tFskqguS6A").worksheets[0]
-
-		(1..ws.num_rows).each do |row|
-			puts '-----------------'
-			(1..ws.num_cols).each do |col|
-				p ws[row, col]
-			end
-			puts '+++++++++++++++'
-		end
-		
-		# auth_url = credentials.authorization_uri
-
-		# puts '-----------------'
-		# puts credentials.inspect
-		# puts '-----------------'
-
-		# ws = session.spreadsheet_by_key("1EyiEv1s2YdvM8-npFupSmco5N0G9seGT-tFskqguS6A").worksheets[0]
 
 		@current_user = current_user
 		@user = User.new
@@ -51,5 +23,35 @@ class StaticPagesController < ApplicationController
 
 		@question = Question.new
 		@firmware = Firmware.new
+	end
+
+	def import_from_google
+		session = GoogleDrive::Session.from_config("config.json")
+		ws = session.spreadsheet_by_key("1EyiEv1s2YdvM8-npFupSmco5N0G9seGT-tFskqguS6A").worksheets[0]
+		i = 0;
+
+		(3..161).each do |row|
+			part = Part.new(part_name: ws[row, 1],
+							part_description: ws[row, 2],
+							number: ws[row, 3],
+							price: ws[row, 6].split("$")[1],
+							price_250: ws[row, 7].split("$")[1],
+							price_500: ws[row, 8].split("$")[1],
+							price_1000: ws[row, 9].split("$")[1],
+							price_2500: ws[row, 10].split("$")[1],
+							price_5000: ws[row, 11].split("$")[1]
+							)
+			puts '++++++++++++'
+			puts part.number.inspect
+			puts "+++++++++++++"
+			# i = i + 1  if part.save
+			if part.save
+				i = i + 1
+			else 
+				puts part.errors.full_messages
+			end
+		end
+		flash[:notice] = "#{i} items imported from google sheet";
+		redirect_to root_path
 	end
 end

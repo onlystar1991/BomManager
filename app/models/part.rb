@@ -8,14 +8,14 @@ class Part < ApplicationRecord
 	validates_attachment :specification, :content_type => { :content_type => %w(application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document) }
 
 	validates :part_name, :presence => true
-	validates :manufacturing_part, :presence => true
-	validates :darko_part_number, :presence => true
-
-	validates :price, :presence => true
+	# validates :manufacturing_part, :presence => true
+	# validates :darko_part_number, :presence => true
 	validates :price, presence: true,
 		numericality: true,
 		format: { :with => /\A\d{1,4}(\.\d{0,2})?\z/ }
 
+	validates :number, uniqueness: true
+	
 	# validates :firmware_id, :presence => true
 	resourcify
 end

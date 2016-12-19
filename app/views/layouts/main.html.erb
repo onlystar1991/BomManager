@@ -57,8 +57,11 @@
 						<h4>WELCOME, <%= current_user.first_name << " " << current_user.last_name %></h4>
 					<% end %>
 				</div>
+
 				<div class="col-sm-2 col-xs-2">
 					<%= link_to "Dashboard", root_path, class: 'btn btn-dashboard pull-right' %>
+					<br><br>
+					<%= link_to "Import From Google Sheet", static_pages_import_from_google_path, :method => :post, class: 'btn btn-dashboard pull-right' %>
 				</div>
 			</div>
 			<%= yield %>

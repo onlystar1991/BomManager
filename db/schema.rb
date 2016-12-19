@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205120048) do
+ActiveRecord::Schema.define(version: 20161218052525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,11 @@ ActiveRecord::Schema.define(version: 20161205120048) do
     t.string   "specification_content_type"
     t.integer  "specification_file_size"
     t.datetime "specification_updated_at"
+    t.float    "price_250"
+    t.float    "price_500"
+    t.float    "price_1000"
+    t.float    "price_2500"
+    t.float    "price_5000"
     t.index ["firmware_id"], name: "index_parts_on_firmware_id", using: :btree
     t.index ["part_category_id"], name: "index_parts_on_part_category_id", using: :btree
   end

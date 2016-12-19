@@ -10,6 +10,7 @@ class FirmwaresController < ApplicationController
   # GET /firmwares/1
   # GET /firmwares/1.json
   def show
+    
   end
 
   # GET /firmwares/new
