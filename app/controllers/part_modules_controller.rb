@@ -56,7 +56,7 @@ class PartModulesController < ApplicationController
   def update
     
     respond_to do |format|
-      if @part_module.increment!(:count)
+      if @part_module.update(part_module_params)
         format.json { 
           render json: {
             status: 'ok',

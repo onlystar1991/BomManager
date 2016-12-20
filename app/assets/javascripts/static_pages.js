@@ -240,10 +240,10 @@ $(function() {
 							success: function(response) {
 								if (response.status == "ok") {
 									var appendHtml = '<div class="col-md-12 list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'">' +
-											 				'<div class="pull-left col-md-4">' +
+											 			'<div class="pull-left col-md-4">' +
 											 				'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
 															response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
-															'x<span class="part_module_count">' + response.part_module.count +'</span>&nbsp;pc' +
+															'x<input type="text" class="part_module_count" autocomplete="off" value="' + response.part_module.count + '">&nbsp;pc' +
 														'</div>' +
 														'<div class="col-md-3 firmware_version">' +
 															response.part_module.firmware +
@@ -261,8 +261,11 @@ $(function() {
 									var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
 									updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
 
+
 									var current_price = updateElement.parent().parent().find(".total_cost").text();
 									updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
+
+									activate_part_module_item();
 								}
 							}
 						});
@@ -328,10 +331,10 @@ $(function() {
 					success: function(response) {
 						if (response.status == "ok") {
 							var appendHtml = '<div class="col-md-12 list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'">' +
-													'<div class="pull-left col-md-4">' +
+												'<div class="pull-left col-md-4">' +
 													'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
 													response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
-													'x<span class="part_module_count">' + response.part_module.count +'</span>&nbsp;pc' +
+													'x<input type="text" class="part_module_count" value="' + response.part_module.count + '">&nbsp;pc' +
 												'</div>' +
 												'<div class="col-md-3 firmware_version">' +
 													response.part_module.firmware +
@@ -351,6 +354,8 @@ $(function() {
 
 							var current_price = updateElement.parent().parent().find(".total_cost").text();
 							updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
+
+							activate_part_module_item();
 						}
 					}
 				});
@@ -553,38 +558,7 @@ $(function() {
 			$("#add-bom-modal .modal-header").append(alertM);
 		} else if (response.status == "ok") {
 			console.log(response);
-
 			window.location.reload();
-			// var appendHtm = '<div class="col-md-12 list-item">' +
-			// 					'<div class="pull-left">' +
-			// 						'<img src="' + response.bom.photo + '" >' +
-			// 						'&nbsp;&nbsp;' + response.bom.name +
-			// 					'</div>' +
-			// 					'<div class="pull-right">' +
-			// 						'<a data-toggle="tab" href="#part_modules_' + response.bom.id + '"> Part Items </a> <span>|</span>' +
-			// 						'<a data-toggle="tab" href="#questions_' + response.bom.id + '"> Questions </a> ' +
-			// 						'<button class="btn btn-view" data-toggle="collapse" data-target="#bom-' + response.bom.id + '">DETAIL</button>' +
-			// 						'<button class="btn">' +
-			// 							'<span class="fa fa-angle-down"></span>' +
-			// 						'</button>' +
-			// 					'</div>' +
-			// 				'</div>' +
-			// 				'<div id="bom-' + response.bom.id + '" class="parts collapse fade">' +
-			// 					'<div id="part_modules_' + response.bom.id + '" class="tab-pane active">' +
-			// 						'<div class="col-md-12 list-item add-parts-by-drop">' +
-			// 							'Drag an item here from Part Library' +
-			// 						'</div>' +
-			// 					'</div>' +
-			// 					'<div id="questions_' + response.bom.id +'" class="tab-pane">' +
-			// 						'<div class="col-md-12 list-item add-question">' +
-			// 							'Add Question' +
-			// 						'</div>' +
-			// 					'</div>' +
-			// 				'</div>';
-			// alert(appendHtm);
-			// alert($("#bom_category-" + response.bom.bom_category_id + " .real-content").html());
-			// $("#bom_category-" + response.bom.bom_category_id + " .real-content").append(appendHtm);
-			// $("#add-bom-modal").modal('hide');
 		}
 	}
 
@@ -699,7 +673,9 @@ $(function() {
 			type: "DELETE",
 			success: function(result) {
 				console.log(result);
+				var $bom = el_delete.parent().parent().parent();
 				el_delete.parent().parent().remove();
+				calc_total_budget($bom);
 			}
 		});
 	})
@@ -1038,8 +1014,75 @@ $(function() {
 			}
 		})
 	}
+
 	$("#assign_role").change(function() {
 		change_role_function($(this));
 	})
 
+	function activate_part_module_item() {
+		$(".part_module_count").numeric(false);
+
+		$(".part_module_count").focusout(function() {
+			if ($.trim($(this).val()) == "") {
+				$(this).val(0);
+			}
+
+			var update_id = $(this).parent().parent().attr("data-id");
+
+			var data = {
+				'part_module[count]': $(this).val(),
+				'part_module[bom_id]': $(this).parent().parent().attr("bom-id"),
+			};
+
+			$.ajax({
+				url: '/part_modules/' + update_id + '.json',
+				type: "PUT",
+				data: data,
+				success: function(response) {
+					if (response.status == "ok") {
+						
+					}
+				}
+			});
+			calc_total_budget($(this).parent().parent().parent())
+
+		})
+	}
+	activate_part_module_item();
+
+	function calc_total_budget($element) {
+		var price = 0;
+		$element.find('.part-module-item').each(function(index) {
+			price += parseInt($(this).find('.part_module_count').val()) * parseFloat($(this).find('.part-price').text());
+		})
+		$element.parent().find('.total_cost').text(price);
+	}
+
+
+
+
+
+
+	// Adjust element's widths
+
+	if ($('body').width() < 1183) {
+		if ($('.col-max-7').hasClass('col-md-7')) {
+			$('.col-max-7').removeClass('col-md-7');
+			$('.col-max-7').addClass('col-md-12');
+		}
+
+		if ($('.col-max-5').hasClass('col-md-5')) {
+			$('.col-max-5').removeClass('col-md-5');
+			$('.col-max-5').addClass('col-md-12');
+		}			
+	} else {
+		if ($('.col-max-7').hasClass('col-md-12')) {
+			$('.col-max-7').removeClass('col-md-12');
+			$('.col-max-7').addClass('col-md-7');
+		}
+		if ($('.col-max-5').hasClass('col-md-12')) {
+			$('.col-max-5').removeClass('col-md-12');
+			$('.col-max-5').addClass('col-md-5');
+		}
+	}
 })

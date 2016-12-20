@@ -42,9 +42,6 @@ class StaticPagesController < ApplicationController
 							price_2500: ws[row, 10].split("$")[1],
 							price_5000: ws[row, 11].split("$")[1],
 							part_category_id: part_category.id )
-			puts '++++++++++++'
-			puts part.number.inspect
-			puts "+++++++++++++"
 			# i = i + 1  if part.save
 			if part.save
 				i = i + 1

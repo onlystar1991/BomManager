@@ -9,7 +9,7 @@
 				</li>
 		
 			<% if @current_user.has_role?(:admin) %>
-				<li class="<%=  @active_tab ? '' : 'active'%>">
+				<li class="<%= @active_tab ? '' : 'active'%>">
 					<a href="#user-role" data-toggle="tab">
 						<%= image_tag("menu/user_icon.png") %>&nbsp;&nbsp;Users / Roles
 					</a>
@@ -20,9 +20,9 @@
 			<div class="tab-content">
 				<!--  -->
 				<div class="tab-pane <%=  @active_tab ? 'active' : ''%>" id="module">
-					<div class="col-md-7 panel-content">
+					<div class="col-md-7 panel-content col-max-7">
 						<div>
-							<div class="col-md-12 module-panel-title">
+							<div class="module-panel-title">
 								<%= image_tag("menu/bom_template.png", class: "title-icon") %>
 								&nbsp;BOM TEMPLATES LIBRARY
 								<%= image_tag("menu/search_blue.png", class: "search-icon") %>
@@ -40,7 +40,7 @@
 
 							<div id="bom-categories">
 								<% @bom_categories.each do |bom_category| %>
-									<div class="col-md-12 list-item bom-title">
+									<div class="col-md-12111 list-item bom-title">
 										<div class="pull-left">
 											<%= image_tag bom_category.photo.url %>
 											&nbsp;&nbsp;<%= bom_category.name %>
@@ -59,7 +59,7 @@
 										<div class="real-content">
 											<% bom_category.boms.each do |bom| %>
 												<div class="boms">
-													<div class="col-md-12 list-item">
+													<div class="col-md-12111 list-item">
 														<div class="pull-left">
 															<%= image_tag bom.photo.url %>
 															&nbsp;&nbsp;<%= bom.name %>
@@ -73,8 +73,6 @@
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																<%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_bom_path(bom), remote: true, class: "btn btn-default" %>
 															<% end %>
-															<%= link_to '<span class="fa fa-print"></span>'.html_safe, bom_path(bom, :format => 'pdf'), class: "btn", :target => "_blank" %>
-
 															<%= link_to '<span class="fa fa-file-pdf-o"></span>'.html_safe, bom_path(bom, :format => 'pdf'), class: "btn", :target => "_blank" %>
 
 															<%= link_to '<span class="fa fa-file-text-o"></span>'.html_safe, bom_path(bom, :format => 'csv'), class: "btn", :target => "_blank" %>
@@ -90,18 +88,22 @@
 														<div id="part_modules_<%= bom.id %>" class="tab-pane active">
 															<% total_count = 0; total_price = 0;%>
 															<% bom.part_modules.each do |part_module| %>
-																<div class="col-md-12 list-item part-module-item text-left" data-id="<%= part_module.id %>" data-name="<%= part_module.part.part_name %>">
-																	<div class="pull-left col-md-4">
+																<div class="col-md-12111 list-item part-module-item text-left" data-id="<%= part_module.id %>" data-name="<%= part_module.part.part_name %>" bom-id="<%= bom.id %>">
+																	<div class="pull-left col-md-5">
 																		<%= image_tag part_module.part.picture.url %>
 																		&nbsp;&nbsp;
 																		<%= part_module.part.part_name %>
 																		&nbsp;&nbsp;&nbsp;&nbsp;
-																		x<span class="part_module_count"><%= part_module.count %></span>&nbsp;pc
+
+																		x
+																		<input type="text" class="part_module_count" value="<%= part_module.count %>" autocomplete="off">
+																		&nbsp;pc
 																		<% total_count = total_count + part_module.count; total_price = total_price + part_module.count * part_module.part.price.to_f %>
 																	</div>
-																	<div class="col-md-3 firmware_version">
-																		<%= part_module.part.firmware.nil? ? "" : part_module.part.firmware.number %>
-																	</div>
+																	<!-- <div class="col-md-4 firmware_version"> -->
+																	<span class="firmware_version"><%= part_module.part.firmware.nil? ? "" : part_module.part.firmware.number %></span>
+																		
+																	<!-- </div> -->
 																	<div class="pull-right">
 																		$<span class="part-price"><%= part_module.part.price %></span>&nbsp;&nbsp;&nbsp;
 																		<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
@@ -113,14 +115,14 @@
 																</div>
 															<% end %>
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
-																<div class="col-md-12 list-item add-parts-by-drop" data-id="<%= bom.id %>">
+																<div class="col-md-12111 list-item add-parts-by-drop" data-id="<%= bom.id %>">
 																	Drag an item here from Part Library
 																</div>
 															<% end %>
 														</div>
 														<div id="questions_<%= bom.id %>" class="tab-pane">
 															<% bom.questions.each do |question| %>
-																<div class="col-md-12 list-item">
+																<div class="col-md-12111 list-item">
 																	<div class="pull-left">
 																		<%= question.question %>
 																	</div>
@@ -148,12 +150,12 @@
 																</div>
 															<% end %>
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
-																<div class="col-md-12 list-item add-question" data-id="<%= bom.id %>">
+																<div class="col-md-12111 list-item add-question" data-id="<%= bom.id %>">
 																	Add Question
 																</div>
 															<% end %>
 														</div>
-														<div class="col-md-12 list-item total-cost">
+														<div class="col-md-12111 list-item total-cost">
 															<div class="col-md-4">
 																TOTAL COST
 															</div>
@@ -169,7 +171,7 @@
 											<% end %>
 										</div>
 										<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
-											<div id="bom-category-<%= bom_category.id %>" data-name="<%= bom_category.name %>" class="col-md-12 list-item add-bom-category">
+											<div id="bom-category-<%= bom_category.id %>" data-name="<%= bom_category.name %>" class="col-md-12111 list-item add-bom-category">
 												Add <%= bom_category.name %> BOM
 											</div>
 										<% end %>
@@ -177,7 +179,7 @@
 								<% end %>
 							</div>
 							<% if @current_user.has_role?(:admin) %>
-								<div id="add-bom-category" class="col-md-12 list-item add-category">
+								<div id="add-bom-category" class="col-md-12111 list-item add-category">
 									Add Category
 								</div>
 							<% end %>
@@ -185,9 +187,9 @@
 					</div>
 					
 					<!-- Parts Library -->
-					<div class="col-md-5 panel-content">
+					<div class="col-md-5 panel-content col-max-5">
 						<div>
-							<div class="col-md-12 module-panel-title part-module">
+							<div class="module-panel-title part-module">
 								<%= image_tag("menu/part_library_icon.png", class: "title-icon-second") %>
 								&nbsp;PARTS LIBRARY
 								<%= image_tag("menu/search_red.png", class: "search-icon") %>
@@ -204,7 +206,7 @@
 							</div>
 							<div id="part_categories">
 								<% @part_categories.each do |part_category| %>
-									<div class="col-md-12 list-item">
+									<div class="col-md-12111 list-item">
 										<div class="pull-left">
 											<%= image_tag part_category.photo.url %>
 											&nbsp;&nbsp;<%= part_category.name %>
@@ -224,7 +226,7 @@
 
 									<div id="parts-<%= part_category.id%>" class="parts collapse fade">
 										<% part_category.parts.each do |part| %>
-											<div class="col-md-12 list-item draggable-part" data-id="<%= part.id %>" data-name="<%= part.part_name %>">
+											<div class="col-md-12111 list-item draggable-part" data-id="<%= part.id %>" data-name="<%= part.part_name %>">
 												<div class="pull-left">
 													<%= image_tag part.picture.url %>
 													&nbsp;&nbsp;<%= part.part_name %>
@@ -241,7 +243,7 @@
 								<% end %>
 							</div>
 							<% if @current_user.has_role?(:admin) %>
-								<div id="add-part-library" class="col-md-12 list-item add-category">
+								<div id="add-part-library" class="col-md-12111 list-item add-category">
 									Add Category
 								</div>
 							<% end %>
@@ -251,9 +253,9 @@
 
 			<% if @current_user.has_role?(:admin) %>
 				<div class="tab-pane <%=  @active_tab ? '' : 'active'%>" id="user-role">
-					<div class="col-md-7 panel-content">
+					<div class="col-md-7 panel-content col-max-7">
 						<div>
-							<div class="col-md-12 module-panel-title">
+							<div class="module-panel-title">
 								<%= image_tag("create_user/user_tab_icon.png", class: "user-role-icon") %>
 								&nbsp;USERS&nbsp;
 								<%= image_tag("create_user/user_plus.png", class: "search-icon", id: 'add-user') %>
@@ -319,8 +321,8 @@
 					</div>
 					
 					<!-- Parts Library -->
-					<div class="col-md-5 panel-content">
-						<div class="col-md-12 module-panel-title part-module">
+					<div class="col-md-5 panel-content col-max-5">
+						<div class="module-panel-title part-module">
 							<%= image_tag("create_user/role_icon.png", class: "title-icon-second") %>
 							&nbsp;ROLES
 						</div>

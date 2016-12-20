@@ -13,6 +13,7 @@
 //= require jquery2
 //= require jquery_ujs
 //= require jquery.form
+//= require jquery.numeric
 //= require bootstrap
 //= require bootstrap/button
 //= require bootstrap-select
