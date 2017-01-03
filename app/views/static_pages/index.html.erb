@@ -89,7 +89,7 @@
 															<% total_count = 0; total_price = 0;%>
 															<% bom.part_modules.each do |part_module| %>
 																<div class="col-md-12111 list-item part-module-item text-left" data-id="<%= part_module.id %>" data-name="<%= part_module.part.part_name %>" bom-id="<%= bom.id %>">
-																	<div class="pull-left col-md-5">
+																	<div class="pull-left col-md-7">
 																		<%= image_tag part_module.part.picture.url %>
 																		&nbsp;&nbsp;
 																		<%= part_module.part.part_name %>
