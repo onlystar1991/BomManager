@@ -54,7 +54,7 @@ class PartsController < ApplicationController
               id: @part.id,
               name: @part.part_name,
               picture: @part.picture.url,
-              category_id: @part.part_category_id
+              category_id: @part.sub_category_id
             }
           },
           status: :ok
@@ -98,7 +98,7 @@ class PartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def part_params
-      params.require(:part).permit(:part_name, :part_description, :manufacturing_part, :number, :darko_part_number, :price, :firmware_id, :part_category_id)
+      params.require(:part).permit(:part_name, :part_description, :manufacturing_part, :number, :darko_part_number, :price, :firmware_id, :sub_category_id)
     end
 
     def get_dependency

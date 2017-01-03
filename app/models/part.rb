@@ -1,7 +1,6 @@
 class Part < ApplicationRecord
 	belongs_to :firmware
-	belongs_to :part_category
-
+	belongs_to :sub_category
 	has_attached_file :picture, default_url: "/photos/original/missing.png"
 	
 	has_attached_file :specification
@@ -14,8 +13,6 @@ class Part < ApplicationRecord
 		numericality: true,
 		format: { :with => /\A\d{1,4}(\.\d{0,2})?\z/ }
 
-	validates :number, uniqueness: true
-	
-	# validates :firmware_id, :presence => true
+	validates :number, :uniqueness => {:scope => :sub_category_id}
 	resourcify
 end

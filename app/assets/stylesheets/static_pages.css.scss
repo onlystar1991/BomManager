@@ -77,8 +77,11 @@
 				margin-bottom: 0px;
 			}
 			.parts .list-item{
-				padding-left: 35px;
+				padding-left: 50px;
 				background: #f9f5f4 none repeat scroll 0 0;
+			}
+			.parts .list-item.draggable-part {
+				padding-left: 90px;
 			}
 			.parts.tab-content .list-item{
 				padding-left: 60px;
@@ -326,7 +329,46 @@
 			}
 		}
 	}
-
+	#add-sub-category-modal .modal-dialog {
+		width: 350px;
+		color: #cfd7e3;
+		.modal-body, .modal-header, .modal-footer {
+			background-color: #973630;
+		}
+		.modal-header {
+			border-bottom: 1px solid #ac6561;
+			font-size: 19px;
+		}
+		.modal-body {
+			padding: 0px;
+			input[type=text], input[type=email], input[type=password] {
+				background: transparent;
+				width: 100%;
+				border-color: -moz-use-text-color -moz-use-text-color #ac6561;
+				border-style: none none solid;
+				border-width: medium medium 1px;
+				height: 50px;
+				font-size: 20px;
+				font-weight: 200;
+				padding: 0 15px;
+			}
+			
+			.submit-div {
+				color: #973630;
+				padding: 15px;
+				text-align: center;
+			}
+			.btn-save-user {
+				border-radius: 20px;
+				width: 200px;
+				background: white;
+				color: #973630;
+				&:hover {
+					color: #973630;
+				}
+			}
+		}
+	}
 	#add-part-modal {
 		.modal-dialog {
 			width: 350px;
@@ -479,6 +521,9 @@
 					}
 				}
 			}
+		}
+		#part_price {
+			border: none;
 		}
 	}
 

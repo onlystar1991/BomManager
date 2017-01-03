@@ -206,37 +206,55 @@
 							</div>
 							<div id="part_categories">
 								<% @part_categories.each do |part_category| %>
-									<div class="col-md-12111 list-item">
+									<div class="col-md-12111 list-item" data-id="<%= part_category.id %>">
 										<div class="pull-left">
 											<%= image_tag part_category.photo.url %>
 											&nbsp;&nbsp;<%= part_category.name %>
 										</div>
 										<div class="pull-right">
-
 											<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
-												<button class="add-part-btn btn">
+												<button class="add-sub-category-btn btn" data-id="<%= part_category.id %>">
 													<span class="fa fa-plus fa-lg"></span>
 												</button>
 											<% end %>
-											<button class="btn" data-toggle="collapse" data-target="#parts-<%= part_category.id %>">
+											<button class="btn" data-toggle="collapse" data-target="#sub-categories-<%= part_category.id %>">
 												<span class="fa fa-angle-down"></span>
 											</button>
 										</div>
 									</div>
 
-									<div id="parts-<%= part_category.id%>" class="parts collapse fade">
-										<% part_category.parts.each do |part| %>
-											<div class="col-md-12111 list-item draggable-part" data-id="<%= part.id %>" data-name="<%= part.part_name %>">
+									<div id="sub-categories-<%= part_category.id%>" class="parts collapse fade">
+										<% part_category.sub_categories.each do |sub_category| %>
+											<div class="col-md-12111 list-item">
 												<div class="pull-left">
-													<%= image_tag part.picture.url %>
-													&nbsp;&nbsp;<%= part.part_name %>
+													&nbsp;&nbsp;&nbsp;&nbsp;<%= sub_category.name %>
 												</div>
 												<div class="pull-right">
-													<button class="btn btn-detail-part" data-id="<%= part.id %>">Detail</button>
 													<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
-														<button class="btn btn-delete-part" data-id="<%= part.id %>"><span class="fa fa-trash fa-lg"></span></button>
+														<button class="add-part-btn btn">
+															<span class="fa fa-plus fa-lg"></span>
+														</button>
 													<% end %>
+													<button class="btn" data-toggle="collapse" data-target="#parts-<%= sub_category.id %>">
+														<span class="fa fa-angle-down"></span>
+													</button>
 												</div>
+											</div>
+											<div id="parts-<%= sub_category.id %>" class="parts collapse fade">
+												<% sub_category.parts.each do |part| %>
+													<div class="col-md-12111 list-item draggable-part" data-id="<%= part.id %>" data-name="<%= part.part_name %>">
+														<div class="pull-left">
+															<%= image_tag part.picture.url %>
+															&nbsp;&nbsp;<%= part.part_name %>
+														</div>
+														<div class="pull-right">
+															<button class="btn btn-detail-part" data-id="<%= part.id %>">Detail</button>
+															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
+																<button class="btn btn-delete-part" data-id="<%= part.id %>"><span class="fa fa-trash fa-lg"></span></button>
+															<% end %>
+														</div>
+													</div>
+												<% end %>
 											</div>
 										<% end %>
 									</div>
@@ -443,7 +461,7 @@
 						</div>
 
 						<div class="input-field1">
-							<%= f.collection_select :part_category_id, PartCategory.all, :id, :name, { prompt: false }, { class: 'selectpicker'} %>
+							<%= f.collection_select :sub_category_id, SubCategory.all, :id, :name, { prompt: false }, { class: 'selectpicker'} %>
 						</div>
 
 						<div class="submit-div">
@@ -599,6 +617,26 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="add-sub-category-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Add Sub Category
+				</div>
+				<div class="modal-body">
+					<%= form_for @sub_category, :url => '/sub_categories.json', :method => 'post', :multipart => true do |f| %>
+						<%= f.text_field :name, placeholder: 'Sub Category Name' %>
+						<input type="hidden" name="sub_category[part_category_id]" id="sub_category_part_category_id">
+						<div class="submit-div">
+							<a id="btn-save-sub-category" class="btn btn-save-user" value="Create">Create</a>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <% end %>
 
@@ -644,7 +682,6 @@
 		</div>
 	</div>
 </div>
-
 
 <%- # if current_user.can? :update, @part -%>
 	<!-- <h2>Can update Part</h2> -->

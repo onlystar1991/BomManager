@@ -97,6 +97,13 @@ $(function() {
 	* Bom Template Library and Part Library Parts
 	*/
 
+	$('body').on('click', '.add-sub-category-btn', function() {
+		$("#add-sub-category-modal").modal();
+		$("#new_sub_category")[0].reset();
+		$("#sub_category_part_category_id").val($(this).data('id'));
+	})
+
+
 	$("#add-part-library").click(function(event) {
 		$("#add-part-category-modal").modal();
 		$("#new_part_category")[0].reset();
@@ -153,6 +160,42 @@ $(function() {
 		}
 		reader.readAsDataURL(image);
 	})
+
+	function add_sub_category_callback(response) {
+		if (!response.status) {
+			var html = "";
+			for (var i = response.length - 1; i >= 0; i--) {
+				html += response[i] + "<br>";
+			}
+			var alertM = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'> ×</button>" + html + "</div>";
+			$(".modal-header").append(alertM);
+		} else if (response.status == "ok") {
+			var append = '<div class="col-md-12111 list-item">' +
+							'<div class="pull-left">' +
+								'&nbsp;&nbsp;&nbsp;&nbsp;' + response.sub_category.name +
+							'</div>' +
+							'<div class="pull-right">' +
+									'<button class="add-part-btn btn">' +
+										'<span class="fa fa-plus fa-lg"></span>' +
+									'</button>' +
+								'<button class="btn" data-toggle="collapse" data-target="#parts-' + response.sub_category.category_id + '">' +
+									'<span class="fa fa-angle-down"></span>' + 
+								'</button>' +
+							'</div>' +
+						'</div>' +
+						'<div id="parts-' + response.sub_category.category_id + '" class="parts collapse fade">' + 
+						'</div>';
+			$("#sub-categories-" + response.sub_category.category_id).append(append);
+			
+			$("#add-sub-category-modal").modal('hide');
+		}
+	}
+
+	$("#btn-save-sub-category").click(function() {
+		$("#new_sub_category").ajaxSubmit(add_sub_category_callback);
+		return false;
+	})
+
 	$('body').on('click', '.add-part-btn', function(event) {
 		$("#add-part-modal").modal();
 		$("#new_part")[0].reset();
@@ -184,6 +227,8 @@ $(function() {
 
 			$("#parts-" + response.part.category_id).append(append);
 			$("#add-part-modal").modal('hide');
+			window.location.reload();
+			
 			$(".draggable-part").draggable({
 				helper: "clone"
 			});
@@ -217,6 +262,7 @@ $(function() {
 						$.ajax({
 							url: '/part_modules/' + update_id + '.json',
 							type: "PUT",
+							data: data,
 							success: function(response) {
 								if (response.status == "ok") {
 									var current_count = updateElement.find(".part_module_count").text();
@@ -471,6 +517,7 @@ $(function() {
 			for (var i = response.length - 1; i >= 0; i--) {
 				html += response[i] + "<br>";
 			}
+
 			var alertM = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'> ×</button>" + html + "</div>";
 			$("#add-bom-category-modal .modal-header").append(alertM);
 		} else if (response.status == "ok") {
@@ -525,7 +572,6 @@ $(function() {
 		$("#new_bom")[0].reset();
 		$("#bom-photo").attr("src", origin_plus_button_src);
 	})
-
 
 	$("#bom-photo").click(function(event) {
 		$("#bom-photo-file").click();
@@ -704,9 +750,6 @@ $(function() {
 	})
 
 	$("#datetimepicker").datetimepicker();
-
-
-
 
 	var selected_user_id = 0;
 	$("body").on('click', '.user_fields', function() {
@@ -1052,10 +1095,15 @@ $(function() {
 
 	function calc_total_budget($element) {
 		var price = 0;
+		var count = 0;
 		$element.find('.part-module-item').each(function(index) {
 			price += parseInt($(this).find('.part_module_count').val()) * parseFloat($(this).find('.part-price').text());
+			count += parseInt($(this).find('.part_module_count').val());
+
 		})
+
 		$element.parent().find('.total_cost').text(price);
+		$element.parent().find('.total_count_span').text(count);
 	}
 
 
@@ -1065,7 +1113,7 @@ $(function() {
 
 	// Adjust element's widths
 
-	if ($('body').width() < 1183) {
+	if ($('body').width() < 1188) {
 		if ($('.col-max-7').hasClass('col-md-7')) {
 			$('.col-max-7').removeClass('col-md-7');
 			$('.col-max-7').addClass('col-md-12');
