@@ -1113,7 +1113,7 @@ $(function() {
 
 	// Adjust element's widths
 
-	if ($('body').width() < 1402) {
+	if ($('body').width() < 1188) {
 		if ($('.col-max-7').hasClass('col-md-7')) {
 			$('.col-max-7').removeClass('col-md-7');
 			$('.col-max-7').addClass('col-md-12');
