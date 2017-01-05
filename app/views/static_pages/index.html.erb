@@ -105,7 +105,7 @@
 																		
 																	<!-- </div> -->
 																	<div class="pull-right">
-																		$<span class="part-price" data-price="<%= part_module.part.price %>"><%= part_module.part.price * part_module.count %></span>&nbsp;&nbsp;&nbsp;
+																		$<span class="part-price" data-price="<%= (part_module.part.price * 100).round / 100.0 %>"><%= (part_module.part.price * part_module.count * 100).round / 100.0 %></span>&nbsp;&nbsp;&nbsp;
 																		<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																			<button class="btn delete_part_module_item" data-id="<%= part_module.id %>">
 																				<span class="fa fa-trash"></span>
