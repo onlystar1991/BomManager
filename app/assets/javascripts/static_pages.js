@@ -982,12 +982,12 @@ $(function() {
 				data: data,
 				success: function(response) {
 					if (response.status == "ok") {
-						part_module_item.find('.part-price').text(parseInt(part_item_price) * response.part_module.count)
+						alert(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
+						part_module_item.find('.part-price').text(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
 					}
 				}
 			});
 			calc_total_budget($(this).parent().parent().parent())
-
 		})
 	}
 	activate_part_module_item();
@@ -1020,7 +1020,7 @@ $(function() {
 		if ($('.col-max-5').hasClass('col-md-5')) {
 			$('.col-max-5').removeClass('col-md-5');
 			$('.col-max-5').addClass('col-md-12');
-		}			
+		}
 	} else {
 		if ($('.col-max-7').hasClass('col-md-12')) {
 			$('.col-max-7').removeClass('col-md-12');
