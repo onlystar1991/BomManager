@@ -979,9 +979,10 @@ $(function() {
 				data: data,
 				success: function(response) {
 					if (response.status == "ok") {
+						///////////////////////////////
 						alert(response.part_module.price);
 						alert(response.part_module.count);
-						var price = response.part_module.price * response.part_module.count;
+						var price = parseFloat(response.part_module.price * response.part_module.count);
 						alert(price);
 						part_module_item.find('.part-price').text(price);
 						calc_total_budget(parent_element);
