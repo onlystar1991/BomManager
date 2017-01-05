@@ -98,7 +98,7 @@
 																		x
 																		<input type="text" class="part_module_count" value="<%= part_module.count %>" autocomplete="off">
 																		&nbsp;pc
-																		<% total_count = total_count + part_module.count; total_price = total_price + part_module.count * part_module.part.price.to_f %>
+																		<% total_count = total_count + part_module.count; total_price = total_price + part_module.count * part_module.part.price %>
 																	</div>
 																	<!-- <div class="col-md-4 firmware_version"> -->
 																	<span class="firmware_version"><%= part_module.part.firmware.nil? ? "" : part_module.part.firmware.number %></span>
