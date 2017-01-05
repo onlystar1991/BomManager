@@ -982,7 +982,7 @@ $(function() {
 						///////////////////////////////
 						alert(response.part_module.price);
 						alert(response.part_module.count);
-						var price = parseFloat(response.part_module.price * response.part_module.count);
+						var price = (response.part_module.price * response.part_module.count).toFixed(2);
 						alert(price);
 						part_module_item.find('.part-price').text(price);
 						calc_total_budget(parent_element);
@@ -1000,7 +1000,7 @@ $(function() {
 			price += $(this).find('.part_module_count').val() * $(this).find('.part-price').data('price');
 			count += parseInt($(this).find('.part_module_count').val());
 		})
-		$element.parent().find('.total_cost').text(price);
+		$element.parent().find('.total_cost').text((price).toFixed(2));
 		$element.parent().find('.total_count_span').text(count);
 	}
 
