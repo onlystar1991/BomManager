@@ -25,7 +25,7 @@ $(function() {
 		$.ajax({
 			url: '/users_admin/' + id + '.json',
 			type: "DELETE",
-			success: function(result){
+			success : function(result){
 				console.log(result);
 				tr_delete.parent().parent().remove();
 			}
@@ -224,101 +224,9 @@ $(function() {
 								'</button>' +
 							'</div>' +
 						'</div>';
-
 			$("#parts-" + response.part.category_id).append(append);
 			$("#add-part-modal").modal('hide');
 			window.location.reload();
-			
-			$(".draggable-part").draggable({
-				helper: "clone"
-			});
-
-			$(".add-parts-by-drop").droppable({
-				drop: function(e, ui) {
-					var element = $(ui.draggable).clone();
-					var part_items = $(this).parent();
-					var update = false;
-					var update_id;
-					var bom_id = $(this).attr("data-id");
-
-					var part_item_names = part_items.find('.part-module-item');
-					var updateElement;
-
-					part_item_names.each(function(index) {
-						if ($(this).attr("data-name") == element.attr("data-name")) {
-							update = true;
-							update_id = $(this).attr("data-id");
-							updateElement = $(this);
-						}
-					})
-
-					var data = {
-						'part_module[part_id]': element.attr("data-id"),
-						'part_module[count]': 1,
-						'part_module[bom_id]': $(this).attr("data-id"),
-					};
-
-					if (update) {
-						$.ajax({
-							url: '/part_modules/' + update_id + '.json',
-							type: "PUT",
-							data: data,
-							success: function(response) {
-								if (response.status == "ok") {
-									var current_count = updateElement.find(".part_module_count").text();
-									updateElement.find(".part_module_count").text(parseInt(current_count) + 1);
-									
-									var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
-									
-									updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
-
-									var current_price = updateElement.parent().parent().find(".total_cost").text();
-									updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
-								}
-							}
-						});
-					} else {
-						updateElement = $(this);
-						$.ajax({
-							url: '/part_modules',
-							type: "POST",
-							data: data,
-							success: function(response) {
-								if (response.status == "ok") {
-									var appendHtml = '<div class="col-md-12 list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'">' +
-											 			'<div class="pull-left col-md-4">' +
-											 				'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
-															response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
-															'x<input type="text" class="part_module_count" autocomplete="off" value="' + response.part_module.count + '">&nbsp;pc' +
-														'</div>' +
-														'<div class="col-md-3 firmware_version">' +
-															response.part_module.firmware +
-														'</div>' +
-														'<div class="pull-right">' +
-															'$<span class="part-price">' + response.part_module.price + '</span>&nbsp;&nbsp;&nbsp;' +
-															'<button class="btn delete_part_module_item" data-id="' + response.part_module.id +'">' +
-																'<span class="fa fa-trash"></span>' +
-															'</button>' +
-														'</div>' +
-													'</div>';
-
-									part_items.prepend(appendHtml);
-
-									var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
-									updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
-
-
-									var current_price = updateElement.parent().parent().find(".total_cost").text();
-									updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
-
-									activate_part_module_item();
-								}
-							}
-						});
-					}
-				}
-			})
-
 		}
 	}
 	$(".draggable-part").draggable({
@@ -351,23 +259,7 @@ $(function() {
 			};
 
 			if (update) {
-				$.ajax({
-					url: '/part_modules/' + update_id + '.json',
-					type: "PUT",
-					success: function(response) {
-						if (response.status == "ok") {
-							var current_count = updateElement.find(".part_module_count").text();
-							updateElement.find(".part_module_count").text(parseInt(current_count) + 1);
-							
-							var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
-							
-							updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
-
-							var current_price = updateElement.parent().parent().find(".total_cost").text();
-							updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
-						}
-					}
-				});
+				
 			} else {
 				updateElement = $(this);
 				$.ajax({
@@ -386,7 +278,7 @@ $(function() {
 													response.part_module.firmware +
 												'</div>' +
 												'<div class="pull-right">' +
-													'$<span class="part-price">' + response.part_module.price + '</span>&nbsp;&nbsp;&nbsp;' +
+													'$<span class="part-price" data-price="' + response.part_module.price + '">' + response.part_module.price + '</span>&nbsp;&nbsp;&nbsp;' +
 													'<button class="btn delete_part_module_item" data-id="' + response.part_module.id +'">' +
 														'<span class="fa fa-trash"></span>' +
 													'</button>' +
@@ -395,13 +287,16 @@ $(function() {
 
 							part_items.prepend(appendHtml);
 
-							var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
-							updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
+							/////////////////////
 
-							var current_price = updateElement.parent().parent().find(".total_cost").text();
-							updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
+							// var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
+							// updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
+
+							// var current_price = updateElement.parent().parent().find(".total_cost").text();
+							// updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
 
 							activate_part_module_item();
+							calc_total_budget(updateElement.parent());
 						}
 					}
 				});
@@ -1067,10 +962,14 @@ $(function() {
 
 		$(".part_module_count").focusout(function() {
 			if ($.trim($(this).val()) == "") {
-				$(this).val(0);
+				$(this).val(1);
 			}
 
 			var update_id = $(this).parent().parent().attr("data-id");
+
+			var part_module_item = $(this).parent();
+
+			var part_item_price = part_module_item.find('.part-price').data('price');
 
 			var data = {
 				'part_module[count]': $(this).val(),
@@ -1083,7 +982,7 @@ $(function() {
 				data: data,
 				success: function(response) {
 					if (response.status == "ok") {
-						
+						part_module_item.find('.part-price').text(parseInt(part_item_price) * response.part_module.count)
 					}
 				}
 			});
@@ -1097,9 +996,8 @@ $(function() {
 		var price = 0;
 		var count = 0;
 		$element.find('.part-module-item').each(function(index) {
-			price += parseInt($(this).find('.part_module_count').val()) * parseFloat($(this).find('.part-price').text());
+			price += parseInt($(this).find('.part_module_count').val()) * parseFloat($(this).find('.part-price').data('price'));
 			count += parseInt($(this).find('.part_module_count').val());
-
 		})
 
 		$element.parent().find('.total_cost').text(price);
