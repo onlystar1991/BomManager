@@ -979,11 +979,7 @@ $(function() {
 				data: data,
 				success: function(response) {
 					if (response.status == "ok") {
-						///////////////////////////////
-						alert(response.part_module.price);
-						alert(response.part_module.count);
 						var price = Number((response.part_module.price * response.part_module.count).toFixed(2));
-						alert(price);
 						part_module_item.find('.part-price').text(price);
 						calc_total_budget(parent_element);
 					}
