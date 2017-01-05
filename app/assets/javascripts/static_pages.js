@@ -374,10 +374,6 @@ $(function() {
 		$("#attach_text").text($(this).val());
 	});
 
-
-
-
-
 	// Add Bom Category
 	$("#add-bom-category").click(function(event) {
 		$("#add-bom-category-modal").modal();
@@ -388,7 +384,6 @@ $(function() {
 	$("#bom-category-photo").click(function(event) {
 		$("#bom-category-photo-file").click();
 	});
-
 
 	$('body').on('click', '.btn-delete-bom-category', function() {
 		var id = $(this).attr("data-id");
@@ -405,7 +400,7 @@ $(function() {
 			}
 		});
 	});
-	
+
 	function addBomCategoryCallBack(response) {
 		if (!response.status) {
 			var html = "";
@@ -967,7 +962,7 @@ $(function() {
 
 			var update_id = $(this).parent().parent().attr("data-id");
 
-			var part_module_item = $(this).parent();
+			var part_module_item = $(this).parent().parent();
 
 			var part_item_price = part_module_item.find('.part-price').data('price');
 
