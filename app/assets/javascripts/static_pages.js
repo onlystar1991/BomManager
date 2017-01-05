@@ -984,7 +984,7 @@ $(function() {
 				data: data,
 				success: function(response) {
 					if (response.status == "ok") {
-						// alert(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
+						alert(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
 						part_module_item.find('.part-price').text(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
 						calc_total_budget(parent_element)
 					}
@@ -1001,15 +1001,9 @@ $(function() {
 			price += parseInt($(this).find('.part_module_count').val()) * parseFloat($(this).find('.part-price').data('price'));
 			count += parseInt($(this).find('.part_module_count').val());
 		})
-
 		$element.parent().find('.total_cost').text(price);
 		$element.parent().find('.total_count_span').text(count);
 	}
-
-
-
-
-
 
 	// Adjust element's widths
 
