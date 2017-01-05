@@ -996,7 +996,7 @@ $(function() {
 		var price = 0;
 		var count = 0;
 		$element.find('.part-module-item').each(function(index) {
-			price += parseInt($(this).find('.part_module_count').val()) * parseFloat($(this).find('.part-price').data('price'));
+			price += $(this).find('.part_module_count').val() * $(this).find('.part-price').data('price');
 			count += parseInt($(this).find('.part_module_count').val());
 		})
 		$element.parent().find('.total_cost').text(price);
