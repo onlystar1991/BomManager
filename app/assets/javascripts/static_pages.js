@@ -976,18 +976,20 @@ $(function() {
 				'part_module[bom_id]': $(this).parent().parent().attr("bom-id"),
 			};
 
+			var parent_element = $(this).parent().parent().parent();
+
 			$.ajax({
 				url: '/part_modules/' + update_id + '.json',
 				type: "PUT",
 				data: data,
 				success: function(response) {
 					if (response.status == "ok") {
-						alert(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
+						// alert(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
 						part_module_item.find('.part-price').text(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
+						calc_total_budget(parent_element)
 					}
 				}
 			});
-			calc_total_budget($(this).parent().parent().parent())
 		})
 	}
 	activate_part_module_item();
