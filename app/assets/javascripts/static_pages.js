@@ -984,9 +984,12 @@ $(function() {
 				data: data,
 				success: function(response) {
 					if (response.status == "ok") {
-						alert(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
-						part_module_item.find('.part-price').text(parseFloat(response.part_module.price) * parseFloat(response.part_module.count));
-						calc_total_budget(parent_element)
+						alert(response.part_module.price);
+						alert(response.part_module.count);
+						var price = parseFloat(response.part_module.price) * parseInt(response.part_module.count);
+						alert(price);
+						part_module_item.find('.part-price').text(price);
+						calc_total_budget(parent_element);
 					}
 				}
 			});
