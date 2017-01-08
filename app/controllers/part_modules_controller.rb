@@ -31,6 +31,17 @@ class PartModulesController < ApplicationController
 
     respond_to do |format|
       if @part_module.save
+        if @part_module.count > 2499
+          per_piece_price = @part_module.part.price_2500.to_f
+        elsif @part_module.count > 999
+          per_piece_price = @part_module.part.price_1000.to_f
+        elsif @part_module.count > 499
+          per_piece_price = @part_module.part.price_500.to_f
+        elsif @part_module.count > 249
+          per_piece_price = @part_module.part.price_250.to_f
+        else
+          per_piece_price = @part_module.part.price.to_f
+        end
         format.json { 
           render json: {
             status: 'ok',
@@ -38,7 +49,7 @@ class PartModulesController < ApplicationController
               id: @part_module.id,
               part_name: @part_module.part.part_name,
               count: @part_module.count,
-              price: @part_module.part.price,
+              price: per_piece_price,
               firmware: @part_module.part.firmware.nil? ? " " : @part_module.part.firmware.number,
               photo: @part_module.part.picture.url
             }
@@ -54,16 +65,26 @@ class PartModulesController < ApplicationController
   # PATCH/PUT /part_modules/1
   # PATCH/PUT /part_modules/1.json
   def update
-    
     respond_to do |format|
       if @part_module.update(part_module_params)
+        if @part_module.count > 2499
+          per_piece_price = @part_module.part.price_2500.to_f
+        elsif @part_module.count > 999
+          per_piece_price = @part_module.part.price_1000.to_f
+        elsif @part_module.count > 499
+          per_piece_price = @part_module.part.price_500.to_f
+        elsif @part_module.count > 249
+          per_piece_price = @part_module.part.price_250.to_f
+        else
+          per_piece_price = @part_module.part.price.to_f
+        end
         format.json { 
           render json: {
             status: 'ok',
             part_module: {
               part_name: @part_module.part.part_name,
               count: @part_module.count,
-              price: @part_module.part.price
+              price: per_piece_price
             }
           },
           status: :ok

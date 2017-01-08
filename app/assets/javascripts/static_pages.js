@@ -269,7 +269,7 @@ $(function() {
 					success: function(response) {
 						if (response.status == "ok") {
 							var appendHtml = '<div class="col-md-12 list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'">' +
-												'<div class="pull-left col-md-4">' +
+												'<div class="pull-left">' +
 													'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
 													response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
 													'x<input type="text" class="part_module_count" value="' + response.part_module.count + '">&nbsp;pc' +
@@ -278,6 +278,7 @@ $(function() {
 													response.part_module.firmware +
 												'</div>' +
 												'<div class="pull-right">' +
+													'<input type="text" class="per-piece-price" autocomplete="off" disabled="" value="$' + response.part_module.price + '">' +
 													'$<span class="part-price" data-price="' + response.part_module.price + '">' + response.part_module.price + '</span>&nbsp;&nbsp;&nbsp;' +
 													'<button class="btn delete_part_module_item" data-id="' + response.part_module.id +'">' +
 														'<span class="fa fa-trash"></span>' +
@@ -979,6 +980,7 @@ $(function() {
 				data: data,
 				success: function(response) {
 					if (response.status == "ok") {
+						part_module_item.find('.per-piece-price').val('$' + response.part_module.price);
 						var price = Number((response.part_module.price * response.part_module.count).toFixed(2));
 						part_module_item.find('.part-price').text(price);
 						calc_total_budget(parent_element);
@@ -993,7 +995,7 @@ $(function() {
 		var price = 0;
 		var count = 0;
 		$element.find('.part-module-item').each(function(index) {
-			price += $(this).find('.part_module_count').val() * $(this).find('.part-price').data('price');
+			price += parseFloat($(this).find('.part-price').text());
 			count += parseInt($(this).find('.part_module_count').val());
 		})
 		$element.parent().find('.total_cost').text(Number((price).toFixed(2)));

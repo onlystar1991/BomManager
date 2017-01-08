@@ -94,18 +94,35 @@
 																		&nbsp;&nbsp;
 																		<%= part_module.part.part_name %>
 																		&nbsp;&nbsp;&nbsp;&nbsp;
-
 																		x
 																		<input type="text" class="part_module_count" value="<%= part_module.count %>" autocomplete="off">
 																		&nbsp;pc
-																		<% total_count = total_count + part_module.count; total_price = total_price + part_module.count * part_module.part.price %>
+																		<% 
+																		total_count = total_count + part_module.count;
+																		per_piece_price = 0;
+																		if part_module.count > 2499
+																			per_piece_price = part_module.part.price_2500.to_f
+																		elsif part_module.count > 999
+																			per_piece_price = part_module.part.price_1000.to_f
+																		elsif part_module.count > 499
+																			per_piece_price = part_module.part.price_500.to_f
+																		elsif part_module.count > 249
+																			per_piece_price = part_module.part.price_250.to_f
+																		else
+																			per_piece_price = part_module.part.price.to_f
+																		end
+																			total_price = total_price + part_module.count * per_piece_price;
+																		%>
 																	</div>
 																	<!-- <div class="col-md-4 firmware_version"> -->
 																	<span class="firmware_version"><%= part_module.part.firmware.nil? ? "" : part_module.part.firmware.number %></span>
 																		
 																	<!-- </div> -->
 																	<div class="pull-right">
-																		$<span class="part-price" data-price="<%= (part_module.part.price * 100).round / 100.0 %>"><%= (part_module.part.price * part_module.count * 100).round / 100.0 %></span>&nbsp;&nbsp;&nbsp;
+																		<input type="text" class="per-piece-price" autocomplete="off" disabled="" value="$<%= per_piece_price %>">
+																		$<span class="part-price" data-price="<%= per_piece_price %>">
+																			<%= per_piece_price * part_module.count %>
+																		</span>&nbsp;&nbsp;&nbsp;
 																		<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																			<button class="btn delete_part_module_item" data-id="<%= part_module.id %>">
 																				<span class="fa fa-trash"></span>
@@ -163,7 +180,7 @@
 																<span class="total_count_span"><%= total_count %></span>x items
 															</div>
 															<div class="col-md-4">
-																$<span class="total_cost"><%= total_price %></span>
+																$<span class="total_cost"><%= (total_price).round(2) %></span>
 															</div>
 														</div>
 													</div>
