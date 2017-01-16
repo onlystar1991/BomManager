@@ -32,43 +32,47 @@ class StaticPagesController < ApplicationController
 		session = GoogleDrive::Session.from_config("config.json")
 		ws = session.spreadsheet_by_key("1EyiEv1s2YdvM8-npFupSmco5N0G9seGT-tFskqguS6A").worksheets
 
-		first_ws = ws[1];
-
-		if PartCategory.exists?(name: first_ws.title)
-			part_category =	PartCategory.find_by(name: first_ws.title)
-		else
-			part_category =	PartCategory.create!(name: first_ws.title)
-		end
-
 		i = 0;
-		@flag = true
-		(3..first_ws.num_rows).each do |row|
-			if first_ws[row, 1].blank? and first_ws[row, 1].blank?
-				@flag = true
-				next
-			end
 
-			if @flag
-				@sub = part_category.sub_categories.create(name: first_ws[row, 1])
-				@sub = SubCategory.find_by(name: first_ws[row, 1]) if !@sub.save
-				@flag = false;
+		(1..ws.count - 1).each do |row|
+			work_sheet = ws[row];
+			if PartCategory.exists?(name: work_sheet.title)
+				part_category =	PartCategory.find_by(name: work_sheet.title)
 			else
-				part = @sub.parts.create(part_name: first_ws[row, 1],
-							part_description: first_ws[row, 2],
-							number: first_ws[row, 4],
-							price: first_ws[row, 8].split("$")[1],
-							price_250: first_ws[row, 9].split("$")[1],
-							price_500: first_ws[row, 10].split("$")[1],
-							price_1000: first_ws[row, 11].split("$")[1],
-							price_2500: first_ws[row, 12].split("$")[1],
-							price_5000: first_ws[row, 13].split("$")[1]
-						)
-				if part.save
-					i = i + 1
-				else 
-					puts part.errors.full_messages
+				part_category =	PartCategory.create!(name: work_sheet.title)
+			end
+			
+			@flag = true
+			(3..work_sheet.num_rows).each do |row|
+				if work_sheet[row, 1].blank? and work_sheet[row, 1].blank?
+					@flag = true
+					next
+				end
+
+				if @flag
+					@sub = part_category.sub_categories.create(name: work_sheet[row, 1])
+					@sub = SubCategory.find_by(name: work_sheet[row, 1]) if !@sub.save
+					@flag = false;
+				else
+					part = @sub.parts.create(part_name: work_sheet[row, 1],
+								part_description: work_sheet[row, 2],
+								number: work_sheet[row, 4],
+								price: work_sheet[row, 8].split("$")[1],
+								price_250: work_sheet[row, 9].split("$")[1],
+								price_500: work_sheet[row, 10].split("$")[1],
+								price_1000: work_sheet[row, 11].split("$")[1],
+								price_2500: work_sheet[row, 12].split("$")[1],
+								price_5000: work_sheet[row, 13].split("$")[1]
+							)
+					if part.save
+						i = i + 1
+					else 
+						puts '>>>>>>>>>>>>>>>>>>>>>>>>>'
+						puts part.errors.full_messages
+					end
 				end
 			end
+
 		end
 		
 		puts "-------------End Worksheets------------"
