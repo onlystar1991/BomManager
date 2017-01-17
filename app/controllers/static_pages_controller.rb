@@ -5,7 +5,6 @@ class StaticPagesController < ApplicationController
 	require "googleauth"
 
 	def index
-
 		@current_user = current_user
 		@user = User.new
 
@@ -25,7 +24,6 @@ class StaticPagesController < ApplicationController
 		@firmware = Firmware.new
 
 		@sub_category = SubCategory.new
-
 	end
 
 	def import_from_google
@@ -41,7 +39,7 @@ class StaticPagesController < ApplicationController
 			else
 				part_category =	PartCategory.create!(name: work_sheet.title)
 			end
-			
+
 			@flag = true
 			(3..work_sheet.num_rows).each do |row|
 				if work_sheet[row, 1].blank? and work_sheet[row, 1].blank?
@@ -66,17 +64,13 @@ class StaticPagesController < ApplicationController
 							)
 					if part.save
 						i = i + 1
-					else 
+					else
 						puts '>>>>>>>>>>>>>>>>>>>>>>>>>'
 						puts part.errors.full_messages
 					end
 				end
 			end
-
 		end
-		
-		puts "-------------End Worksheets------------"
-		
 		flash[:notice] = "#{i} items imported from google sheet";
 		redirect_to root_path
 	end

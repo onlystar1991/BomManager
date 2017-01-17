@@ -15,7 +15,7 @@ $(function() {
 	});
 	
 	$(window).resize(function() {
-		if ($('body').width() < 1188) {
+		if ($('body').width() < 1200) {
 			if ($('.col-max-7').hasClass('col-md-7')) {
 				$('.col-max-7').removeClass('col-md-7');
 				$('.col-max-7').addClass('col-md-12');

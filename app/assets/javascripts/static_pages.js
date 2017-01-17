@@ -103,7 +103,6 @@ $(function() {
 		$("#sub_category_part_category_id").val($(this).data('id'));
 	})
 
-
 	$("#add-part-library").click(function(event) {
 		$("#add-part-category-modal").modal();
 		$("#new_part_category")[0].reset();
@@ -263,12 +262,12 @@ $(function() {
 			} else {
 				updateElement = $(this);
 				$.ajax({
-					url: '/part_modules',
+					url: '/part_modules.json',
 					type: "POST",
 					data: data,
 					success: function(response) {
 						if (response.status == "ok") {
-							var appendHtml = '<div class="col-md-12 list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'">' +
+							var appendHtml = '<div class="list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'" price-id="' + response.part_module.part_id + '">' +
 												'<div class="pull-left">' +
 													'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
 													response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
@@ -283,19 +282,13 @@ $(function() {
 													'<button class="btn delete_part_module_item" data-id="' + response.part_module.id +'">' +
 														'<span class="fa fa-trash"></span>' +
 													'</button>' +
+													'<button class="btn duplicate-part-module-item">' +
+														'<span class="fa fa-plus"></span>' +
+													'</button>' +
 												'</div>' +
 											'</div>';
 
 							part_items.prepend(appendHtml);
-
-							/////////////////////
-
-							// var current_count1 = updateElement.parent().parent().find('.total_count_span').text();
-							// updateElement.parent().parent().find(".total_count_span").text(parseInt(current_count1) + 1);
-
-							// var current_price = updateElement.parent().parent().find(".total_cost").text();
-							// updateElement.parent().parent().find(".total_cost").text(parseFloat(current_price) + parseFloat(response.part_module.price));
-
 							activate_part_module_item();
 							calc_total_budget(updateElement.parent());
 						}
@@ -1004,7 +997,7 @@ $(function() {
 
 	// Adjust element's widths
 
-	if ($('body').width() < 1188) {
+	if ($('body').width() < 1200) {
 		if ($('.col-max-7').hasClass('col-md-7')) {
 			$('.col-max-7').removeClass('col-md-7');
 			$('.col-max-7').addClass('col-md-12');
@@ -1024,4 +1017,47 @@ $(function() {
 			$('.col-max-5').addClass('col-md-5');
 		}
 	}
+
+
+
+	$('body').on('click', '.duplicate-part-module-item', function(event) {
+		var content = $(this).parent().parent();
+		
+		var data = {
+			'part_module[part_id]': $(this).parent().parent().attr("part-id"),
+			'part_module[count]': 1,
+			'part_module[bom_id]': $(this).parent().parent().attr("bom-id")
+		};
+
+		console.log(data);
+
+		$.ajax({
+			url: '/part_modules.json',
+			type: "POST",
+			data: data,
+			success: function(response) {
+				var appendHtml = '<div class="list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'" price-id="' + response.part_module.part_id + '">' +
+									'<div class="pull-left">' +
+										'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
+										response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
+										'x<input type="text" class="part_module_count" value="' + response.part_module.count + '">&nbsp;pc' +
+									'</div>' +
+									'<div class="col-md-3 firmware_version">' +
+										response.part_module.firmware +
+									'</div>' +
+									'<div class="pull-right">' +
+										'<input type="text" class="per-piece-price" autocomplete="off" disabled="" value="$' + response.part_module.price + '">' +
+										'$<span class="part-price" data-price="' + response.part_module.price + '">' + response.part_module.price + '</span>&nbsp;&nbsp;&nbsp;' +
+										'<button class="btn delete_part_module_item" data-id="' + response.part_module.id +'">' +
+											'<span class="fa fa-trash"></span>' +
+										'</button>' +
+										'<button class="btn duplicate-part-module-item">' +
+											'<span class="fa fa-plus"></span>' +
+										'</button>' +
+									'</div>' +
+								'</div>';
+				$(appendHtml).insertAfter(content);
+			}
+		});
+	})
 })

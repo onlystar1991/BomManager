@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 	
-  resources :sub_categories
+	resources :sub_categories
 	resources :multi_questions
 	resources :questions
 	resources :boms

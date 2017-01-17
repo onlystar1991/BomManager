@@ -51,7 +51,8 @@ class PartModulesController < ApplicationController
               count: @part_module.count,
               price: per_piece_price,
               firmware: @part_module.part.firmware.nil? ? " " : @part_module.part.firmware.number,
-              photo: @part_module.part.picture.url
+              photo: @part_module.part.picture.url,
+              part_id: @part_module.part.id
             }
           },
           status: :ok
@@ -84,7 +85,8 @@ class PartModulesController < ApplicationController
             part_module: {
               part_name: @part_module.part.part_name,
               count: @part_module.count,
-              price: per_piece_price
+              price: per_piece_price,
+              part_id: @part_module.part.id
             }
           },
           status: :ok

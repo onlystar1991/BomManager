@@ -88,7 +88,7 @@
 														<div id="part_modules_<%= bom.id %>" class="tab-pane active">
 															<% total_count = 0; total_price = 0;%>
 															<% bom.part_modules.each do |part_module| %>
-																<div class="col-md-12111 list-item part-module-item text-left" data-id="<%= part_module.id %>" data-name="<%= part_module.part.part_name %>" bom-id="<%= bom.id %>">
+																<div class="col-md-12111 list-item part-module-item text-left" data-id="<%= part_module.id %>" data-name="<%= part_module.part.part_name %>" bom-id="<%= bom.id %>" part-id="<%= part_module.part.id %>">
 																	<div class="pull-left">
 																		<%= image_tag part_module.part.picture.url %>
 																		&nbsp;&nbsp;
@@ -126,6 +126,9 @@
 																		<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																			<button class="btn delete_part_module_item" data-id="<%= part_module.id %>">
 																				<span class="fa fa-trash"></span>
+																			</button>
+																			<button class="btn duplicate-part-module-item">
+																				<span class="fa fa-plus"></span>
 																			</button>
 																		<% end %>
 																	</div>
@@ -370,10 +373,6 @@
 					</div>
 				</div>
 			<% end %>
-
-				<!-- Users and Roles Part -->
-				
-
 			</div>
 		</div>
 	</div>
