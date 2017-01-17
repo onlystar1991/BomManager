@@ -1057,6 +1057,7 @@ $(function() {
 									'</div>' +
 								'</div>';
 				$(appendHtml).insertAfter(content);
+				activate_part_module_item();
 			}
 		});
 	})
