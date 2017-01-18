@@ -24,7 +24,7 @@ class Bom < ApplicationRecord
 			self.part_modules.each do |part_item|
 				csv << [part_item.part.sub_category.part_category.name]
 				csv << ["Part Name", "Part Description", "Manufacturer Part Number", "Qty", "Price", "Created At"]
-				csv << [part_item.part.part_name, part_item.part.description, part_item.part.number, part_item.count, part_item.part.price, part_item.part.created_at.to_date]
+				csv << [part_item.part.part_name, part_item.part.part_description, part_item.part.number, part_item.count, part_item.part.price, part_item.part.created_at.to_date]
 			end
 		end
 	end
