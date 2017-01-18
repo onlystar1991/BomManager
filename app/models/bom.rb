@@ -11,30 +11,20 @@ class Bom < ApplicationRecord
 	validates :purchase_order_number, :presence => true
 
 	def to_csv
-		attributes = %w{id name description}
 		CSV.generate(headers: true) do |csv|
-			csv << attributes
-			csv << [self.id, self.name, self.description]
-			csv << ["Part Items"]
-			csv << ["Part Name", "Firmware", "Count", "Price"]
+			csv << [self.name]
+			csv << [self.description]
+			csv << [self.bom_category.name]
+			csv << [self.created_at.to_date]
+			csv << []
+			# puts ">>>>>>>>>>> Dates <<<<<<<<<<<<<<<<<"
+			# puts self.created_at.to_date
+			self.part_modules.order('part_module.part.sub_category.part_category.name')
+			# outputs = Hash.new
 			self.part_modules.each do |part_item|
-				csv << [part_item.part.part_name, part_item.part.firmware.nil? ? "" : part_item.part.firmware.number, part_item.count, part_item.part.price * part_item.count]
-			end
-			csv << ["Questions"]
-			csv << ["Question", "Answer"]
-			self.questions.each do |question|
-				if question.question_type == 2
-					multi = [question.question]
-					question.multi_questions.each do |mul|
-						multi << mul.text_answer 
-						multi << mul.selected ? "Yes" : "No"
-					end
-					csv << multi
-				elsif question.question_type == 1
-					csv << [question.question, question.choice_answer ? "Yes" : "No"]
-				else
-					csv << [question.question, question.text_answer]
-				end
+				csv << [part_item.part.sub_category.part_category.name]
+				csv << ["Part Name", "Part Description", "Manufacturer Part Number", "Qty", "Price", "Created At"]
+				csv << [part_item.part.part_name, part_item.part.description, part_item.part.number, part_item.count, part_item.part.price, part_item.part.created_at.to_date]
 			end
 		end
 	end

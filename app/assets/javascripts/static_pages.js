@@ -122,7 +122,7 @@ $(function() {
 			var alertM = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'> ×</button>" + html + "</div>";
 			$(".modal-header").append(alertM);
 		} else if (response.status == "ok") {
-			var append = '<div class="col-md-12 list-item">' + 
+			var append = '<div class="list-item">' + 
 							'<div class="pull-left">' +
 								'<img src="' + response.part_category.photo + '" />' + 
 								'&nbsp;&nbsp;' + response.part_category.name + 
@@ -169,7 +169,7 @@ $(function() {
 			var alertM = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'> ×</button>" + html + "</div>";
 			$(".modal-header").append(alertM);
 		} else if (response.status == "ok") {
-			var append = '<div class="col-md-12111 list-item">' +
+			var append = '<div class="list-item">' +
 							'<div class="pull-left">' +
 								'&nbsp;&nbsp;&nbsp;&nbsp;' + response.sub_category.name +
 							'</div>' +
@@ -211,7 +211,7 @@ $(function() {
 			var alertM = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'> ×</button>" + html + "</div>";
 			$(".modal-header").append(alertM);
 		} else if (response.status == "ok") {
-			var append = '<div class="col-md-12 list-item draggable-part" data-id="' + response.part.id + '" data-name="' + response.part.name + '">' +
+			var append = '<div class="list-item draggable-part" data-id="' + response.part.id + '" data-name="' + response.part.name + '">' +
 							'<div class="pull-left">' +
 								'<img src="' + response.part.picture + '" />' +
 								'&nbsp;&nbsp;' + response.part.name + 
@@ -407,7 +407,7 @@ $(function() {
 		} else if (response.status == "ok") {
 			console.log(response);
 
-			var appendHtml = '<div class="col-md-12 list-item">' +
+			var appendHtml = '<div class="list-item">' +
 								'<div class="pull-left">' +
 									'<img src="' + response.bom_category.photo + '" >' + 
 									'&nbsp;&nbsp;' + response.bom_category.name +
@@ -422,7 +422,7 @@ $(function() {
 							'<div id="bom_category-' + response.bom_category.id + '" class="parts collapse fade">' +
 								'<div class="real-content">' + 
 								'</div>' +
-								'<div id="bom-category-' + response.bom_category.id + '" data-name="' + response.bom_category.name + '" class="col-md-12 list-item add-bom-category">' +
+								'<div id="bom-category-' + response.bom_category.id + '" data-name="' + response.bom_category.name + '" class="list-item add-bom-category">' +
 									'Add ' + response.bom_category.name + ' BOM' +
 								'</div>' +
 							'</div>';
@@ -1028,9 +1028,7 @@ $(function() {
 			'part_module[count]': 1,
 			'part_module[bom_id]': $(this).parent().parent().attr("bom-id")
 		};
-
-		console.log(data);
-
+		
 		$.ajax({
 			url: '/part_modules.json',
 			type: "POST",

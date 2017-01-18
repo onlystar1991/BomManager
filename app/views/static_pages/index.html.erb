@@ -40,7 +40,7 @@
 
 							<div id="bom-categories">
 								<% @bom_categories.each do |bom_category| %>
-									<div class="col-md-12111 list-item bom-title">
+									<div class="list-item bom-title">
 										<div class="pull-left">
 											<%= image_tag bom_category.photo.url %>
 											&nbsp;&nbsp;<%= bom_category.name %>
@@ -59,7 +59,7 @@
 										<div class="real-content">
 											<% bom_category.boms.each do |bom| %>
 												<div class="boms">
-													<div class="col-md-12111 list-item">
+													<div class="list-item">
 														<div class="pull-left">
 															<%= image_tag bom.photo.url %>
 															&nbsp;&nbsp;<%= bom.name %>
@@ -88,7 +88,7 @@
 														<div id="part_modules_<%= bom.id %>" class="tab-pane active">
 															<% total_count = 0; total_price = 0;%>
 															<% bom.part_modules.each do |part_module| %>
-																<div class="col-md-12111 list-item part-module-item text-left" data-id="<%= part_module.id %>" data-name="<%= part_module.part.part_name %>" bom-id="<%= bom.id %>" part-id="<%= part_module.part.id %>">
+																<div class="list-item part-module-item text-left" data-id="<%= part_module.id %>" data-name="<%= part_module.part.part_name %>" bom-id="<%= bom.id %>" part-id="<%= part_module.part.id %>">
 																	<div class="pull-left">
 																		<%= image_tag part_module.part.picture.url %>
 																		&nbsp;&nbsp;
@@ -135,14 +135,14 @@
 																</div>
 															<% end %>
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
-																<div class="col-md-12111 list-item add-parts-by-drop" data-id="<%= bom.id %>">
+																<div class="list-item add-parts-by-drop" data-id="<%= bom.id %>">
 																	Drag an item here from Part Library
 																</div>
 															<% end %>
 														</div>
 														<div id="questions_<%= bom.id %>" class="tab-pane">
 															<% bom.questions.each do |question| %>
-																<div class="col-md-12111 list-item">
+																<div class="list-item">
 																	<div class="pull-left">
 																		<%= question.question %>
 																	</div>
@@ -170,12 +170,12 @@
 																</div>
 															<% end %>
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
-																<div class="col-md-12111 list-item add-question" data-id="<%= bom.id %>">
+																<div class="list-item add-question" data-id="<%= bom.id %>">
 																	Add Question
 																</div>
 															<% end %>
 														</div>
-														<div class="col-md-12111 list-item total-cost">
+														<div class="list-item total-cost">
 															<div class="col-md-4">
 																TOTAL COST
 															</div>
@@ -191,7 +191,7 @@
 											<% end %>
 										</div>
 										<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
-											<div id="bom-category-<%= bom_category.id %>" data-name="<%= bom_category.name %>" class="col-md-12111 list-item add-bom-category">
+											<div id="bom-category-<%= bom_category.id %>" data-name="<%= bom_category.name %>" class="list-item add-bom-category">
 												Add <%= bom_category.name %> BOM
 											</div>
 										<% end %>
@@ -199,7 +199,7 @@
 								<% end %>
 							</div>
 							<% if @current_user.has_role?(:admin) %>
-								<div id="add-bom-category" class="col-md-12111 list-item add-category">
+								<div id="add-bom-category" class="list-item add-category">
 									Add Category
 								</div>
 							<% end %>
@@ -226,7 +226,7 @@
 							</div>
 							<div id="part_categories">
 								<% @part_categories.each do |part_category| %>
-									<div class="col-md-12111 list-item" data-id="<%= part_category.id %>">
+									<div class="list-item" data-id="<%= part_category.id %>">
 										<div class="pull-left">
 											<%= image_tag part_category.photo.url %>
 											&nbsp;&nbsp;<%= part_category.name %>
@@ -245,7 +245,7 @@
 
 									<div id="sub-categories-<%= part_category.id%>" class="parts collapse fade">
 										<% part_category.sub_categories.each do |sub_category| %>
-											<div class="col-md-12111 list-item">
+											<div class="list-item">
 												<div class="pull-left">
 													&nbsp;&nbsp;&nbsp;&nbsp;<%= sub_category.name %>
 												</div>
@@ -262,7 +262,7 @@
 											</div>
 											<div id="parts-<%= sub_category.id %>" class="parts collapse fade">
 												<% sub_category.parts.each do |part| %>
-													<div class="col-md-12111 list-item draggable-part" data-id="<%= part.id %>" data-name="<%= part.part_name %>">
+													<div class="list-item draggable-part" data-id="<%= part.id %>" data-name="<%= part.part_name %>">
 														<div class="pull-left">
 															<%= image_tag part.picture.url %>
 															&nbsp;&nbsp;<%= part.part_name %>
@@ -281,7 +281,7 @@
 								<% end %>
 							</div>
 							<% if @current_user.has_role?(:admin) %>
-								<div id="add-part-library" class="col-md-12111 list-item add-category">
+								<div id="add-part-library" class="list-item add-category">
 									Add Category
 								</div>
 							<% end %>
