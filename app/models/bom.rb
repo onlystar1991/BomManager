@@ -20,11 +20,51 @@ class Bom < ApplicationRecord
 			# puts ">>>>>>>>>>> Dates <<<<<<<<<<<<<<<<<"
 			# puts self.created_at.to_date
 			self.part_modules.order('part_module.part.sub_category.part_category.name')
-			# outputs = Hash.new
+			outputs = Hash.new
+
 			self.part_modules.each do |part_item|
-				csv << [part_item.part.sub_category.part_category.name]
-				csv << ["Part Name", "Part Description", "Manufacturer Part Number", "Qty", "Price", "Created At"]
-				csv << [part_item.part.part_name, part_item.part.part_description, part_item.part.number, part_item.count, part_item.part.price, part_item.part.created_at.to_date]
+				if outputs.has_key? part_item.part.id
+					outputs[part_item.part.id].push(part_item)
+				else
+					outputs[part_item.part.id] = []
+					outputs[part_item.part.id].push(part_item)
+				end
+			end
+
+			final_outputs = Hash.new
+			
+			puts ">>>>>>>>>>>>>>>>>>>>>"
+			puts outputs
+
+
+			outputs.each do |key, output|
+				csv << [output[0].part.sub_category.part_category.name]
+				header = ["Part Name", "Part Description", "Manufacturer Part Number", "Qty", "Created At"]
+				
+				row = []
+				row.push(output[0].part.part_name)
+				row.push(output[0].part.part_description)
+				row.push(output[0].part.number)
+				row.push(output[0].part.created_at.to_date)
+				output.each do | part_item |
+					if part_item.count > 2499
+						per_piece_price = part_item.part.price_2500.to_f
+					elsif part_item.count > 999
+						per_piece_price = part_item.part.price_1000.to_f
+					elsif part_item.count > 499
+						per_piece_price = part_item.part.price_500.to_f
+					elsif part_item.count > 249
+						per_piece_price = part_item.part.price_250.to_f
+					else
+						per_piece_price = part_item.part.price.to_f
+					end
+
+					row.push(per_piece_price)
+					header.push("Cost@#{part_item.count}")
+				end
+
+				csv << header
+				csv << row
 			end
 		end
 	end
