@@ -42,7 +42,7 @@ class Bom < ApplicationRecord
 				row = []
 				row.push(output[0].part.part_name)
 				row.push(output[0].part.part_description)
-				row.push(output[0].part.number.empty? "" : output[0].part.number)
+				row.push(output[0].part.number.empty? ? "" : output[0].part.number)
 				row.push(output[0].part.created_at.to_date)
 				output.each do | part_item |
 					if part_item.count > 2499
