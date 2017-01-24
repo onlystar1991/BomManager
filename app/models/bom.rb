@@ -8,7 +8,7 @@ class Bom < ApplicationRecord
 	validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
 	validates :name, :presence => true
 	validates :description, :presence => true
-	validates :purchase_order_number, :presence => true
+	# validates :purchase_order_number, :presence => true
 
 	def to_csv
 		CSV.generate(headers: true) do |csv|
@@ -30,21 +30,19 @@ class Bom < ApplicationRecord
 					outputs[part_item.part.id].push(part_item)
 				end
 			end
-
-			final_outputs = Hash.new
 			
-			puts ">>>>>>>>>>>>>>>>>>>>>"
-			puts outputs
-
-
+			printed_part_category = ""
 			outputs.each do |key, output|
-				csv << [output[0].part.sub_category.part_category.name]
-				header = ["Part Name", "Part Description", "Manufacturer Part Number", "Qty", "Created At"]
+				if ! printed_part_category.eql? output[0].part.sub_category.part_category.name
+					csv << [output[0].part.sub_category.part_category.name]
+					printed_part_category = output[0].part.sub_category.part_category.name	
+					header = ["Part Name", "Part Description", "Manufacturer Part Number", "Qty", "Created At"]
+				end
 				
 				row = []
 				row.push(output[0].part.part_name)
 				row.push(output[0].part.part_description)
-				row.push(output[0].part.number)
+				row.push(output[0].part.number.empty? "" : output[0].part.number)
 				row.push(output[0].part.created_at.to_date)
 				output.each do | part_item |
 					if part_item.count > 2499
@@ -62,7 +60,6 @@ class Bom < ApplicationRecord
 					row.push(per_piece_price)
 					header.push("Cost@#{part_item.count}")
 				end
-
 				csv << header
 				csv << row
 			end
