@@ -32,13 +32,16 @@ class Bom < ApplicationRecord
 			end
 			
 			printed_part_category = ""
+			changed = true; i = 0
 			outputs.each do |key, output|
-				if ! printed_part_category.eql? output[0].part.sub_category.part_category.name
+				if printed_part_category.eql? output[0].part.sub_category.part_category.name
+					changed = false
+				else
 					csv << [output[0].part.sub_category.part_category.name]
-					printed_part_category = output[0].part.sub_category.part_category.name	
-					header = ["Part Name", "Part Description", "Manufacturer Part Number", "Qty", "Created At"]
+					printed_part_category = output[0].part.sub_category.part_category.name
+					changed = true; i = 1;
 				end
-				
+				header = ["Part Name", "Part Description", "Manufacturer Part Number", "Qty", "Created At"]
 				row = []
 				row.push(output[0].part.part_name)
 				row.push(output[0].part.part_description)
@@ -60,8 +63,17 @@ class Bom < ApplicationRecord
 					row.push(per_piece_price)
 					header.push("Cost@#{part_item.count}")
 				end
-				csv << header
-				csv << row
+
+				rows = []
+				if changed and i == 1
+					csv << header
+					rows.each do |item|
+						csv << item
+					end
+				else
+					rows.push(row)
+				end
+				
 			end
 		end
 	end
