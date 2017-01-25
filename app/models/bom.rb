@@ -65,7 +65,7 @@ class Bom < ApplicationRecord
 						per_piece_price = part_item.part.price.to_f
 					end
 
-					row.push(per_piece_price)
+					row.push("$#{per_piece_price}")
 					header.push("Cost@#{part_item.count}")
 				end
 				headers[output[0].part.sub_category.part_category.name] = header
