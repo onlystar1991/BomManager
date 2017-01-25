@@ -531,7 +531,7 @@
 						<%= f.text_field :name, placeholder: 'BOM Name*' %>
 						<%= f.text_area :description, placeholder: 'Description*' %>
 						<%= f.collection_select :bom_category_id, BomCategory.all, :id, :name, { prompt: false }, { class: 'selectpicker' } %>
-						<%= f.text_field :purchase_order_number, placeholder: 'Purchase Order Number*' %>
+						<%= f.text_field :purchase_order_number, placeholder: 'Purchase Order Number' %>
 						<%= f.file_field :photo, class: 'hide', id: 'bom-photo-file', accept: "image/*" %>
 						<div class="file-upload">
 							<%= image_tag("create_user/add_photo.png", id: "bom-photo") %>
