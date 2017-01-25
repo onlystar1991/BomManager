@@ -52,7 +52,8 @@ class PartModulesController < ApplicationController
               price: per_piece_price,
               firmware: @part_module.part.firmware.nil? ? " " : @part_module.part.firmware.number,
               photo: @part_module.part.picture.url,
-              part_id: @part_module.part.id
+              part_id: @part_module.part.id,
+              bom_id: @part_module.bom_id
             }
           },
           status: :ok
