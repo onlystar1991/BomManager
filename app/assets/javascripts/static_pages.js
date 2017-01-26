@@ -254,8 +254,9 @@ $(function() {
 			var data = {
 				'part_module[part_id]': element.attr("data-id"),
 				'part_module[count]': 1,
-				'part_module[bom_id]': $(this).attr("data-id"),
+				'part_module[bom_id]': bom_id
 			};
+
 
 			if (update) {
 				
@@ -267,26 +268,28 @@ $(function() {
 					data: data,
 					success: function(response) {
 						if (response.status == "ok") {
-							var appendHtml = '<div class="list-item part-module-item text-left" data-id="' + response.part_module.id +'" data-name="' + response.part_module.part_name +'" part-id="' + response.part_module.part_id + '" bom_id="' + response.part_module.bom_id + '">' +
-												'<div class="pull-left">' +
-													'<img src="' + response.part_module.photo + '" >' + '&nbsp;&nbsp;' +
+
+
+							var appendHtml = "<div class='list-item part-module-item text-left' data-id='" + response.part_module.id +"' data-name='" + response.part_module.part_name +"' part-id='" + response.part_module.part_id + "' bom_id='" + response.part_module.bom_id + "'>" +
+												"<div class='pull-left'>" +
+													"<img src='" + response.part_module.photo + "' >" + "&nbsp;&nbsp;" +
 													response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
-													'x<input type="text" class="part_module_count" value="' + response.part_module.count + '">&nbsp;pc' +
-												'</div>' +
-												'<div class="col-md-3 firmware_version">' +
+													"x<input type='text' class='part_module_count' value='" + response.part_module.count + "'>&nbsp;pc" +
+												"</div>" +
+												"<div class='col-md-3 firmware_version'>" +
 													response.part_module.firmware +
-												'</div>' +
-												'<div class="pull-right">' +
-													'<input type="text" class="per-piece-price" autocomplete="off" disabled="" value="$' + response.part_module.price + '">' +
-													'$<span class="part-price" data-price="' + response.part_module.price + '">' + response.part_module.price + '</span>&nbsp;&nbsp;&nbsp;' +
-													'<button class="btn delete_part_module_item" data-id="' + response.part_module.id +'">' +
-														'<span class="fa fa-trash"></span>' +
-													'</button>' +
-													'<button class="btn duplicate-part-module-item">' +
-														'<span class="fa fa-plus"></span>' +
-													'</button>' +
-												'</div>' +
-											'</div>';
+												"</div>" +
+												"<div class='pull-right'>" +
+													"<input type='text' class='per-piece-price' autocomplete='off' disabled value='$" + response.part_module.price + "'>" +
+													"$<span class='part-price' data-price='" + response.part_module.price + "'>" + response.part_module.price + "</span>&nbsp;&nbsp;&nbsp;" +
+													"<button class='btn delete_part_module_item' data-id='" + response.part_module.id +"'>" +
+														"<span class='fa fa-trash'></span>" +
+													"</button>" +
+													"<button class='btn duplicate-part-module-item'>" +
+														"<span class='fa fa-plus'></span>" +
+													"</button>" +
+												"</div>" +
+											"</div>";
 
 							part_items.prepend(appendHtml);
 							activate_part_module_item();
