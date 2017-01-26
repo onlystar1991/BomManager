@@ -653,51 +653,50 @@
 			</div>
 		</div>
 	</div>
-</div>
-<% end %>
-
-<div id="show-part-modal" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"> &times;</button>
-				Part
-			</div>
-			<div class="modal-body">
-				<input id="show-part-name" type="text" placeholder="Part Name*">
-				<textarea id="show-part-description" placeholder="Part Description"></textarea>
-				<input id="show-part-manufacturing-number" type="text" placeholder="Manufacturing Part Number*">
-				<input id="show-part-darko-part-number" type="text" placeholder="Darko Part Number">
-				<div class="file-upload">
-					<div class="col-first">
-						<%= image_tag("create_user/add_photo.png", id: "part-photo") %>
-					</div>
-					<div class="col-second">
-						Specification <br>
-						<%= image_tag("menu/attachment.png", id: "part-specification") %>
-						<br>
-						<div id="attach_text">ATTACHFILE</div>
-					</div>
+	<div id="show-part-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"> &times;</button>
+					Part
 				</div>
+				<div class="modal-body">
+					<input id="show-part-name" type="text" placeholder="Part Name*">
+					<textarea id="show-part-description" placeholder="Part Description"></textarea>
+					<input id="show-part-manufacturing-number" type="text" placeholder="Manufacturing Part Number">
+					<input id="show-part-darko-part-number" type="text" placeholder="Darko Part Number">
+					<div class="file-upload">
+						<div class="col-first">
+							<%= image_tag("create_user/add_photo.png", id: "part-photo") %>
+						</div>
+						<div class="col-second">
+							Specification <br>
+							<%= image_tag("menu/attachment.png", id: "part-specification") %>
+							<br>
+							<div id="attach_text">ATTACHFILE</div>
+						</div>
+					</div>
 
-				<div class="input-field">
-					<input type="text" placeholder="" id="show-part-price">
-					<select class="selectpicker">
-						<option value="USD">USD</option>
-					</select>
-				</div>
+					<div class="input-field">
+						<input type="text" placeholder="" id="show-part-price">
+						<select class="selectpicker">
+							<option value="USD">USD</option>
+						</select>
+					</div>
 
-				<input id="show-part-firmware" type="text">
+					<input id="show-part-firmware" type="text">
 
-				<input id="show-part-category-name" type="text">
+					<input id="show-part-category-name" type="text">
 
-				<div class="submit-div">
-					<a class="btn btn-save-user" value="Create">Ok</a>
+					<div class="submit-div">
+						<a class="btn btn-save-user" value="Create">Ok</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<% end %>
 
 <%- # if current_user.can? :update, @part -%>
 	<!-- <h2>Can update Part</h2> -->

@@ -533,149 +533,151 @@
 		}
 	}
 
-	#show-part-modal .modal-dialog {
-		width: 350px;
-		color: white;
-		.modal-body, .modal-header, .modal-footer {
-			background-color: #993732;
-		}
-		.modal-header {
-			border-bottom: 1px solid #ac6561;
-			font-size: 19px;
-		}
-		.modal-body {
-			padding: 0px;
-			input[type=text], input[type=email], input[type=password] {
-				background: transparent;
-				width: 100%;
-				border-color: -moz-use-text-color -moz-use-text-color #ac6561;
-				border-style: none none solid;
-				border-width: medium medium 1px;
-				height: 50px;
-				font-size: 20px;
-				font-weight: 200;
-				padding: 0 15px;
+	#show-part-modal {
+		.modal-dialog {
+			width: 350px;
+			color: white;
+			.modal-body, .modal-header, .modal-footer {
+				background-color: #993732;
 			}
-			textarea {
-				background: transparent;
-				width: 100%;
-				border-color: -moz-use-text-color -moz-use-text-color #ac6561;
-				border-style: none none solid;
-				border-width: medium medium 1px;
-				height: 200px;
-				font-size: 20px;
-				font-weight: 200;
-				padding: 0 15px;
-				resize: none;
-			}
-			.file-upload {
-				text-align: center;
+			.modal-header {
 				border-bottom: 1px solid #ac6561;
-				display: flex;
-				color: #ac6561;
-				.col-first {
-					width: 70%;
-					text-align: center;
-					padding: 18px;
-					border-right: 1px solid #ac6561;
-					> img {
-						width: 94px;
-						height: 95px;
-					}
-				}
-				.col-second {
-					width: 30%;
-					padding: 10px;
-					text-align: center;
-					> img {
-						width: 50px;
-						height: 50px;
-						margin-top: 10px;
-					}
-					> div {
-						margin-top: 5px;
-						font-size: 12px;
-					}
-				}
-				#attach_text {
-					overflow-wrap: break-word;
-				}
+				font-size: 19px;
 			}
-			.input-field {
-				border-bottom: 1px solid #ac6561;
-				display: flex;
-				input[type=text]{
+			.modal-body {
+				padding: 0px;
+				input[type=text], input[type=email], input[type=password] {
 					background: transparent;
-				}
-				.col1 {
-					width: 70%;
-					border-right: 1px solid #ac6561;
-					border-bottom: none;
-				}
-				.bootstrap-select {
-					width: 30%;
-					.btn {
-						background: transparent none repeat scroll 0 0;
-						border: none;
-						border-radius: 0;
-						height: 100%;
-						padding: 15px;
-						color: white;
-						box-shadow: none;
-					}
-					.btn-default span.caret {
-						font-size: 2em;
-					}
-				}
-			}
-			.input-field1 {
-				border-bottom: 1px solid #ac6561;
-				.bootstrap-select {
 					width: 100%;
-					.btn {
-						background: transparent none repeat scroll 0 0;
-						border: none;
-						border-radius: 0;
-						height: 100%;
-						padding: 15px;
-						color: white;
-						box-shadow: none;
-					}
-					.btn-default span.caret {
-						font-size: 2em;
-					}
+					border-color: -moz-use-text-color -moz-use-text-color #ac6561;
+					border-style: none none solid;
+					border-width: medium medium 1px;
+					height: 50px;
+					font-size: 20px;
+					font-weight: 200;
+					padding: 0 15px;
 				}
-			}
-			.firmware-input-field {
-				border-bottom: 1px solid #ac6561;
-				height: 50px;
-				.btn {
+				textarea {
 					background: transparent;
-					border: none;
-					color: #bf8683;
-					text-decoration: none;
-					padding: 15px;
-					font-weight: 300;
-					cursor: default;
+					width: 100%;
+					border-color: -moz-use-text-color -moz-use-text-color #ac6561;
+					border-style: none none solid;
+					border-width: medium medium 1px;
+					height: 200px;
+					font-size: 20px;
+					font-weight: 200;
+					padding: 0 15px;
+					resize: none;
 				}
-				.down-caret {
-					color: white;
-					height: 100%;
-					padding: 13px;
+				.file-upload {
+					text-align: center;
+					border-bottom: 1px solid #ac6561;
+					display: flex;
+					color: #ac6561;
+					.col-first {
+						width: 70%;
+						text-align: center;
+						padding: 18px;
+						border-right: 1px solid #ac6561;
+						> img {
+							width: 94px;
+							height: 95px;
+						}
+					}
+					.col-second {
+						width: 30%;
+						padding: 10px;
+						text-align: center;
+						> img {
+							width: 50px;
+							height: 50px;
+							margin-top: 10px;
+						}
+						> div {
+							margin-top: 5px;
+							font-size: 12px;
+						}
+					}
+					#attach_text {
+						overflow-wrap: break-word;
+					}
 				}
-			}
-			.submit-div {
-				color: #973630;
-				padding: 15px;
-				text-align: center;
-			}
-			.btn-save-user {
-				border-radius: 20px;
-				width: 200px;
-				background: white;
-				color: #973630;
-				&:hover {
+				.input-field {
+					border-bottom: 1px solid #ac6561;
+					display: flex;
+					input[type=text]{
+						background: transparent;
+					}
+					.col1 {
+						width: 70%;
+						border-right: 1px solid #ac6561;
+						border-bottom: none;
+					}
+					.bootstrap-select {
+						width: 30%;
+						.btn {
+							background: transparent none repeat scroll 0 0;
+							border: none;
+							border-radius: 0;
+							height: 100%;
+							padding: 15px;
+							color: white;
+							box-shadow: none;
+						}
+						.btn-default span.caret {
+							font-size: 2em;
+						}
+					}
+				}
+				.input-field1 {
+					border-bottom: 1px solid #ac6561;
+					.bootstrap-select {
+						width: 100%;
+						.btn {
+							background: transparent none repeat scroll 0 0;
+							border: none;
+							border-radius: 0;
+							height: 100%;
+							padding: 15px;
+							color: white;
+							box-shadow: none;
+						}
+						.btn-default span.caret {
+							font-size: 2em;
+						}
+					}
+				}
+				.firmware-input-field {
+					border-bottom: 1px solid #ac6561;
+					height: 50px;
+					.btn {
+						background: transparent;
+						border: none;
+						color: #bf8683;
+						text-decoration: none;
+						padding: 15px;
+						font-weight: 300;
+						cursor: default;
+					}
+					.down-caret {
+						color: white;
+						height: 100%;
+						padding: 13px;
+					}
+				}
+				.submit-div {
 					color: #973630;
+					padding: 15px;
+					text-align: center;
+				}
+				.btn-save-user {
+					border-radius: 20px;
+					width: 200px;
+					background: white;
+					color: #973630;
+					&:hover {
+						color: #973630;
+					}
 				}
 			}
 		}

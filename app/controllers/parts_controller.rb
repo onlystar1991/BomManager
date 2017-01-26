@@ -22,8 +22,8 @@ class PartsController < ApplicationController
             picture: @part.picture.url,
             attachfile: @part.specification_file_name,
             price: @part.price,
-            category: @part.part_category.name,
-            firmware: @part.firmware.number
+            category: @part.sub_category.part_category.name,
+            firmware: @part.firmware.nil? ? "" : @part.firmware.number
           }
         },
         status: :ok
