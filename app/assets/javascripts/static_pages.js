@@ -377,22 +377,6 @@ $(function() {
 		$("#bom-category-photo-file").click();
 	});
 
-	$('body').on('click', '.btn-delete-bom-category', function() {
-		var id = $(this).attr("data-id");
-		var tr_delete = $(this);
-		var btn = $("#bom-category-" + id);
-
-		$.ajax({
-			url: '/bom_categories/' + id + '.json',
-			type: "DELETE",
-			success: function(result){
-				console.log(result);
-				tr_delete.parent().parent().remove();
-				btn.remove();
-			}
-		});
-	});
-
 	function addBomCategoryCallBack(response) {
 		if (!response.status) {
 			var html = "";

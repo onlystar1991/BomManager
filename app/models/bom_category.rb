@@ -6,5 +6,5 @@ class BomCategory < ApplicationRecord
 
 
 	validates :name, :presence => true
-	has_many :boms
+	has_many :boms, dependent: :destroy 
 end
