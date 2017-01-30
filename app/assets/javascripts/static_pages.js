@@ -409,28 +409,28 @@ $(function() {
 		} else if (response.status == "ok") {
 			console.log(response);
 			window.location.reload();
-			var appendHtml = '<div class="list-item">' +
-								'<div class="pull-left">' +
-									'<img src="' + response.bom_category.photo + '" >' + 
-									'&nbsp;&nbsp;' + response.bom_category.name +
-								'</div>' +
-								'<div class="pull-right">' +
-									'<button class="btn btn-view" data-toggle="collapse" data-target="#bom_category-' + response.bom_category.id + '">VIEW ALL</button>' +
-									'<button class="btn btn-delete-bom-category" data-id="' + response.bom_category.id + '">' +
-										'<span class="fa fa-trash"></span>' +
-									'</button>' +
-								'</div>' +
-							'</div>' +
-							'<div id="bom_category-' + response.bom_category.id + '" class="parts collapse fade">' +
-								'<div class="real-content">' + 
-								'</div>' +
-								'<div id="bom-category-' + response.bom_category.id + '" data-name="' + response.bom_category.name + '" class="list-item add-bom-category">' +
-									'Add ' + response.bom_category.name + ' BOM' +
-								'</div>' +
-							'</div>';
+			// var appendHtml = '<div class="list-item">' +
+			// 					'<div class="pull-left">' +
+			// 						'<img src="' + response.bom_category.photo + '" >' + 
+			// 						'&nbsp;&nbsp;' + response.bom_category.name +
+			// 					'</div>' +
+			// 					'<div class="pull-right">' +
+			// 						'<button class="btn btn-view" data-toggle="collapse" data-target="#bom_category-' + response.bom_category.id + '">VIEW ALL</button>' +
+			// 						'<button class="btn btn-delete-bom-category" data-id="' + response.bom_category.id + '">' +
+			// 							'<span class="fa fa-trash"></span>' +
+			// 						'</button>' +
+			// 					'</div>' +
+			// 				'</div>' +
+			// 				'<div id="bom_category-' + response.bom_category.id + '" class="parts collapse fade">' +
+			// 					'<div class="real-content">' + 
+			// 					'</div>' +
+			// 					'<div id="bom-category-' + response.bom_category.id + '" data-name="' + response.bom_category.name + '" class="list-item add-bom-category">' +
+			// 						'Add ' + response.bom_category.name + ' BOM' +
+			// 					'</div>' +
+			// 				'</div>';
 
-			$("#bom-categories").append(appendHtml);
-			$("#add-bom-category-modal").modal('hide');
+			// $("#bom-categories").append(appendHtml);
+			// $("#add-bom-category-modal").modal('hide');
 		}
 	}
 	
