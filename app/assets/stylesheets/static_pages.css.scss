@@ -9,6 +9,14 @@
 	width: 70px;
 	text-align: right;
 }
+.part_module_part_name {
+	display: inline-block;
+	font-size: 13px;
+	max-width: 100px;
+	overflow: hidden !important;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 .main-content {
 	padding-right: 3px;
 	.panel-body {
@@ -134,7 +142,7 @@
 		border: 1px solid #eaeaea;
 		color: #4b4b4b;
 		vertical-align: middle;
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: 600;
 		max-height: 56px;
 		min-height: 56px;

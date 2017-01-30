@@ -69,7 +69,7 @@
 															<a class="change-sub-tab active" data-toggle="tab" href="#part_modules_<%= bom.id %>"> Part Items </a> <span>|</span>
 															<a class="change-sub-tab" data-toggle="tab" href="#questions_<%= bom.id %>"> Questions </a> 
 
-															<button class="btn btn-view" data-toggle="collapse" data-target="#bom-<%= bom.id %>">DETAIL</button>
+															<button class="btn btn-view" data-toggle="collapse" data-target="#bom-<%= bom.id %>"><span class="fa fa-eye"></span></button>
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																<%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_bom_path(bom), remote: true, class: "btn btn-default" %>
 															<% end %>
@@ -92,7 +92,9 @@
 																	<div class="pull-left">
 																		<%= image_tag part_module.part.picture.url %>
 																		&nbsp;&nbsp;
-																		<%= part_module.part.part_name %>
+																		<span class="part_module_part_name">
+																			<%= part_module.part.part_name %>
+																		</span>
 																		&nbsp;&nbsp;&nbsp;&nbsp;
 																		x
 																		<input type="text" class="part_module_count" value="<%= part_module.count %>" autocomplete="off">
@@ -114,10 +116,6 @@
 																			total_price = total_price + part_module.count * per_piece_price;
 																		%>
 																	</div>
-																	<!-- <div class="col-md-4 firmware_version"> -->
-																	<span class="firmware_version"><%= part_module.part.firmware.nil? ? "" : part_module.part.firmware.number %></span>
-																		
-																	<!-- </div> -->
 																	<div class="pull-right">
 																		<input type="text" class="per-piece-price" autocomplete="off" disabled="" value="$<%= per_piece_price %>">
 																		$<span class="part-price" data-price="<%= per_piece_price %>">
@@ -213,7 +211,7 @@
 								<%= image_tag("menu/part_library_icon.png", class: "title-icon-second") %>
 								&nbsp;PARTS LIBRARY
 								<%= image_tag("menu/search_red.png", class: "search-icon") %>
-								<div class="btn-group btn-input clearfix sort-term pull-right">
+								<!-- <div class="btn-group btn-input clearfix sort-term pull-right">
 									<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
 										<span data-bind="label">Date Created(Latest)</span>
 										<span class="fa fa-angle-down"></span>
@@ -222,7 +220,7 @@
 										<li><a href="#">Date Created(Latest)</a></li>
 										<li><a href="#">Counts (Maximum)</a></li>
 									</ul>
-								</div>
+								</div> -->
 							</div>
 							<div id="part_categories">
 								<% @part_categories.each do |part_category| %>
