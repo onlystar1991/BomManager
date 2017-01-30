@@ -239,7 +239,6 @@ $(function() {
 			var update = false;
 			var update_id;
 			var bom_id = $(this).attr("data-id");
-
 			var part_item_names = part_items.find('.part-module-item');
 			var updateElement;
 
@@ -270,7 +269,7 @@ $(function() {
 						if (response.status == "ok") {
 
 
-							var appendHtml = "<div class='list-item part-module-item text-left' data-id='" + response.part_module.id +"' data-name='" + response.part_module.part_name +"' part-id='" + response.part_module.part_id + "' bom_id='" + response.part_module.bom_id + "'>" +
+							var appendHtml = "<div class='list-item part-module-item text-left' data-id='" + response.part_module.id +"' data-name='" + response.part_module.part_name +"' part-id='" + response.part_module.part_id + "' bom-id='" + response.part_module.bom_id + "'>" +
 												"<div class='pull-left'>" +
 													"<img src='" + response.part_module.photo + "' >" + "&nbsp;&nbsp;" +
 													response.part_module.part_name +  '&nbsp;&nbsp;&nbsp;&nbsp;' +
@@ -409,7 +408,7 @@ $(function() {
 			$("#add-bom-category-modal .modal-header").append(alertM);
 		} else if (response.status == "ok") {
 			console.log(response);
-
+			window.location.reload();
 			var appendHtml = '<div class="list-item">' +
 								'<div class="pull-left">' +
 									'<img src="' + response.bom_category.photo + '" >' + 
@@ -1025,7 +1024,6 @@ $(function() {
 
 	$('body').on('click', '.duplicate-part-module-item', function(event) {
 		var content = $(this).parent().parent();
-		
 		var data = {
 			'part_module[part_id]': $(this).parent().parent().attr("part-id"),
 			'part_module[count]': 1,

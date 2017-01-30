@@ -87,7 +87,8 @@ class PartModulesController < ApplicationController
               part_name: @part_module.part.part_name,
               count: @part_module.count,
               price: per_piece_price,
-              part_id: @part_module.part.id
+              part_id: @part_module.part.id,
+              bom_id: @part_module.bom_id
             }
           },
           status: :ok
