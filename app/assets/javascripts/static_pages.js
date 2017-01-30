@@ -454,7 +454,7 @@ $(function() {
 			success: function(result){
 				console.log(result);
 				tr_delete.parent().parent().remove();
-				// $("#bom_category-" + id).remove();
+				$("#bom_category-" + id).remove();
 				btn.remove();
 			}
 		});
