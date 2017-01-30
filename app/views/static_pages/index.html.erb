@@ -66,9 +66,7 @@
 														</div>
 
 														<div class="pull-right">
-															<a class="change-sub-tab active" data-toggle="tab" href="#part_modules_<%= bom.id %>"> Part Items </a> <span>|</span>
-															<a class="change-sub-tab" data-toggle="tab" href="#questions_<%= bom.id %>"> Questions </a> 
-
+															
 															<button class="btn btn-view" data-toggle="collapse" data-target="#bom-<%= bom.id %>"><span class="fa fa-eye"></span></button>
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																<%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_bom_path(bom), remote: true, class: "btn btn-default" %>
