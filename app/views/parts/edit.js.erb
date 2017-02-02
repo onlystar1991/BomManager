@@ -1,0 +1,17 @@
+$("#edit-part-modal").html("<%= escape_javascript(render 'edit') %>")
+
+$("#edit-part-modal").modal("show")
+
+$("#part-picture").click(function(event) {
+	$("#part-picture-file").click();
+})
+
+function edit_part_callback(response) {
+	console.log(response);
+}
+
+$("#btn-update-part").click(function(event) {
+	event.preventDefault();
+	$(".edit_part").ajaxSubmit(edit_part_callback);
+	return false;
+});

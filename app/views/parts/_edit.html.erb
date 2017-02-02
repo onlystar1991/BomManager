@@ -1,0 +1,28 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"> &times;</button>
+			Edit <span id="bom-name"><%= @part.part_name %></span>
+		</div>
+
+		<div class="modal-body">
+			<%= form_for @part, :method => 'PUT', :multipart => true, :remote => true, authenticity_token: true do |f| %>
+				<%= f.text_field :part_name, placeholder: 'Name*' %>
+				<%= f.text_area :part_description, placeholder: 'Description*' %>
+				<%= f.text_field :number %>
+				<div class="file-upload">
+					<% if @part.picture.exists? %>
+						<%= image_tag(@part.picture.url, id: "part-picture") %>
+					<% else %>
+						<%= image_tag("create_user/add_photo.png", id: "part-picture") %>
+					<% end %>
+				</div>
+				<%= f.file_field :picture, class: 'hide', id: 'part-picture-file', accept: "image/*" %>
+				
+				<div class="submit-div">
+					<button id="btn-update-part" class="btn btn-save-user">Update</button>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
