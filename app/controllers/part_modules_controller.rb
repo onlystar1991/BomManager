@@ -25,10 +25,7 @@ class PartModulesController < ApplicationController
   # POST /part_modules
   # POST /part_modules.json
   def create
-
     @part_module = PartModule.new(part_module_params)
-
-
     respond_to do |format|
       if @part_module.save
         if @part_module.count > 2499

@@ -264,6 +264,7 @@
 															&nbsp;&nbsp;<%= part.part_name %>
 														</div>
 														<div class="pull-right">
+															<%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_part_path(part), remote: true, class: "btn btn-default" %>
 															<button class="btn btn-detail-part" data-id="<%= part.id %>">Detail</button>
 															<% if @current_user.has_role?(:admin) or @current_user.has_role?(:super_visor) %>
 																<button class="btn btn-delete-part" data-id="<%= part.id %>"><span class="fa fa-trash fa-lg"></span></button>
@@ -546,6 +547,10 @@
 		
 	</div>
 
+	<div id="edit-part-modal" class="show-part-modal modal fade" role="dialog">
+		
+	</div>
+
 	<div id="add-question-modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -649,7 +654,8 @@
 			</div>
 		</div>
 	</div>
-	<div id="show-part-modal" class="modal fade" role="dialog">
+	
+	<div id="show-part-modal" class="show-part-modal modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">

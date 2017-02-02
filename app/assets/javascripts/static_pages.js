@@ -1015,6 +1015,17 @@ $(function() {
 		});
 	})
 
+	$("body").on('change', "#part-picture-file", function(event) {
+		var files = event.target.files;
+		var image = files[0];
+		var reader = new FileReader();
+		reader.onload = function(file) {
+			var img = $("#part-picture");
+			img.attr('src', file.target.result);
+		}
+		reader.readAsDataURL(image);
+	})
+
 	// Adjust element's widths
 
 	if ($('body').width() < 1147) {

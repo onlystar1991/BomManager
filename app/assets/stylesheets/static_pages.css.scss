@@ -541,7 +541,7 @@
 		}
 	}
 
-	#show-part-modal {
+	.show-part-modal {
 		.modal-dialog {
 			width: 350px;
 			color: white;
@@ -579,35 +579,11 @@
 				}
 				.file-upload {
 					text-align: center;
+					padding: 18px;
 					border-bottom: 1px solid #ac6561;
-					display: flex;
-					color: #ac6561;
-					.col-first {
-						width: 70%;
-						text-align: center;
-						padding: 18px;
-						border-right: 1px solid #ac6561;
-						> img {
-							width: 94px;
-							height: 95px;
-						}
-					}
-					.col-second {
-						width: 30%;
-						padding: 10px;
-						text-align: center;
-						> img {
-							width: 50px;
-							height: 50px;
-							margin-top: 10px;
-						}
-						> div {
-							margin-top: 5px;
-							font-size: 12px;
-						}
-					}
-					#attach_text {
-						overflow-wrap: break-word;
+					img {
+						width: 94px;
+						height: 95px;
 					}
 				}
 				.input-field {

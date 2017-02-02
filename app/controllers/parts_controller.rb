@@ -69,15 +69,7 @@ class PartsController < ApplicationController
   # PATCH/PUT /parts/1
   # PATCH/PUT /parts/1.json
   def update
-    respond_to do |format|
-      if @part.update(part_params)
-        format.html { redirect_to @part, notice: 'Part was successfully updated.' }
-        format.json { render :show, status: :ok, location: @part }
-      else
-        format.html { render :edit }
-        format.json { render json: @part.errors, status: :unprocessable_entity }
-      end
-    end
+    @part.update(part_params)
   end
 
   # DELETE /parts/1
@@ -98,7 +90,7 @@ class PartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def part_params
-      params.require(:part).permit(:part_name, :part_description, :manufacturing_part, :number, :darko_part_number, :price, :firmware_id, :sub_category_id)
+      params.require(:part).permit(:part_name, :part_description, :manufacturing_part, :number, :darko_part_number, :price, :firmware_id, :sub_category_id, :picture)
     end
 
     def get_dependency

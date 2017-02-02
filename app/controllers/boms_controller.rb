@@ -1,6 +1,6 @@
 class BomsController < ApplicationController
   before_action :set_bom, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /boms
   # GET /boms.json
   def index
@@ -11,7 +11,6 @@ class BomsController < ApplicationController
   # GET /boms/1.json
   def show
     boms = Bom.all
-
     respond_to do |format|
       format.csv { send_data @bom.to_csv, filename: "bom-#{@bom.id}-#{Date.today}.csv" }
       format.pdf { render :show}
