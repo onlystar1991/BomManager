@@ -17,6 +17,12 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+.list-item.draggable-part > .pull-left {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 185px;
+}
 .main-content {
 	padding-right: 3px;
 	.panel-body {
