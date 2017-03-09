@@ -15,7 +15,7 @@
 						<% if @part.picture.exists? %>
 							<%= image_tag(@part.picture.url, id: "part-photo") %>
 						<% else %>
-							<%= image_tag("create_user/add_photo.png", id: "part-photo") %>
+							<%= image_tag("create_user/add_photo.png", id: "part-photo-edit") %>
 						<% end %>
 					</div>
 					<div class="col-second">
@@ -30,7 +30,7 @@
 					</div>
 				</div>
 				<%= f.file_field :specification, class: 'hide', id: 'part-specification-file-edit', accept: "application/msword,application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf," %>
-				<%= f.file_field :picture, class: 'hide', id: 'part-picture-file', accept: "image/*" %>
+				<%= f.file_field :picture, class: 'hide', id: 'part-picture-file-edit', accept: "image/*" %>
 				<div class="submit-div">
 					<a id="btn-update-part" class="btn btn-save-user">Update</a>
 				</div>

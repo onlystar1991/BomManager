@@ -1026,6 +1026,23 @@ $(function() {
 		reader.readAsDataURL(image);
 	})
 
+
+	$("body").on('change', "#part-picture-file-edit", function(event) {
+		var files = event.target.files;
+		var image = files[0];
+		var reader = new FileReader();
+		reader.onload = function(file) {
+			var img = $("#part-photo-edit");
+			img.attr('src', file.target.result);
+		}
+		reader.readAsDataURL(image);
+	})
+
+	$("body").on('click', "#part-photo-edit", function(event) {
+		$("#part-picture-file-edit").click();
+	})
+
+
 	$("body").on('click', "#part-specification-edit", function(event) {
 		$("#part-specification-file-edit").click();
 	})

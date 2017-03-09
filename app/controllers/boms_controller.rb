@@ -14,7 +14,6 @@ class BomsController < ApplicationController
     respond_to do |format|
       format.csv { send_data @bom.to_csv, filename: "bom-#{@bom.id}-#{Date.today}.csv" }
       format.pdf {
-
         pdf = CombinePDF.new
         @bom.part_modules.each do |part_module|
           pdf << CombinePDF.load(part_module.part.specification.path)
