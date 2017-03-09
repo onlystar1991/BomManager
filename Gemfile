@@ -35,6 +35,7 @@ gem 'bootstrap-generators', '~> 3.3.1'
 gem 'devise'
 gem 'devise-bootstrap-views'
 gem 'paperclip', '~> 4.1'
+gem 'paperclip-dimension-validator'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem "font-awesome-rails"
 gem "bootstrap-select-rails"
@@ -47,10 +48,13 @@ gem 'google_drive'
 gem 'cancancan'
 gem 'rolify'
 
-gem 'wkhtmltopdf-binary'
+# gem 'wkhtmltopdf-binary'
 gem 'pdfkit'
 
 gem 'jquery-form-rails'
+gem "jquery-fileupload-rails"
+gem 'remotipart', '~> 1.2'
+gem 'combine_pdf'
 
 
 gem 'momentjs-rails', '>= 2.9.0'

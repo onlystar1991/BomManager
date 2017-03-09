@@ -1026,6 +1026,24 @@ $(function() {
 		reader.readAsDataURL(image);
 	})
 
+	$("body").on('click', "#part-specification-edit", function(event) {
+		$("#part-specification-file-edit").click();
+	})
+
+	function edit_part_callback(response) {
+		console.log(response);
+		if (response.status == "ok") {
+			window.location.reload();
+		}
+	}
+
+	$("body").on('click', "#btn-update-part", function(event) {
+		event.preventDefault();
+		$(".edit_part").ajaxSubmit(edit_part_callback)
+		return false;
+	});
+
+
 	// Adjust element's widths
 
 	if ($('body').width() < 1147) {

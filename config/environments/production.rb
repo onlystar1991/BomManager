@@ -84,5 +84,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.middleware.use "PDFKit::Middleware", :print_media_type => true
+  # config.middleware.use "PDFKit::Middleware", :print_media_type => true
 end

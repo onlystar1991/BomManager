@@ -14,21 +14,3 @@
 		width: 100%;
 	}
 </style>
-<% bom = @bom %>
-<% total_count = 0; total_price = 0;%>
-<table border cellpadding="3">
-	<thead>
-		<tr>
-			<th colspan=""><%= image_tag bom.photo.url, :style => 'width: 100px; height: 100px' %></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% bom.part_modules.each do |part_module| %>
-			<tr>
-				<td>
-					<%= image_tag part_module.part.picture.url %>
-				</td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       format.json { 
-        render json: { 
+        render json: {
           status: "ok", 
           user: {
             id: @user.id,
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
             time: @user.created_at.strftime("%B %d,%Y <br> %I:%M%p").html_safe,
             role: role
           }
-        }, 
+        },
         status: :ok 
       }
     end

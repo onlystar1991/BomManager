@@ -31,6 +31,7 @@ class StaticPagesController < ApplicationController
 		ws = session.spreadsheet_by_key("1EyiEv1s2YdvM8-npFupSmco5N0G9seGT-tFskqguS6A").worksheets
 
 		i = 0;
+		u = 0;
 
 		(1..ws.count - 1).each do |row|
 			work_sheet = ws[row];
@@ -40,8 +41,10 @@ class StaticPagesController < ApplicationController
 				part_category =	PartCategory.create!(name: work_sheet.title)
 			end
 
+			puts '++++++++++++++++';
 			@flag = true
 			(3..work_sheet.num_rows).each do |row|
+				puts '--------'
 				if work_sheet[row, 1].blank? and work_sheet[row, 1].blank?
 					@flag = true
 					next
@@ -52,7 +55,12 @@ class StaticPagesController < ApplicationController
 					@sub = SubCategory.find_by(name: work_sheet[row, 1]) if !@sub.save
 					@flag = false;
 				else
-					part = @sub.parts.create(part_name: work_sheet[row, 1],
+					if work_sheet[row, 14].eql?('u')
+						puts '========================'
+						part = @sub.parts.find_by(part_name: work_sheet[row, 1])
+						# puts part.inspect
+						if part.nil?
+							part = @sub.parts.create(part_name: work_sheet[row, 1],
 								part_description: work_sheet[row, 2],
 								number: work_sheet[row, 4],
 								price: work_sheet[row, 8].split("$")[1],
@@ -62,16 +70,45 @@ class StaticPagesController < ApplicationController
 								price_2500: work_sheet[row, 12].split("$")[1],
 								price_5000: work_sheet[row, 13].split("$")[1]
 							)
-					if part.save
-						i = i + 1
+							if part.save
+								i = i + 1
+							else
+								puts '>>>>>>>>>>>>>>>>>>>>>>>>>'
+								puts part.errors.full_messages
+							end
+						else
+							u = u + 1 if part.update(part_description: work_sheet[row, 2],
+								number: work_sheet[row, 4],
+								price: work_sheet[row, 8].split("$")[1],
+								price_250: work_sheet[row, 9].split("$")[1],
+								price_500: work_sheet[row, 10].split("$")[1],
+								price_1000: work_sheet[row, 11].split("$")[1],
+								price_2500: work_sheet[row, 12].split("$")[1],
+								price_5000: work_sheet[row, 13].split("$")[1]
+							)
+						end
 					else
-						puts '>>>>>>>>>>>>>>>>>>>>>>>>>'
-						puts part.errors.full_messages
+						part = @sub.parts.create(part_name: work_sheet[row, 1],
+							part_description: work_sheet[row, 2],
+							number: work_sheet[row, 4],
+							price: work_sheet[row, 8].split("$")[1],
+							price_250: work_sheet[row, 9].split("$")[1],
+							price_500: work_sheet[row, 10].split("$")[1],
+							price_1000: work_sheet[row, 11].split("$")[1],
+							price_2500: work_sheet[row, 12].split("$")[1],
+							price_5000: work_sheet[row, 13].split("$")[1]
+						)
+						if part.save
+							i = i + 1
+						else
+							puts '>>>>>>>>>>>>>>>>>>>>>>>>>'
+							puts part.errors.full_messages
+						end
 					end
 				end
 			end
 		end
-		flash[:notice] = "#{i} items imported from google sheet";
+		flash[:notice] = "#{i} items imported and #{u} items updated from google sheet";
 		redirect_to root_path
 	end
 end

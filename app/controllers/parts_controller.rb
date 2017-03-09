@@ -10,7 +10,12 @@ class PartsController < ApplicationController
   # GET /parts/1.json
   def show
     respond_to do |format|
-      format.html { render :show, notice: 'Part was successfully updated.', status: :ok, location: @part }
+      format.html {
+        render :show, 
+        notice: 'Part was successfully updated.', 
+        status: :ok,
+        location: @part 
+      }
       format.json {
         render json: {
           part: {
@@ -69,7 +74,23 @@ class PartsController < ApplicationController
   # PATCH/PUT /parts/1
   # PATCH/PUT /parts/1.json
   def update
-    @part.update(part_params)
+    if @part.update(part_params)
+      render json: {
+        status: "ok",
+        part: {
+          id: @part.id,
+          name: @part.part_name,
+          picture: @part.picture.url,
+          specification: @part.specification.url,
+          category_id: @part.sub_category_id
+        }
+      }
+    else
+      render json: {
+        status: "error",
+        errors: @part.errors.full_messages
+      }
+    end
   end
 
   # DELETE /parts/1
@@ -90,7 +111,7 @@ class PartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def part_params
-      params.require(:part).permit(:part_name, :part_description, :manufacturing_part, :number, :darko_part_number, :price, :firmware_id, :sub_category_id, :picture)
+      params.require(:part).permit(:part_name, :part_description, :manufacturing_part, :number, :darko_part_number, :price, :firmware_id, :sub_category_id, :picture, :specification)
     end
 
     def get_dependency

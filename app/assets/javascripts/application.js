@@ -22,6 +22,8 @@
 //= require jquery-ui/core
 //= require jquery-ui/widgets/draggable
 //= require jquery-ui/widgets/droppable
+//= require jquery-fileupload
+//= require jquery.remotipart
 //= require moment
 //= require bootstrap-datetimepicker
 //= require_tree .

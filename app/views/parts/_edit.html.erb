@@ -6,21 +6,33 @@
 		</div>
 
 		<div class="modal-body">
-			<%= form_for @part, :method => 'PUT', :multipart => true, :remote => true, authenticity_token: true do |f| %>
+			<%= form_for @part, :html => { :multipart => true } do |f| %>
 				<%= f.text_field :part_name, placeholder: 'Name*' %>
 				<%= f.text_area :part_description, placeholder: 'Description*' %>
 				<%= f.text_field :number %>
 				<div class="file-upload">
-					<% if @part.picture.exists? %>
-						<%= image_tag(@part.picture.url, id: "part-picture") %>
-					<% else %>
-						<%= image_tag("create_user/add_photo.png", id: "part-picture") %>
-					<% end %>
+					<div class="col-first">
+						<% if @part.picture.exists? %>
+							<%= image_tag(@part.picture.url, id: "part-photo") %>
+						<% else %>
+							<%= image_tag("create_user/add_photo.png", id: "part-photo") %>
+						<% end %>
+					</div>
+					<div class="col-second">
+						Specification <br>
+						<%= image_tag("menu/attachment.png", id: "part-specification-edit") %>
+						<br>
+						<% if @part.specification.exists? %>
+							<%= @part.specification.original_filename %>
+						<% else %>
+							Attachment
+						<% end %>
+					</div>
 				</div>
+				<%= f.file_field :specification, class: 'hide', id: 'part-specification-file-edit', accept: "application/msword,application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf," %>
 				<%= f.file_field :picture, class: 'hide', id: 'part-picture-file', accept: "image/*" %>
-				
 				<div class="submit-div">
-					<button id="btn-update-part" class="btn btn-save-user">Update</button>
+					<a id="btn-update-part" class="btn btn-save-user">Update</a>
 				</div>
 			<% end %>
 		</div>

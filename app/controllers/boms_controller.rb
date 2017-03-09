@@ -13,7 +13,16 @@ class BomsController < ApplicationController
     boms = Bom.all
     respond_to do |format|
       format.csv { send_data @bom.to_csv, filename: "bom-#{@bom.id}-#{Date.today}.csv" }
-      format.pdf { render :show}
+      format.pdf {
+
+        pdf = CombinePDF.new
+        @bom.part_modules.each do |part_module|
+          pdf << CombinePDF.load(part_module.part.specification.path)
+        end
+
+        pdf.save "combined.pdf"
+        send_data pdf.to_pdf, filename: "bom-#{@bom.id}-#{@bom.name}-#{Date.today}.pdf", type: "application/pdf"
+      }
       format.html { render :show}
     end
   end
