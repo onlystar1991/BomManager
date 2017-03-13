@@ -44,7 +44,6 @@ class StaticPagesController < ApplicationController
 			puts '++++++++++++++++';
 			@flag = true
 			(3..work_sheet.num_rows).each do |row|
-				puts '--------'
 				if work_sheet[row, 1].blank? and work_sheet[row, 1].blank?
 					@flag = true
 					next
@@ -52,13 +51,16 @@ class StaticPagesController < ApplicationController
 
 				if @flag
 					@sub = part_category.sub_categories.create(name: work_sheet[row, 1])
-					@sub = SubCategory.find_by(name: work_sheet[row, 1]) if !@sub.save
+					@sub = part_category.sub_categories.find_by(name: work_sheet[row, 1]) if !@sub.save
 					@flag = false;
 				else
 					if work_sheet[row, 14].eql?('u')
-						puts '========================'
 						part = @sub.parts.find_by(part_name: work_sheet[row, 1])
 						# puts part.inspect
+						puts '========================'
+						puts work_sheet[row, 1]
+						puts part.inspect
+						puts '========================'
 						if part.nil?
 							part = @sub.parts.create(part_name: work_sheet[row, 1],
 								part_description: work_sheet[row, 2],
